@@ -12,13 +12,14 @@ public class SpellScript : MonoBehaviour {
     [SerializeField]
     private float speed;
 
+    private int damage;
+
     /// <summary>
     /// 技能目标
     /// </summary>
     public Transform MyTarget { get; set; }
 
     
-    private int damage;
     
     void Start ()
     {

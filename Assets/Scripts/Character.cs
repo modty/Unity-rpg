@@ -26,10 +26,26 @@ public abstract class Character : MonoBehaviour {
     /// </summary>
     protected bool isAttacking = false;
     
+    [SerializeField]
+    protected Transform hitBox;
+    
+    [SerializeField]
+    protected Stat health;
+
+
     /// <summary>
     /// 协同攻击
     /// </summary>
     protected Coroutine attackRoutine;
+    public Stat MyHealth
+    {
+        get { return health; }
+    }
+    /// <summary>
+    /// 初始生命值
+    /// </summary>
+    [SerializeField]
+    private float initHealth;
 
     /// <summary>
     /// 标记是否移动
@@ -42,17 +58,6 @@ public abstract class Character : MonoBehaviour {
         }
     }
 
-    [SerializeField]
-    protected Transform hitBox;
-    
-    [SerializeField]
-    protected Stat health;
-
-    /// <summary>
-    /// 初始生命值
-    /// </summary>
-    [SerializeField]
-    private float initHealth;
 
     
     protected virtual void Start(){
@@ -113,13 +118,12 @@ public abstract class Character : MonoBehaviour {
         {
             myAnimator.SetLayerWeight(i, 0);
         }
-
         myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName),1);
     }
     /// <summary>
     /// 停止攻击
     /// </summary>
-    public void StopAttack()
+    protected virtual void StopAttack()
     {
         isAttacking = false; // 停止攻击
         myAnimator.SetBool("attack", isAttacking); // 停止攻击动画

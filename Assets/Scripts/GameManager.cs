@@ -31,10 +31,11 @@ public class GameManager : MonoBehaviour {
                 currentTarget = hit.collider.GetComponent<NPC>(); // 选中新物体
 
                 player.MyTarget = currentTarget.Select(); // 给角色选中物体引用
-               
+                UIManager.MyInstance.ShowTargetFrame(currentTarget);
             }
             else
             {
+                UIManager.MyInstance.HideTargetFrame();
                 if (currentTarget != null) // 如果没有目标
                 {
                     currentTarget.DeSelect(); // 取消选中

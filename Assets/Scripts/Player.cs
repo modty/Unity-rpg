@@ -16,12 +16,6 @@ public class Player : Character {
     private float initMana = 50;
 
     /// <summary>
-    /// 所有技能预制件
-    /// </summary>
-    [SerializeField]
-    private GameObject[] spellPrefab;
-
-    /// <summary>
     /// 用于阻挡玩家视线的方块数组
     /// </summary>
     [SerializeField]
@@ -39,15 +33,18 @@ public class Player : Character {
     /// </summary>
     private int exitIndex = 2;
     
+    private SpellBook spellBook;
+
+    
     /// <summary>
     /// 角色目标
     /// </summary>
     public Transform MyTarget { get; set; }
 
-    private SpellBook spellBook;
     protected override void Start()
     {
         spellBook = GetComponent<SpellBook>();
+        
         mana.Initialize(initMana, initMana);
         
         base.Start();
@@ -140,16 +137,19 @@ public class Player : Character {
     /// </summary>
     private bool InLineOfSight()
     {
-        // 目标方向
-        Vector3 targetDirection = (MyTarget.transform.position - transform.position).normalized;
-
-        // 向目标方向发射射线
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, MyTarget.transform.position),256);
-
-        // 如果射线没有碰撞到视线方块，就发射技能
-        if (hit.collider == null)
+        if (MyTarget != null)
         {
-            return true;
+            // 目标方向
+            Vector3 targetDirection = (MyTarget.transform.position - transform.position).normalized;
+
+            // 向目标方向发射射线
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, MyTarget.transform.position),256);
+
+            // 如果射线没有碰撞到视线方块，就发射技能
+            if (hit.collider == null)
+            {
+                return true;
+            }
         }
 
         // 碰撞到方块就不发射
@@ -167,5 +167,16 @@ public class Player : Character {
         }
 
         blocks[exitIndex].Activate();
+    }
+    
+    /// <summary>
+    /// 重载停止攻击方法
+    /// </summary>
+    protected override void StopAttack()
+    {
+
+        spellBook.StopCating();
+
+        base.StopAttack();
     }
 }

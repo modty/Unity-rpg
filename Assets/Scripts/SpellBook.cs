@@ -50,14 +50,6 @@ public class SpellBook : MonoBehaviour
     /// </summary>
     private Coroutine fadeRoutine;
 
-    void Start () {
-		
-    }
-	
-    void Update () {
-		
-    }
-
     public Spell CastSpell(int index)
     {
         //初始化填充数

@@ -77,8 +77,13 @@ public class Stat : MonoBehaviour
     // maxValue ： UI代表的最大值
     public void Initialize(float currentValue, float maxValue)
     {
+        if (content == null)
+        {
+            content = GetComponent<Image>();
+        }
         MyMaxValue = maxValue;
         MyCurrentValue = currentValue;
+        content.fillAmount = MyCurrentValue / MyMaxValue;
     }
 
     // 更新UI条
