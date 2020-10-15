@@ -5,22 +5,11 @@ using UnityEngine;
 public class Player : Character {
 
     /// <summary>
-    /// 生命值
-    /// </summary>
-    [SerializeField]
-    private Stat health;
-    
-    /// <summary>
     /// 魔法值
     /// </summary>
     [SerializeField]
     private Stat mana;
     
-    /// <summary>
-    /// 初始生命值
-    /// </summary>
-    private float initHealth = 100;
-
     /// <summary>
     /// 初始魔法值
     /// </summary>
@@ -59,7 +48,6 @@ public class Player : Character {
     protected override void Start()
     {
         spellBook = GetComponent<SpellBook>();
-        health.Initialize(initHealth, initHealth);
         mana.Initialize(initMana, initMana);
         
         base.Start();
@@ -117,6 +105,8 @@ public class Player : Character {
     /// </summary>
     private IEnumerator Attack(int spellIndex)
     {
+        Transform currentTarget = MyTarget;
+
         Spell newSpell = spellBook.CastSpell(spellIndex);
         
         isAttacking = true; // 确认攻击状态
@@ -124,11 +114,12 @@ public class Player : Character {
         myAnimator.SetBool("attack", isAttacking); // 调用攻击动画
 
         yield return new WaitForSeconds(newSpell.MyCastTime); // 方便Debug
+        if (currentTarget != null && InLineOfSight())
+        {
+            SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
+            s.Initialize(currentTarget,newSpell.MyDamage);
 
-        SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
-        
-        s.MyTarget = MyTarget;
-        
+        }
         StopAttack(); // 停止攻击
     }
     /// <summary>

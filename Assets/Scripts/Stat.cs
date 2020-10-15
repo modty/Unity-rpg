@@ -50,8 +50,11 @@ public class Stat : MonoBehaviour
 
             // 计算UI填充长度
             currentFill = currentValue / MyMaxValue;
-            // 设置文本
-            statValue.text = currentValue + " / " + MyMaxValue;
+            if (statValue != null)
+            {
+                // 设置文本
+                statValue.text = currentValue + " / " + MyMaxValue;
+            }
         }
     }
 

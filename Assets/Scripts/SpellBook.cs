@@ -85,7 +85,6 @@ public class SpellBook : MonoBehaviour
     /// 更新技能释放条上相关信息
     /// </summary>
     /// <param name="index">技能在技能数组中的位置</param>
-    /// <returns></returns>
     private IEnumerator Progress(int index)
     {
         // 技能释放已经等待的时间
@@ -110,7 +109,6 @@ public class SpellBook : MonoBehaviour
         
             //更新文本
             castTime.text = (spells[index].MyCastTime - timePassed).ToString("F2");
-            Debug.Log(castTime.text);
             if (spells[index].MyCastTime - timePassed < 0) // 确保不小于0
             {
                 castTime.text = "0.00";

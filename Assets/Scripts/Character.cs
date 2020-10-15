@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 // 所有角色需要继承的父类
-
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour {
 
     // 角色移动速度
@@ -43,8 +44,19 @@ public abstract class Character : MonoBehaviour {
 
     [SerializeField]
     protected Transform hitBox;
+    
+    [SerializeField]
+    protected Stat health;
 
+    /// <summary>
+    /// 初始生命值
+    /// </summary>
+    [SerializeField]
+    private float initHealth;
+
+    
     protected virtual void Start(){
+        health.Initialize(initHealth, initHealth);
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
     }
@@ -117,5 +129,14 @@ public abstract class Character : MonoBehaviour {
             StopCoroutine(attackRoutine);
         }
 
+    }
+    public virtual void TakeDamage(float damage)
+    {
+        health.MyCurrentValue -= damage;
+
+        if (health.MyCurrentValue <= 0)
+        {
+            myAnimator.SetTrigger("die");
+        }
     }
 }

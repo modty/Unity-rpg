@@ -17,11 +17,19 @@ public class SpellScript : MonoBehaviour {
     /// </summary>
     public Transform MyTarget { get; set; }
 
+    
+    private int damage;
+    
     void Start ()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
     }
-	
+    public void Initialize(Transform target, int damage)
+    {
+        this.MyTarget = target;
+        this.damage = damage;
+    }
+
     private void FixedUpdate()
     {
         if (MyTarget != null)
@@ -44,6 +52,8 @@ public class SpellScript : MonoBehaviour {
     {
         if (collision.tag == "HitBox" && collision.transform == MyTarget)
         {
+            speed = 0;
+            collision.GetComponentInParent<Enemy>().TakeDamage(damage);
             GetComponent<Animator>().SetTrigger("impact");
             myRigidBody.velocity = Vector2.zero;
             MyTarget = null;
