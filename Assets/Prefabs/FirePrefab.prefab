@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4813770639189398}
   - component: {fileID: 212506261425544480}
   - component: {fileID: 50538811749717188}
-  - component: {fileID: 3685495085893260838}
   - component: {fileID: 2849804388723763208}
   - component: {fileID: 2716050537397799119}
+  - component: {fileID: 1639269903190270610}
   m_Layer: 0
   m_Name: FirePrefab
   m_TagString: Untagged
@@ -106,19 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3685495085893260838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927637913554358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d2e33b1e28477d91f0274485106d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
 --- !u!95 &2849804388723763208
 Animator:
   serializedVersion: 3
@@ -164,3 +151,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &1639269903190270610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927637913554358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e4b52a27c84c99ba1554e76b17c2bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5

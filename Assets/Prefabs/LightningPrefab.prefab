@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4055095772989044}
   - component: {fileID: 212053709115203754}
   - component: {fileID: 50286977808819324}
-  - component: {fileID: 6468062975265009632}
   - component: {fileID: -2517701097280471548}
+  - component: {fileID: 4557119240677607955}
   - component: {fileID: 9255523124454114}
   m_Layer: 0
   m_Name: LightningPrefab
@@ -106,19 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6468062975265009632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1478980718226232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d2e33b1e28477d91f0274485106d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
 --- !u!61 &-2517701097280471548
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -145,6 +132,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &4557119240677607955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478980718226232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e4b52a27c84c99ba1554e76b17c2bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!95 &9255523124454114
 Animator:
   serializedVersion: 3

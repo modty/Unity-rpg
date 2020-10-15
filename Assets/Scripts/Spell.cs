@@ -1,12 +1,26 @@
+using System;
 using UnityEngine;
 
-public class Spell : MonoBehaviour {
+[Serializable]
+public class Spell{
+    /// <summary>
+    /// 技能名
+    /// </summary>
+    [SerializeField]
+    private string name;
 
     /// <summary>
-    /// 技能刚体
+    /// 技能伤害
     /// </summary>
-    private Rigidbody2D myRigidBody;
-    
+    [SerializeField]
+    private int damage;
+
+    /// <summary>
+    /// 技能图标
+    /// </summary>
+    [SerializeField]
+    private Sprite icon;
+
     /// <summary>
     /// 技能移动速度
     /// </summary>
@@ -14,45 +28,98 @@ public class Spell : MonoBehaviour {
     private float speed;
 
     /// <summary>
-    /// 技能目标
+    /// 技能释放速度
     /// </summary>
-    public Transform MyTarget { get; set; }
+    [SerializeField]
+    private float castTime;
 
-    void Start ()
+    /// <summary>
+    /// 技能预制件资源
+    /// </summary>
+    [SerializeField]
+    private GameObject spellPrefab;
+
+    /// <summary>
+    /// 技能读条颜色
+    /// </summary>
+    [SerializeField]
+    private Color barColor;
+
+    /// <summary>
+    /// 设置技能名
+    /// </summary>
+    public string MyName
     {
-        myRigidBody = GetComponent<Rigidbody2D>();
-
-    }
-	
-    void Update () {
-		
-    }
-
-    private void FixedUpdate()
-    {
-        if (MyTarget != null)
+        get
         {
-            // 计算技能方向
-            Vector2 direction = MyTarget.position - transform.position;
-
-            // 技能移动
-            myRigidBody.velocity = direction.normalized * speed;
-
-            // 计算旋转角度并旋转
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            return name;
         }
-        
     }
-    
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    /// <summary>
+    /// 获取技能伤害
+    /// </summary>
+    public int MyDamage
     {
-        Debug.Log(collision.tag+"|||"+MyTarget.tag);
-        if (collision.tag == "HitBox" && collision.transform == MyTarget)
+        get
         {
-            GetComponent<Animator>().SetTrigger("impact");
-            myRigidBody.velocity = Vector2.zero;
-            MyTarget = null;
+            return damage;
+        }
+
+    }
+
+    /// <summary>
+    /// 获取图标
+    /// </summary>
+    public Sprite MyIcon
+    {
+        get
+        {
+            return icon;
+        }
+    }
+
+    /// <summary>
+    /// 获取技能移动速度
+    /// </summary>
+    public float MySpeed
+    {
+        get
+        {
+            return speed;
+        }
+    }
+
+    /// <summary>
+    /// 获取技能释放时间
+    /// </summary>
+    public float MyCastTime
+    {
+        get
+        {
+            return castTime;
+        }
+    }
+
+    /// <summary>
+    /// 获取技能预制体资源
+    /// </summary>
+    public GameObject MySpellPrefab
+    {
+        get
+        {
+            return spellPrefab;
+        }
+    }
+
+    /// <summary>
+    /// 获取技能条颜色
+    /// </summary>
+    public Color MyBarColor
+    {
+        get
+        {
+            return barColor;
         }
     }
 }

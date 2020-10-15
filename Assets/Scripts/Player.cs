@@ -55,9 +55,10 @@ public class Player : Character {
     /// </summary>
     public Transform MyTarget { get; set; }
 
-    
+    private SpellBook spellBook;
     protected override void Start()
     {
+        spellBook = GetComponent<SpellBook>();
         health.Initialize(initHealth, initHealth);
         mana.Initialize(initMana, initMana);
         
@@ -116,13 +117,15 @@ public class Player : Character {
     /// </summary>
     private IEnumerator Attack(int spellIndex)
     {
+        Spell newSpell = spellBook.CastSpell(spellIndex);
+        
         isAttacking = true; // 确认攻击状态
 
         myAnimator.SetBool("attack", isAttacking); // 调用攻击动画
 
-        yield return new WaitForSeconds(1); // 方便Debug
+        yield return new WaitForSeconds(newSpell.MyCastTime); // 方便Debug
 
-        Spell s =Instantiate(spellPrefab[spellIndex], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<Spell>();
+        SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
         
         s.MyTarget = MyTarget;
         
