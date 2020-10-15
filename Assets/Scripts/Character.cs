@@ -41,6 +41,9 @@ public abstract class Character : MonoBehaviour {
         }
     }
 
+    [SerializeField]
+    protected Transform hitBox;
+
     protected virtual void Start(){
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();

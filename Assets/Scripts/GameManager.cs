@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     [SerializeField]
     private Player player;
-	
+    private NPC currentTarget;
 	void Update ()
     {
         ClickTarget();
@@ -24,16 +24,24 @@ public class GameManager : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero,Mathf.Infinity,512);
             if (hit.collider != null) // 如果碰撞到物体
             {
-                if (hit.collider.tag == "Enemy") // 如果碰撞物体是敌人
+                if (currentTarget != null)// 如果当前有目标
                 {
-                    // 将其设置为目标
-                    player.MyTarget = hit.transform.GetChild(0);
+                    currentTarget.DeSelect(); // 取消当前选中
                 }
+                currentTarget = hit.collider.GetComponent<NPC>(); // 选中新物体
+
+                player.MyTarget = currentTarget.Select(); // 给角色选中物体引用
                
             }
             else
             {
-                // 取消目标
+                if (currentTarget != null) // 如果没有目标
+                {
+                    currentTarget.DeSelect(); // 取消选中
+                }
+
+                // 取消对其引用
+                currentTarget = null;
                 player.MyTarget = null;
             }
         }
