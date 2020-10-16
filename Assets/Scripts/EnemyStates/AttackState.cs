@@ -28,8 +28,6 @@ public class AttackState : IState
 
     public void Update()
     {
-        Debug.Log("Attacking");
-
         // 确保只有冷却时间过后才能攻击
         if (parent.MyAttackTime >= attackCooldown && !parent.IsAttacking)
         {

@@ -50,9 +50,6 @@ public class UIManager : MonoBehaviour
 	void Start ()
     {
         healthStat = targetFrame.GetComponentInChildren<Stat>();
-        SetUseable(actionButtons[0], SpellBook.MyInstance.GetSpell("火球术"));
-        SetUseable(actionButtons[1], SpellBook.MyInstance.GetSpell("寒冰箭"));
-        SetUseable(actionButtons[2], SpellBook.MyInstance.GetSpell("闪电术"));
     }
 	
 	void Update ()

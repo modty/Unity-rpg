@@ -114,7 +114,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3660445217934802725}
   - component: {fileID: 3660445217934802722}
-  - component: {fileID: 3660445217934802726}
   - component: {fileID: 3660445217934802723}
   - component: {fileID: 3660445217934802724}
   - component: {fileID: 3660445217934802727}
@@ -193,49 +192,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3660445217934802726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3660445217934802720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5327c2834a741e589ce95b713374762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  castingBar: {fileID: 0}
-  spellName: {fileID: 0}
-  currentSpell: {fileID: 0}
-  castTime: {fileID: 0}
-  icon: {fileID: 0}
-  canvasGroup: {fileID: 0}
-  spells:
-  - name: "\u706B\u7403\u672F"
-    damage: 5
-    icon: {fileID: 21300000, guid: c395270526e1d0748b6ca6b03a2e642a, type: 3}
-    speed: 5
-    castTime: 2.5
-    spellPrefab: {fileID: 1927637913554358, guid: e08169cb5a5c1cd44b7f0eba1dc195a1,
-      type: 3}
-    barColor: {r: 0.95686275, g: 0.3882353, b: 0.3882353, a: 1}
-  - name: "\u5BD2\u51B0\u7BAD"
-    damage: 5
-    icon: {fileID: 21300000, guid: 0048cfe2f349ca6489a565a606c8344b, type: 3}
-    speed: 5
-    castTime: 1.5
-    spellPrefab: {fileID: 1708812367802618, guid: 973281ceba055db4691a34ed5735b0b0,
-      type: 3}
-    barColor: {r: 0.3764706, g: 0.6745098, b: 0.9254902, a: 1}
-  - name: "\u95EA\u7535\u672F"
-    damage: 5
-    icon: {fileID: 21300000, guid: 45e0d04cef0c79f4685adc891dcb01ff, type: 3}
-    speed: 5
-    castTime: 1
-    spellPrefab: {fileID: 1478980718226232, guid: d946c6cddc83d464abd1df5a66f8f1f1,
-      type: 3}
-    barColor: {r: 1, g: 0.9137255, b: 0.54509807, a: 1}
 --- !u!114 &3660445217934802723
 MonoBehaviour:
   m_ObjectHideFlags: 0

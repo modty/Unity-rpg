@@ -47,18 +47,11 @@ public class Player : Character {
     /// </summary>
     private int exitIndex = 2;
     
-    private SpellBook spellBook;
 
     private Vector3 min, max;
-    /// <summary>
-    /// 角色目标
-    /// </summary>
-    public Transform MyTarget { get; set; }
 
     protected override void Start()
     {
-        spellBook = GetComponent<SpellBook>();
-        
         mana.Initialize(initMana, initMana);
         
         base.Start();
@@ -145,7 +138,7 @@ public class Player : Character {
     {
         Transform currentTarget = MyTarget;
 
-        Spell newSpell = spellBook.CastSpell(spellName);
+        Spell newSpell = SpellBook.MyInstance.CastSpell(spellName);
         
         IsAttacking = true; // 确认攻击状态
 
@@ -216,7 +209,7 @@ public class Player : Character {
     {
 
         // 停止技能释放
-        spellBook.StopCating();
+        SpellBook.MyInstance.StopCating();
 
         IsAttacking = false; // 修改攻击状态
 

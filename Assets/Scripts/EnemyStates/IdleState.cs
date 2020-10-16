@@ -34,7 +34,6 @@ class IdleState : IState
     /// </summary>
     public void Update()
     {
-        Debug.Log("IDLE");
         // 如果有角色在附近，进入更随
         if (parent.MyTarget != null)
         {

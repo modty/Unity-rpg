@@ -80,7 +80,7 @@ public class KeybindManager : MonoBehaviour
             //更新UI内容
             UIManager.MyInstance.UpdateKeyText(key, keyBind);
         }
-        else if (currentDictionary.ContainsValue(keyBind)) //If we already have the keybind, then we need to change it to the new bind
+        else if (currentDictionary.ContainsValue(keyBind))
         {
             //搜寻旧的快捷键
             string myKey = currentDictionary.FirstOrDefault(x => x.Value == keyBind).Key;

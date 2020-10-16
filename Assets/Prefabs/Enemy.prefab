@@ -514,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1823940052530189587}
   - component: {fileID: 786100687539112705}
+  - component: {fileID: 1552951710}
   m_Layer: 9
   m_Name: Range
   m_TagString: Untagged
@@ -547,3 +548,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ab4a4be02ea5b49a6e7cf3e51cdb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &1552951710
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515915386252863868}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3.9

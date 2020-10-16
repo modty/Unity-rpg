@@ -31,7 +31,6 @@ class FollowState : IState
     /// </summary>
     public void Update()
     {
-        Debug.Log("Follow");
         if (parent.MyTarget != null)// 如果有目标，保持跟随
         {
             // 找到目标的位置
