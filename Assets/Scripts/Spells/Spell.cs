@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class Spell{
+public class Spell:IUseable{
     /// <summary>
     /// 技能名
     /// </summary>
@@ -77,6 +77,11 @@ public class Spell{
         {
             return icon;
         }
+    }
+
+    public void Use()
+    {
+        Player.MyInstance.CastSpell(MyName);
     }
 
     /// <summary>

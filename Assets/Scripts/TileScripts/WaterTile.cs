@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class WaterTile : TileBase
+public class WaterTile : Tile
 {
     /// <summary>
     /// 游戏中的所有水的精灵图片

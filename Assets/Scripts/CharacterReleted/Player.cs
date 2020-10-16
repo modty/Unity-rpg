@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class Player : Character {
 
+    private static Player instance;
+
+    public static Player MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Player>();
+            }
+
+            return instance;
+        }
+    }
     /// <summary>
     /// 魔法值
     /// </summary>
@@ -52,7 +66,6 @@ public class Player : Character {
 
     protected override void Update ()
     {
-
         GetInput();
         // 初始化角色位置
         var position = transform.position;
@@ -80,23 +93,22 @@ public class Player : Character {
             health.MyCurrentValue += 10;
             mana.MyCurrentValue += 10;
         }
-        
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["UP"]))
         {
             exitIndex = 0;
             direction += Vector2.up;
         }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["LEFT"]))
         {
             exitIndex = 3;
             direction += Vector2.left;
         }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["DOWN"]))
         {
             exitIndex = 2;
             direction += Vector2.down;
         }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["RIGHT"]))
         {
             exitIndex = 1;
             direction += Vector2.right;
@@ -104,6 +116,14 @@ public class Player : Character {
         if (IsMoving)
         {
             StopAttack();
+        }
+        foreach (string action in KeybindManager.MyInstance.ActionBinds.Keys)
+        {
+            if (Input.GetKeyDown(KeybindManager.MyInstance.ActionBinds[action]))
+            {
+                UIManager.MyInstance.ClickActionButton(action);
+
+            }
         }
     }
     
@@ -121,11 +141,11 @@ public class Player : Character {
     /// <summary>
     /// 攻击协程
     /// </summary>
-    private IEnumerator Attack(int spellIndex)
+    private IEnumerator Attack(string spellName)
     {
         Transform currentTarget = MyTarget;
 
-        Spell newSpell = spellBook.CastSpell(spellIndex);
+        Spell newSpell = spellBook.CastSpell(spellName);
         
         IsAttacking = true; // 确认攻击状态
 
@@ -142,13 +162,13 @@ public class Player : Character {
     /// <summary>
     /// 发射技能
     /// </summary>
-    public void CastSpell(int spellIndex)
+    public void CastSpell(string spellName)
     {
         Block();
 
         if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
         {
-            attackRoutine = StartCoroutine(Attack(spellIndex));
+            attackRoutine = StartCoroutine(Attack(spellName));
         }
     }
 

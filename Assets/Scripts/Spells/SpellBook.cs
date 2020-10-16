@@ -1,9 +1,26 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SpellBook : MonoBehaviour
 {
+    
+    private static SpellBook instance;
+
+    public static SpellBook MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<SpellBook>();
+            }
+
+            return instance;
+        }
+    }
+    
     /// <summary>
     /// 技能释放条
     /// </summary>
@@ -15,6 +32,12 @@ public class SpellBook : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Text spellName;
+
+    /// <summary>
+    /// 技能读条上面的技能
+    /// </summary>
+    [SerializeField]
+    private Text currentSpell;
 
     /// <summary>
     /// 技能释放条上的时间文本
@@ -50,40 +73,41 @@ public class SpellBook : MonoBehaviour
     /// </summary>
     private Coroutine fadeRoutine;
 
-    public Spell CastSpell(int index)
+    public Spell CastSpell(string spellName)
     {
+        Spell spell = Array.Find(spells, x => x.MyName == spellName);
         //初始化填充数
         castingBar.fillAmount = 0;
 
         //改变技能条颜色
-        castingBar.color = spells[index].MyBarColor;
+        castingBar.color = spell.MyBarColor;
 
         //改变技能读条文本
-        spellName.text = spells[index].MyName;
+        currentSpell.text = spell.MyName;
 
         //改变技能读条图标
-        icon.sprite = spells[index].MyIcon;
+        icon.sprite = spell.MyIcon;
 
         //开始读条
-        spellRoutine = StartCoroutine(Progress(index));
+        spellRoutine = StartCoroutine(Progress(spell));
 
         //浅出效果
         fadeRoutine = StartCoroutine(FadeBar());
 
         //返回技能
-        return spells[index];
+        return spell;
     }
     /// <summary>
     /// 更新技能释放条上相关信息
     /// </summary>
-    /// <param name="index">技能在技能数组中的位置</param>
-    private IEnumerator Progress(int index)
+    /// <param name="spell">技能对象</param>
+    private IEnumerator Progress(Spell spell)
     {
         // 技能释放已经等待的时间
         float timePassed = Time.deltaTime;
 
         //技能释放条加载速度
-        float rate = 1.0f / spells[index].MyCastTime;
+        float rate = 1.0f / spell.MyCastTime;
 
         //技能释放进度
         float progress = 0.0f;
@@ -100,8 +124,8 @@ public class SpellBook : MonoBehaviour
             timePassed += Time.deltaTime;
         
             //更新文本
-            castTime.text = (spells[index].MyCastTime - timePassed).ToString("F2");
-            if (spells[index].MyCastTime - timePassed < 0) // 确保不小于0
+            castTime.text = (spell.MyCastTime - timePassed).ToString("F2");
+            if (spell.MyCastTime - timePassed < 0) // 确保不小于0
             {
                 castTime.text = "0.00";
             }
@@ -150,5 +174,11 @@ public class SpellBook : MonoBehaviour
             StopCoroutine(spellRoutine);
             spellRoutine = null;
         }
+    }
+    public Spell GetSpell(string spellName)
+    {
+        Spell spell = Array.Find(spells, x => x.MyName == spellName);
+
+        return spell;
     }
 }

@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castingBar: {fileID: 0}
   spellName: {fileID: 0}
+  currentSpell: {fileID: 0}
   castTime: {fileID: 0}
   icon: {fileID: 0}
   canvasGroup: {fileID: 0}
@@ -229,7 +230,7 @@ MonoBehaviour:
     barColor: {r: 0.3764706, g: 0.6745098, b: 0.9254902, a: 1}
   - name: "\u95EA\u7535\u672F"
     damage: 5
-    icon: {fileID: 21300000, guid: f71512b0406b4ad4ea270eb58fc779f1, type: 3}
+    icon: {fileID: 21300000, guid: 45e0d04cef0c79f4685adc891dcb01ff, type: 3}
     speed: 5
     castTime: 1
     spellPrefab: {fileID: 1478980718226232, guid: d946c6cddc83d464abd1df5a66f8f1f1,
