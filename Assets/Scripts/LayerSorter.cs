@@ -50,26 +50,26 @@ public class LayerSorter : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
        if (collision.tag == "Obstacle")
-        {
-            Obstacle o = collision.GetComponent<Obstacle>();
+       {
+           Obstacle o = collision.GetComponent<Obstacle>();
 
-            o.FadeIn();
+           o.FadeIn();
             
-            // 将其从列表中移除
-            obstacles.Remove(o);
+           // 将其从列表中移除
+           obstacles.Remove(o);
 
-            //没有碰撞的物体后
-            if (obstacles.Count == 0)
-            {
-                parentRenderer.sortingOrder = 200;
-            }
-            else// 如果还有碰撞的物体。刷新
-            {
-                obstacles.Sort();
-                parentRenderer.sortingOrder = obstacles[0].MySpriteRenderer.sortingOrder - 1;
-            }
+           //没有碰撞的物体后
+           if (obstacles.Count == 0)
+           {
+               parentRenderer.sortingOrder = 200;
+           }
+           else// 如果还有碰撞的物体。刷新
+           {
+               obstacles.Sort();
+               parentRenderer.sortingOrder = obstacles[0].MySpriteRenderer.sortingOrder - 1;
+           }
           
-        }
+       }
 
      
     }

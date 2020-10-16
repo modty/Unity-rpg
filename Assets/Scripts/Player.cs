@@ -35,7 +35,7 @@ public class Player : Character {
     
     private SpellBook spellBook;
 
-    
+    private Vector3 min, max;
     /// <summary>
     /// 角色目标
     /// </summary>
@@ -54,6 +54,12 @@ public class Player : Character {
     {
 
         GetInput();
+        // 初始化角色位置
+        var position = transform.position;
+        position = new Vector3(Mathf.Clamp(position.x, min.x, max.x), 
+            Mathf.Clamp(position.y, min.y, max.y), 
+            position.z);
+        transform.position = position;
 
         base.Update();
     }
@@ -97,6 +103,17 @@ public class Player : Character {
         }
     }
     
+    /// <summary>
+    /// 设置角色移动的地图范围
+    /// </summary>
+    /// <param name="min">最小移动位置</param>
+    /// <param name="max">最大移动位置</param>
+    public void SetLimits(Vector3 min, Vector3 max)
+    {
+        this.min = min;
+        this.max = max;
+    }
+
     /// <summary>
     /// 攻击协程
     /// </summary>
