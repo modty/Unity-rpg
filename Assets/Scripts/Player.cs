@@ -101,6 +101,10 @@ public class Player : Character {
             exitIndex = 1;
             direction += Vector2.right;
         }
+        if (IsMoving)
+        {
+            StopAttack();
+        }
     }
     
     /// <summary>
@@ -123,16 +127,15 @@ public class Player : Character {
 
         Spell newSpell = spellBook.CastSpell(spellIndex);
         
-        isAttacking = true; // 确认攻击状态
+        IsAttacking = true; // 确认攻击状态
 
-        myAnimator.SetBool("attack", isAttacking); // 调用攻击动画
+        MyAnimator.SetBool("attack", IsAttacking); // 调用攻击动画
 
         yield return new WaitForSeconds(newSpell.MyCastTime); // 方便Debug
         if (currentTarget != null && InLineOfSight())
         {
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
-            s.Initialize(currentTarget,newSpell.MyDamage);
-
+            s.Initialize(currentTarget,newSpell.MyDamage,transform);
         }
         StopAttack(); // 停止攻击
     }
@@ -143,7 +146,7 @@ public class Player : Character {
     {
         Block();
 
-        if (MyTarget != null && !isAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
+        if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
         {
             attackRoutine = StartCoroutine(Attack(spellIndex));
         }
@@ -189,11 +192,19 @@ public class Player : Character {
     /// <summary>
     /// 重载停止攻击方法
     /// </summary>
-    protected override void StopAttack()
+    public void StopAttack()
     {
 
+        // 停止技能释放
         spellBook.StopCating();
 
-        base.StopAttack();
+        IsAttacking = false; // 修改攻击状态
+
+        MyAnimator.SetBool("attack", IsAttacking); // 停止攻击动画
+
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+        }
     }
 }

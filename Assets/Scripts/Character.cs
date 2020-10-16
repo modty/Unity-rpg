@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour {
     [SerializeField]
     private float speed;
 
-    protected Animator myAnimator;
+    public Animator MyAnimator { get; set; }
     // 角色移动方向
     protected Vector2 direction;
     
@@ -24,14 +24,15 @@ public abstract class Character : MonoBehaviour {
     /// <summary>
     /// 标记是否正在攻击
     /// </summary>
-    protected bool isAttacking = false;
+    public bool IsAttacking { get; set; }
     
     [SerializeField]
     protected Transform hitBox;
     
     [SerializeField]
     protected Stat health;
-
+    
+    public Transform MyTarget { get; set; }
 
     /// <summary>
     /// 协同攻击
@@ -57,13 +58,42 @@ public abstract class Character : MonoBehaviour {
             return direction.x != 0 || direction.y != 0;
         }
     }
+    public Vector2 Direction
+    {
+        get
+        {
+            return direction;
+        }
 
+        set
+        {
+            direction = value;
+        }
+    }
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
 
+        set
+        {
+            speed = value;
+        }
+    }
+    public bool IsAlive
+    {
+        get
+        {
+            return  health.MyCurrentValue > 0;
+        }
+    }
     
     protected virtual void Start(){
         health.Initialize(initHealth, initHealth);
         myRigidbody = GetComponent<Rigidbody2D>();
-        myAnimator = GetComponent<Animator>();
+        MyAnimator = GetComponent<Animator>();
     }
 
     // 标记为virtual,在子类中重载（也可以不重载）
@@ -80,32 +110,39 @@ public abstract class Character : MonoBehaviour {
     // 角色移动
     public void Move()
     {
-        myRigidbody.velocity = direction.normalized * speed;
+        if (IsAlive)
+        {
+            myRigidbody.velocity = direction.normalized * speed;
+
+        }
     }
     /// <summary>
     /// 正确调用动画类型
     /// </summary>
     public void HandleLayers()
     {
-        // 判断是否正在移动
-        if (IsMoving)
+        if (IsAlive)
         {
-            ActivateLayer("WalkLayer");
+            // 判断是否正在移动
+            if (IsMoving)
+            {
+                ActivateLayer("WalkLayer");
 
-            // 控制角色朝向
-            myAnimator.SetFloat("x", direction.x);
-            myAnimator.SetFloat("y", direction.y);
-
-            StopAttack();
-        }
-        else if (isAttacking)
-        {
-            ActivateLayer("AttackLayer");
-        }
-        else
-        {
-            // 返回静止状态
-            ActivateLayer("IdleLayer");
+                // 控制角色朝向
+                MyAnimator.SetFloat("x", direction.x);
+                MyAnimator.SetFloat("y", direction.y);
+            }
+            else if (IsAttacking)
+            {
+                ActivateLayer("AttackLayer");
+            }
+            else
+            {
+                // 返回静止状态
+                ActivateLayer("IdleLayer");
+            }
+        }else{
+            ActivateLayer("DeathLayer");
         }
     }
 
@@ -114,33 +151,21 @@ public abstract class Character : MonoBehaviour {
     /// </summary>
     public void ActivateLayer(string layerName)
     {
-        for (int i = 0; i < myAnimator.layerCount; i++)
+        for (int i = 0; i < MyAnimator.layerCount; i++)
         {
-            myAnimator.SetLayerWeight(i, 0);
+            MyAnimator.SetLayerWeight(i, 0);
         }
-        myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName),1);
+        MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName),1);
     }
-    /// <summary>
-    /// 停止攻击
-    /// </summary>
-    protected virtual void StopAttack()
-    {
-        isAttacking = false; // 停止攻击
-        myAnimator.SetBool("attack", isAttacking); // 停止攻击动画
-
-        if (attackRoutine != null) // 检测是否有攻击协同
-        {
-            StopCoroutine(attackRoutine);
-        }
-
-    }
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage, Transform source)
     {
         health.MyCurrentValue -= damage;
 
         if (health.MyCurrentValue <= 0)
         {
-            myAnimator.SetTrigger("die");
+            Direction = Vector2.zero;
+            myRigidbody.velocity = Direction;
+            MyAnimator.SetTrigger("die");
         }
     }
 }
