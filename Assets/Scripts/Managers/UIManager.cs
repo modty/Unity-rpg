@@ -39,6 +39,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private CanvasGroup keybindMenu;
 
+    
+    [SerializeField]
+    private CanvasGroup spellBook;
+
     /// <summary>
     /// 菜单中所有快捷键按钮的引用
     /// </summary>
@@ -57,6 +61,14 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OpenCloseMenu();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OpenClose(spellBook);
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            InventoryScript.MyInstance.OpenClose();
         }
     }
 
@@ -82,6 +94,30 @@ public class UIManager : MonoBehaviour
     {
         healthStat.MyCurrentValue = health;
     }
+    
+    /// <summary>
+    /// 当快捷键改变，更新文本
+    /// </summary>
+    /// <param name="key">英文Key值</param>
+    /// <param name="code">键位值</param>
+    public void UpdateKeyText(string key, KeyCode code)
+    {
+        Text tmp = Array.Find(keybindButtons, x => x.name == key).GetComponentInChildren<Text>();
+        tmp.text = code.ToString();
+    }
+    
+    public void ClickActionButton(string buttonName)
+    {
+        Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
+    }
+
+    public void OpenClose(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+    }
+
+    
     /// <summary>
     /// 打开快捷键菜单
     /// </summary>
@@ -93,31 +129,26 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 当快捷键改变，更新文本
+    /// Updates the stacksize on a clickable slot
     /// </summary>
-    /// <param name="key">英文Key值</param>
-    /// <param name="code">键位值</param>
-    public void UpdateKeyText(string key, KeyCode code)
+    /// <param name="clickable"></param>
+    public void UpdateStackSize(IClickable clickable)
     {
-        Text tmp = Array.Find(keybindButtons, x => x.name == key).GetComponentInChildren<Text>();
-        tmp.text = code.ToString();
-    }
-
-    public void ClickActionButton(string buttonName)
-    {
-        Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="btn"></param>
-    /// <param name="useable"></param>
-    public void SetUseable(ActionButton btn, IUseable useable)
-    {
-        btn.MyButton.image.sprite = useable.MyIcon;
-        btn.MyButton.image.color = Color.white;
-        btn.MyUseable = useable;
-        
-
+        if (clickable.MyCount > 1) //If our slot has more than one item on it
+        {
+            clickable.MyStackText.text = clickable.MyCount.ToString();
+            clickable.MyStackText.color = Color.white;
+            clickable.MyIcon.color = Color.white;
+        }
+        else //If it only has 1 item on it
+        {
+            clickable.MyStackText.color = new Color(0, 0, 0, 0);
+            clickable.MyIcon.color = Color.white;
+        }
+        if (clickable.MyCount == 0) //If the slot is empty, then we need to hide the icon
+        {
+            clickable.MyIcon.color = new Color(0, 0, 0, 0);
+            clickable.MyStackText.color = new Color(0, 0, 0, 0);
+        }
     }
 }
