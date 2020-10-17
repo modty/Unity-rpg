@@ -39,6 +39,10 @@ public class Spell:IUseable, IMoveable{
     [SerializeField]
     private GameObject spellPrefab;
 
+    [SerializeField]
+    private string description;
+
+    
     /// <summary>
     /// 技能读条颜色
     /// </summary>
@@ -126,5 +130,9 @@ public class Spell:IUseable, IMoveable{
         {
             return barColor;
         }
+    }
+    public string GetDescription()
+    {
+        return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", name, castTime,description, damage);
     }
 }

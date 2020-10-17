@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
+public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
     /// 格子中的所有堆叠
@@ -123,50 +123,53 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
         // 鼠标左键点击
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            // 判断鼠标上是否拖拽背包物品
-            if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
+            if (InventoryScript.MyInstance.FromSlot == null && !IsEmpty)
             {
-                // 如果有，而且当前格子中也是背包，就切换背包
-                if (MyItem is Bag)
+                // 判断鼠标上是否拖拽背包物品
+                if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
                 {
-                    InventoryScript.MyInstance.SwapBags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                    // 如果有，而且当前格子中也是背包，就切换背包
+                    if (MyItem is Bag)
+                    {
+                        InventoryScript.MyInstance.SwapBags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                    }
+                }
+                // 没有拖拽就直接拿起物品
+                else
+                {
+                    HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
+                    InventoryScript.MyInstance.FromSlot = this;
                 }
             }
-            // 没有拖拽就直接拿起物品
-            else
-            {
-                HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
-                InventoryScript.MyInstance.FromSlot = this;
-            }
-        }
-        // 如果来源不是背包格子（FromSlot为空）、当前格子中物品已经耗尽、鼠标上的是背包（即鼠标上该物品为从装备上取下来的物品）
-        else if (InventoryScript.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
-        {   
-            // 从鼠标上获取背包
-            Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
+            // 如果来源不是背包格子（FromSlot为空）、当前格子中物品已经耗尽、鼠标上的是背包（即鼠标上该物品为从装备上取下来的物品）
+            else if (InventoryScript.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
+            {   
+                // 从鼠标上获取背包
+                Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
 
-            // 确保脱下背包的时候不会放到自己里面，以及其他背包中有足够的空间
-            if (bag.MyBagScript != MyBag && InventoryScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
-            {
-                // 将拖拽物品放到这个格子中
-                AddItem(bag);
+                // 确保脱下背包的时候不会放到自己里面，以及其他背包中有足够的空间
+                if (bag.MyBagScript != MyBag && InventoryScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                {
+                    // 将拖拽物品放到这个格子中
+                    AddItem(bag);
                     
-                // 装备栏中移除背包
-                bag.MyBagButton.RemoveBag();
-                // 鼠标上移除
-                HandScript.MyInstance.Drop();
-            }
+                    // 装备栏中移除背包
+                    bag.MyBagButton.RemoveBag();
+                    // 鼠标上移除
+                    HandScript.MyInstance.Drop();
+                }
 
-        }
+            }
         
-        // 如果有物品需要移动（从一个格子到另一个格子）
-        else if (InventoryScript.MyInstance.FromSlot != null)
-        {
-            //尝试不同的方法对该行为进行处理
-            if (PutItemBack() || MergeItems(InventoryScript.MyInstance.FromSlot) ||SwapItems(InventoryScript.MyInstance.FromSlot) ||AddItems(InventoryScript.MyInstance.FromSlot.MyItems))
+            // 如果有物品需要移动（从一个格子到另一个格子）
+            else if (InventoryScript.MyInstance.FromSlot != null)
             {
-                HandScript.MyInstance.Drop();
-                InventoryScript.MyInstance.FromSlot = null;
+                //尝试不同的方法对该行为进行处理
+                if (PutItemBack() || MergeItems(InventoryScript.MyInstance.FromSlot) ||SwapItems(InventoryScript.MyInstance.FromSlot) ||AddItems(InventoryScript.MyInstance.FromSlot.MyItems))
+                {
+                    HandScript.MyInstance.Drop();
+                    InventoryScript.MyInstance.FromSlot = null;
+                }
             }
         }
         //右键点击，使用物品
@@ -347,5 +350,19 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     private void UpdateSlot()
     {
         UIManager.MyInstance.UpdateStackSize(this);
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //显示工具界面
+        if (!IsEmpty)
+        {
+            UIManager.MyInstance.ShowToolitip(transform.position, MyItem);
+        }
+        
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.MyInstance.HideTooltip();
     }
 }

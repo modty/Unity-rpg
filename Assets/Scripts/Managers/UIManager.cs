@@ -33,6 +33,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image portraitFrame;
 
+    [SerializeField]
+    private GameObject tooltip;
+
+    private Text tooltipText;
+
+    
     /// <summary>
     /// 绑定技能菜单
     /// </summary>
@@ -50,6 +56,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
+        tooltipText = tooltip.GetComponentInChildren<Text>();
     }
 	void Start ()
     {
@@ -61,7 +68,7 @@ public class UIManager : MonoBehaviour
         // ESC键打开快捷键菜单
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenCloseMenu();
+            OpenClose(keybindMenu);
         }
         // P键打开技能菜单
         if (Input.GetKeyDown(KeyCode.P))
@@ -99,6 +106,7 @@ public class UIManager : MonoBehaviour
     public void HideTargetFrame()
     {
         targetFrame.SetActive(false);
+        
     }
 
     /// <summary>
@@ -139,18 +147,7 @@ public class UIManager : MonoBehaviour
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
         canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
     }
-
     
-    /// <summary>
-    /// 打开快捷键菜单，直接打开、关闭
-    /// </summary>
-    public void OpenCloseMenu()
-    {
-        keybindMenu.alpha = keybindMenu.alpha > 0 ? 0 : 1;
-        keybindMenu.blocksRaycasts = keybindMenu.blocksRaycasts != true;
-        Time.timeScale = Time.timeScale > 0 ? 0 : 1;
-    }
-
     /// <summary>
     /// 更新UI上的堆叠数量
     /// </summary>
@@ -174,5 +171,22 @@ public class UIManager : MonoBehaviour
             clickable.MyIcon.color = new Color(0, 0, 0, 0);
             clickable.MyStackText.color = new Color(0, 0, 0, 0);
         }
+    }
+    /// <summary>
+    /// 显示提示界面
+    /// </summary>
+    public void ShowToolitip(Vector3 position, IDescribable description)
+    {
+        tooltip.SetActive(true);
+        tooltip.transform.position = position;
+        tooltipText.text = description.GetDescription();
+    }
+
+    /// <summary>
+    /// 隐藏提示界面
+    /// </summary>
+    public void HideTooltip()
+    {
+        tooltip.SetActive(false);
     }
 }

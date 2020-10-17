@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: c960c53e0ccbebb4bb74509131098494, type: 3}
   stackSize: 5
+  titel: "\u6CBB\u7597\u836F\u6C34"
+  quality: 0
   health: 10

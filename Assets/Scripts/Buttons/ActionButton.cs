@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
+public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
     /// 可供使用的按钮
@@ -71,9 +71,16 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
 
     public void OnClick()
     {
-        if (MyUseable != null)
+        if (HandScript.MyInstance.MyMoveable == null)
         {
-            MyUseable.Use();
+            if (MyUseable != null)
+            {
+                MyUseable.Use();
+            }
+            if (useables != null && useables.Count > 0)
+            {
+                useables.Peek().Use();
+            }
         }
     }
 
@@ -143,4 +150,27 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
             }
         }
     }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        IDescribable tmp = null;
+
+        if (MyUseable !=null && MyUseable is IDescribable)
+        {
+            tmp = (IDescribable)MyUseable;
+        }
+        else if (useables.Count > 0)
+        {
+            // UIManager.MyInstance.ShowToolitip(transform.position);
+        }
+        if (tmp != null)
+        {
+            UIManager.MyInstance.ShowToolitip(transform.position, tmp);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.MyInstance.HideTooltip();
+    }
+    
 }

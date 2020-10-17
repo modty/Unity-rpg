@@ -26,13 +26,7 @@ public class SpellBook : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Image castingBar;
-
-    /// <summary>
-    /// 技能释放条上的文本
-    /// </summary>
-    [SerializeField]
-    private Text spellName;
-
+    
     /// <summary>
     /// 技能读条上面的技能
     /// </summary>

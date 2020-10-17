@@ -18,5 +18,8 @@ public class HealthPotion : Item, IUseable
             Player.MyInstance.MyHealth.MyCurrentValue += health;
         }
     }
-
+    public override string GetDescription()
+    {
+        return base.GetDescription() + string.Format("\n<color=#00ff00ff>使用: 治疗 {0} 生命值</color>", health);
+    }
 }
