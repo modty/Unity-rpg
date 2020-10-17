@@ -58,28 +58,39 @@ public class UIManager : MonoBehaviour
 	
 	void Update ()
     {
+        // ESC键打开快捷键菜单
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OpenCloseMenu();
         }
+        // P键打开技能菜单
         if (Input.GetKeyDown(KeyCode.P))
         {
             OpenClose(spellBook);
         }
+        // B键打开背包
         if (Input.GetKeyDown(KeyCode.B))
         {
             InventoryScript.MyInstance.OpenClose();
         }
     }
 
+    /// <summary>
+    /// 显示选中敌人的界面UI
+    /// </summary>
+    /// <param name="target"></param>
     public void ShowTargetFrame(NPC target)
     {
+        // 设置对象有效
         targetFrame.SetActive(true);
 
+        // 预置体复制，并初始化值
         healthStat.Initialize(target.MyHealth.MyCurrentValue, target.MyHealth.MyMaxValue);
         
+        // 更新目标头像
         portraitFrame.sprite = target.MyPortrait;
         
+        // 绑定事件（目标血量改变、目标被移除）
         target.healthChanged += new HealthChanged(UpdateTargetFrame);
         
         target.characterRemoved += new CharacterRemoved(HideTargetFrame);
@@ -90,27 +101,39 @@ public class UIManager : MonoBehaviour
         targetFrame.SetActive(false);
     }
 
+    /// <summary>
+    /// 更新目标血量（仅数值，不更新UI）
+    /// </summary>
+    /// <param name="health"></param>
     public void UpdateTargetFrame(float health)
     {
         healthStat.MyCurrentValue = health;
     }
     
     /// <summary>
-    /// 当快捷键改变，更新文本
+    /// 快捷键改变，更新文本
     /// </summary>
-    /// <param name="key">英文Key值</param>
-    /// <param name="code">键位值</param>
+    /// <param name="key">快捷键类型</param>
+    /// <param name="code">键位</param>
     public void UpdateKeyText(string key, KeyCode code)
     {
         Text tmp = Array.Find(keybindButtons, x => x.name == key).GetComponentInChildren<Text>();
         tmp.text = code.ToString();
     }
-    
+    /// <summary>
+    /// 点击技能快捷键
+    /// </summary>
+    /// <param name="buttonName"></param>
     public void ClickActionButton(string buttonName)
     {
+        // 唤醒当前快捷键绑定的事件
         Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
     }
 
+    /// <summary>
+    /// 技能菜单打开
+    /// </summary>
+    /// <param name="canvasGroup"></param>
     public void OpenClose(CanvasGroup canvasGroup)
     {
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
@@ -119,7 +142,7 @@ public class UIManager : MonoBehaviour
 
     
     /// <summary>
-    /// 打开快捷键菜单
+    /// 打开快捷键菜单，直接打开、关闭
     /// </summary>
     public void OpenCloseMenu()
     {
@@ -129,23 +152,24 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the stacksize on a clickable slot
+    /// 更新UI上的堆叠数量
     /// </summary>
-    /// <param name="clickable"></param>
+    /// <param name="clickable">更改数量的UI位置（快捷栏、背包等）</param>
     public void UpdateStackSize(IClickable clickable)
     {
-        if (clickable.MyCount > 1) //If our slot has more than one item on it
+        if (clickable.MyCount > 1) // 如果传入可点击物品是复数
         {
+            // 修改相应的属性
             clickable.MyStackText.text = clickable.MyCount.ToString();
             clickable.MyStackText.color = Color.white;
             clickable.MyIcon.color = Color.white;
         }
-        else //If it only has 1 item on it
+        else // 如果只有一个，不显示数量
         {
             clickable.MyStackText.color = new Color(0, 0, 0, 0);
             clickable.MyIcon.color = Color.white;
         }
-        if (clickable.MyCount == 0) //If the slot is empty, then we need to hide the icon
+        if (clickable.MyCount == 0) // 如果物品为空，隐藏slot
         {
             clickable.MyIcon.color = new Color(0, 0, 0, 0);
             clickable.MyStackText.color = new Color(0, 0, 0, 0);

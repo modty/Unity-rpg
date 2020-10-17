@@ -17,7 +17,11 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 
     [SerializeField]
     private Text stackSize;
-
+    /// <summary>
+    /// 当前格子属于的背包
+    /// </summary>
+    public BagScript MyBag { get; set; }
+    
     /// <summary>
     /// 当前物品数量是否耗尽
     /// </summary>
@@ -91,6 +95,17 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public ObservableStack<Item> MyItems
+    {
+        get
+        {
+            return items;
+        }
+    }
+    
     private void Awake()
     {
         // 将可观察堆栈上的所有事件分配给updateSlot函数
@@ -105,32 +120,64 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
+        // 鼠标左键点击
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (InventoryScript.MyInstance.FromSlot == null && !IsEmpty) // 如果没有东西需要移动
+            // 判断鼠标上是否拖拽背包物品
+            if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
+            {
+                // 如果有，而且当前格子中也是背包，就切换背包
+                if (MyItem is Bag)
+                {
+                    InventoryScript.MyInstance.SwapBags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                }
+            }
+            // 没有拖拽就直接拿起物品
+            else
             {
                 HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
                 InventoryScript.MyInstance.FromSlot = this;
             }
-            else if (InventoryScript.MyInstance.FromSlot != null)// 如果有东西需要移动
-            {
-                //尝试用不同的方法把这些物品放回库存
-                if (PutItemBack() || MergeItems(InventoryScript.MyInstance.FromSlot) ||SwapItems(InventoryScript.MyInstance.FromSlot) ||AddItems(InventoryScript.MyInstance.FromSlot.items))
-                {
-                    HandScript.MyInstance.Drop();
-                    InventoryScript.MyInstance.FromSlot = null;
-                }
-            }
-      
         }
-        if (eventData.button == PointerEventData.InputButton.Right)//右键点击
+        // 如果来源不是背包格子（FromSlot为空）、当前格子中物品已经耗尽、鼠标上的是背包（即鼠标上该物品为从装备上取下来的物品）
+        else if (InventoryScript.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
+        {   
+            // 从鼠标上获取背包
+            Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
+
+            // 确保脱下背包的时候不会放到自己里面，以及其他背包中有足够的空间
+            if (bag.MyBagScript != MyBag && InventoryScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+            {
+                // 将拖拽物品放到这个格子中
+                AddItem(bag);
+                    
+                // 装备栏中移除背包
+                bag.MyBagButton.RemoveBag();
+                // 鼠标上移除
+                HandScript.MyInstance.Drop();
+            }
+
+        }
+        
+        // 如果有物品需要移动（从一个格子到另一个格子）
+        else if (InventoryScript.MyInstance.FromSlot != null)
+        {
+            //尝试不同的方法对该行为进行处理
+            if (PutItemBack() || MergeItems(InventoryScript.MyInstance.FromSlot) ||SwapItems(InventoryScript.MyInstance.FromSlot) ||AddItems(InventoryScript.MyInstance.FromSlot.MyItems))
+            {
+                HandScript.MyInstance.Drop();
+                InventoryScript.MyInstance.FromSlot = null;
+            }
+        }
+        //右键点击，使用物品
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             UseItem();
         }
     }
 
     /// <summary>
-    /// 将物品添加到格子中
+    /// 将物品添加到格子中（当前格子中）
     /// </summary>
     /// <param name="item">添加的物品类</param>
     /// <returns>是否添加成功</returns>
@@ -178,7 +225,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     {
         if (!IsEmpty)
         {
-            items.Pop();
+            InventoryScript.MyInstance.OnItemCountChanged(MyItems.Pop());
         }
     }
 
@@ -186,7 +233,8 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     {
         if (items.Count > 0)
         {
-            items.Clear();
+            InventoryScript.MyInstance.OnItemCountChanged(MyItems.Pop());
+            MyItems.Clear();
         }
     }
 

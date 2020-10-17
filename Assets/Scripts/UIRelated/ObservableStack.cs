@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-//A delegate for creating event
+//用于创建特殊事件的委托
 public delegate void UpdateStackEvent();
 
 public class ObservableStack<T> : Stack<T>
 {
     /// <summary>
-    /// Event that is raised when we push something
+    /// 当往栈中压入类
     /// </summary>
     public event UpdateStackEvent OnPush;
 
     /// <summary>
-    /// Event that is raised when we pop something
+    /// 当从栈中弹出类
     /// </summary>
     public event UpdateStackEvent OnPop;
 
     /// <summary>
-    /// Event that is raised when we clear the stack
+    /// 当栈为空
     /// </summary>
     public event UpdateStackEvent OnClear;
 
@@ -37,9 +37,9 @@ public class ObservableStack<T> : Stack<T>
     {
         base.Push(item);
 
-        if (OnPush != null) //Makes sure something is listening to the event before we call it
+        if (OnPush != null) // 确保事件发生时不会空指针
         {
-            OnPush(); //Calls the event
+            OnPush(); // 触发事件
         }
     }
 
@@ -47,9 +47,9 @@ public class ObservableStack<T> : Stack<T>
     {
         T item = base.Pop();
 
-        if (OnPop != null) //Makes sure something is listening to the event before we call it
+        if (OnPop != null)
         {
-            OnPop();//Calls the event
+            OnPop();
         }
 
         return item;
@@ -59,9 +59,9 @@ public class ObservableStack<T> : Stack<T>
     {
         base.Clear();
 
-        if (OnClear != null)//Makes sure something is listening to the event before we call it
+        if (OnClear != null)
         {
-            OnClear();//Calls the event
+            OnClear();
         }
     }
 }

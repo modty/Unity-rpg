@@ -71,6 +71,9 @@ public class HandScript : MonoBehaviour
         return tmp;
     }
     
+    /// <summary>
+    /// 取消鼠标上显示的物品图标（放下物品）
+    /// </summary>
     public void Drop()
     {
         MyMoveable = null;

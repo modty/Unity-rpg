@@ -37,7 +37,7 @@ public class KeybindManager : MonoBehaviour
     public Dictionary<string, KeyCode> ActionBinds { get; private set; }
 
     /// <summary>
-    /// 试图改变键的名称
+    /// 改变键的名称的临时变量
     /// </summary>
     private string bindName;
 
@@ -68,7 +68,7 @@ public class KeybindManager : MonoBehaviour
         // 为快捷键定义默认字典
         Dictionary<string, KeyCode> currentDictionary = Keybinds;
 
-        if (key.Contains("ACT")) // 如果绑定动作键位，使用动作字典
+        if (key.Contains("ACT")) // 如果技能键位，使用技能字典
         {
             currentDictionary = ActionBinds;
         }

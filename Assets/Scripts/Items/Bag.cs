@@ -18,6 +18,14 @@ public class Bag : Item, IUseable
 
     public BagScript MyBagScript { get; set; }
 
+    /// <summary>
+    /// 背包绑定的按钮
+    /// </summary>
+    public BagButton MyBagButton { get; set; }
+
+    /// <summary>
+    /// 背包所有的格子数
+    /// </summary>
     public int Slots
     {
         get
@@ -46,7 +54,15 @@ public class Bag : Item, IUseable
             MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
             MyBagScript.AddSlots(slots);
 
-            InventoryScript.MyInstance.AddBag(this);
+            if (MyBagButton == null)
+            {
+                InventoryScript.MyInstance.AddBag(this);
+            }
+            else
+            {
+                InventoryScript.MyInstance.AddBag(this,MyBagButton);
+            }
+
         }
  
     }

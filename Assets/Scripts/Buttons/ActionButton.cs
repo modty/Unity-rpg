@@ -1,14 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionButton : MonoBehaviour, IPointerClickHandler
+public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
 {
     /// <summary>
     /// 可供使用的按钮
     /// </summary>
     public IUseable MyUseable { get; set; }
 
+    [SerializeField]
+    private Text stackSize;
+
+    /// <summary>
+    /// 可使用物品栈
+    /// </summary>
+    private Stack<IUseable> useables = new Stack<IUseable>();
+    
+    private int count;
+    
     /// <summary>
     /// 引用当前对象的Button
     /// </summary>
@@ -26,6 +37,22 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public int MyCount
+    {
+        get
+        {
+            return count;
+        }
+    }
+    
+    public Text MyStackText
+    {
+        get
+        {
+            return stackSize;
+        }
+    }
+    
     [SerializeField]
     private Image icon;
 
@@ -33,6 +60,8 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
     {
         MyButton = GetComponent<Button>();
         MyButton.onClick.AddListener(OnClick);
+        InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(UpdateItemCount);
+
     }
 	
     void Update () {
@@ -49,7 +78,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// 鼠标移动到按钮上
+    /// 鼠标拖动物体到快捷栏，并点击
     /// </summary>
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
@@ -63,20 +92,55 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
         }
     }
     /// <summary>
-    /// 设置该按钮可用
+    /// 将鼠标上的物体设置到快捷栏，并统计所有已经装备背包中该物品的总数量。
     /// </summary>
     public void SetUseable(IUseable useable)
     {
-        this.MyUseable = useable;
-
+        if (useable is Item)
+        {
+            // 获取背包中放到快捷栏的所有该物体，并压入栈中
+            useables = InventoryScript.MyInstance.GetUseables(useable);
+            count = useables.Count;
+            // 物品来源格子颜色变化
+            InventoryScript.MyInstance.FromSlot.MyIcon.color = Color.white;
+            InventoryScript.MyInstance.FromSlot = null;
+        }
+        else
+        {
+            this.MyUseable = useable;
+        }
         UpdateVisual();
     }
     /// <summary>
-    /// 更新按钮的图标等数据
+    /// 更新快捷键的图标等数据
     /// </summary>
     public void UpdateVisual() 
     {
         MyIcon.sprite = HandScript.MyInstance.Put().MyIcon;
         MyIcon.color = Color.white;
+        if (count > 1)
+        {
+            UIManager.MyInstance.UpdateStackSize(this);
+        }
+    }
+    /// <summary>
+    /// 更新物品数量（快捷栏）
+    /// </summary>
+    /// <param name="item"></param>
+    public void UpdateItemCount(Item item)
+    {
+        // 如果物品可使用且使用堆栈中还有没有使用的该物品
+        if (item is IUseable && useables.Count > 0)
+        {
+            // 弹出物品并再次验证
+            if (useables.Peek().GetType() == item.GetType())
+            {
+                useables = InventoryScript.MyInstance.GetUseables(item as IUseable);
+
+                count = useables.Count;
+
+                UIManager.MyInstance.UpdateStackSize(this);
+            }
+        }
     }
 }
