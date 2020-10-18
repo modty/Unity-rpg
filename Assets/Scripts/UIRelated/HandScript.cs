@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// 104
+// 113
 
 public class HandScript : MonoBehaviour
 {
@@ -90,16 +90,22 @@ public class HandScript : MonoBehaviour
     /// </summary>
     private void DeleteItem()
     {
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
+        if (MyMoveable is Item)
         {
-            if (MyMoveable is Item && InventoryScript.MyInstance.FromSlot != null)
+            Item item = (Item)MyMoveable;
+            if (item.MySlot != null)
             {
-                (MyMoveable as Item).MySlot.Clear();
+                item.MySlot.Clear();
             }
-
-            Drop();
-
-            InventoryScript.MyInstance.FromSlot = null;
+            else if (item.MyCharButton != null)
+            {
+                item.MyCharButton.DequipArmor();
+            }
+      
         }
+
+        Drop();
+
+        InventoryScript.MyInstance.FromSlot = null;
     }
 }

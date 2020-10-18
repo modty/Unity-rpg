@@ -5,7 +5,7 @@ using UnityEngine;
 public delegate void HealthChanged(float health);
 
 public delegate void CharacterRemoved();
-public class NPC : Character
+public class NPC : Character, IInteractable
 {
     public event HealthChanged healthChanged;
     
@@ -55,5 +55,10 @@ public class NPC : Character
     {
         // 没有被重载的话
         Debug.Log("This will open a dialogue with the NPC");
+    }
+    
+    public virtual void StopInteract()
+    {
+        
     }
 }

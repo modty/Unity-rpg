@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// 105
+// 106
 
 public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 
@@ -101,7 +101,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             gearSocket.Dequip();
         }
-
+        equippedArmor.MyCharButton = null;
         equippedArmor = null;
     }
 }

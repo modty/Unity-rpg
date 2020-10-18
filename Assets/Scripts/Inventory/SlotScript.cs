@@ -197,7 +197,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
             }
         }
         //右键点击，使用物品
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right&&HandScript.MyInstance.MyMoveable == null) // 点击鼠标右键
         {
             UseItem();
         }

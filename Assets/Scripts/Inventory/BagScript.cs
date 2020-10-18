@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 132
+// 140
 public class BagScript : MonoBehaviour
 {
 
@@ -131,5 +131,12 @@ public class BagScript : MonoBehaviour
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
 
         canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+    }
+    public void Clear()
+    {
+        foreach (SlotScript slot in slots)
+        {
+            slot.Clear();
+        }
     }
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
-// 155
+// 160
 public class Enemy : NPC
 {
     /// <summary>
@@ -136,5 +136,10 @@ public class Enemy : NPC
         {
             lootTable.ShowLoot();
         }
+    }
+    
+    public override void StopInteract()
+    {
+        LootWindow.MyInstance.Close();
     }
 }

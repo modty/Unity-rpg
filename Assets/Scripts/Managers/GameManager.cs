@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
         {
             // 在鼠标点击处向游戏世界发射射线
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero,Mathf.Infinity,512);
-            if (hit.collider != null) // 如果碰撞到物体
+            if (hit.collider != null&&hit.collider.tag == "Enemy") // 如果碰撞到物体
             {
                 if (currentTarget != null)// 如果当前有目标
                 {
@@ -47,14 +47,14 @@ public class GameManager : MonoBehaviour {
                 currentTarget = null;
                 player.MyTarget = null;
             }
-        } else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
+        }
+        else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
         {
-            //Makes a raycast from the mouse position into the game world
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
 
-            if (hit.collider != null && hit.collider.tag == "Enemy")
+            if (hit.collider != null && (hit.collider.tag == "Enemy"|| hit.collider.tag == "Interactable"))
             {
-                hit.collider.GetComponent<NPC>().Interact();
+                player.Interact();
             }
         }
    

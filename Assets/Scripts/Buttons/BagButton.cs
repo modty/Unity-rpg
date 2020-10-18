@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 背包快捷栏的格子
 /// </summary>
-// 97
+// 113
 public class BagButton : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
@@ -18,6 +18,10 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Sprite full, empty;
 
+    [SerializeField]
+    private int bagIndex;
+
+    
     /// <summary>
     /// 背包类
     /// </summary>
@@ -42,7 +46,18 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
             bag = value;
         }
     }
+    public int MyBagIndex
+    {
+        get
+        {
+            return bagIndex;
+        }
 
+        set
+        {
+            bagIndex = value;
+        }
+    }
     /// <summary>
     /// 点击背包
     /// </summary>

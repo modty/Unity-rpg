@@ -186,6 +186,7 @@ public class InventoryScript : MonoBehaviour
                 bagButton.MyBag = bag;
                 bags.Add(bag);
                 bag.MyBagButton = bagButton;
+                bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
                 break;
             }
         }
@@ -199,6 +200,7 @@ public class InventoryScript : MonoBehaviour
     {
         bags.Add(bag);
         bagButton.MyBag = bag;
+        bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
     }
     /// <summary>
     /// 从窗口栏中移除背包

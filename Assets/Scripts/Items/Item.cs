@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 115
+// 116
 
 /// <summary>
 /// 所有物品的父类
@@ -37,6 +37,8 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     /// </summary>
     private SlotScript slot;
 
+    public CharButton MyCharButton { get; set; }
+    
     public Sprite MyIcon
     {
         get
@@ -96,6 +98,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         if (MySlot != null)
         {
             MySlot.RemoveItem(this);
+            MySlot = null;
         }
     }
 }
