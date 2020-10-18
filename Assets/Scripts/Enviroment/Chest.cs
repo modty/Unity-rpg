@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 67
+// 71
 
 public class Chest : MonoBehaviour, IInteractable
 {

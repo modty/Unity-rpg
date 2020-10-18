@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 116
+// 142
 
 /// <summary>
 /// 所有物品的父类
@@ -37,7 +37,11 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     /// </summary>
     private SlotScript slot;
 
-    public CharButton MyCharButton { get; set; }
+    private CharButton charButton;
+    
+    [SerializeField]
+    private int price;
+
     
     public Sprite MyIcon
     {
@@ -81,7 +85,27 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
             return titel;
         }
     }
-    
+    public CharButton MyCharButton
+    {
+        get
+        {
+            return charButton;
+        }
+
+        set
+        {
+            MySlot = null;
+            charButton = value;
+        }
+    }
+
+    public int MyPrice
+    {
+        get
+        {
+            return price;
+        }
+    }
     /// <summary>
     /// 返回特殊物品的描述
     /// </summary>

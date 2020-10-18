@@ -197,7 +197,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// 显示提示界面
     /// </summary>
-    public void ShowToolitip(Vector2 pivot,Vector3 position, IDescribable description)
+    public void ShowTooltip(Vector2 pivot,Vector3 position, IDescribable description)
     {
         tooltipRect.pivot = pivot;
         tooltip.SetActive(true);

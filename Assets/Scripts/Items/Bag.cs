@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 78
+// 79
 [CreateAssetMenu(fileName ="Bag",menuName ="Items/Bag",order =1)]
 public class Bag : Item, IUseable
 {
     /// <summary>
     /// 背包有的格子数
     /// </summary>
+    [SerializeField]
     private int slots;
 
     /// <summary>

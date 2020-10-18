@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 309
+// 325
 public class Player : Character {
 
     private static Player instance;
@@ -53,10 +53,23 @@ public class Player : Character {
 
     [SerializeField]
     private GearSocket[] gearSockets;
+    public IInteractable MyInteractable
+    {
+        get
+        {
+            return interactable;
+        }
 
+        set
+        {
+            interactable = value;
+        }
+    }
+    public int MyGold { get; set; }
     
     protected override void Start()
     {
+        MyGold = 10;
         mana.Initialize(initMana, initMana);
         
         base.Start();
@@ -155,9 +168,11 @@ public class Player : Character {
         }
         
         yield return new WaitForSeconds(newSpell.MyCastTime); // 方便Debug
+        
         if (currentTarget != null && InLineOfSight())
         {
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
+            
             s.Initialize(currentTarget,newSpell.MyDamage,transform);
         }
         StopAttack(); // 停止攻击

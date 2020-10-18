@@ -4,6 +4,7 @@ using UnityEngine;
 // 13
 public interface IState
 {
+    
     // 敌人的状态
     void Enter(Enemy parent);
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-// 185
+// 200
 public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
@@ -50,6 +50,20 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPoi
         get
         {
             return stackSize;
+        }
+    }
+    
+    public Stack<IUseable> MyUseables
+    {
+        get
+        {
+            return useables;
+        }
+
+        set
+        {
+            MyUseable = value.Peek();
+            useables = value;
         }
     }
     
@@ -116,7 +130,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPoi
             useables.Clear();
             this.MyUseable = useable;
         }
+        count = MyUseables.Count;
         UpdateVisual();
+        UIManager.MyInstance.RefreshTooltip(MyUseable as IDescribable);
     }
     /// <summary>
     /// 更新快捷键的图标等数据
@@ -167,7 +183,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPoi
         }
         if (tmp != null)
         {
-            UIManager.MyInstance.ShowToolitip(new Vector2(1,0),transform.position, tmp);
+            UIManager.MyInstance.ShowTooltip(new Vector2(1,0),transform.position, tmp);
         }
     }
 

@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   titel: "\u6124\u6012\u957F\u5251"
   quality: 3
+  price: 1
   armorType: 6
   intellect: 10
   strength: 25

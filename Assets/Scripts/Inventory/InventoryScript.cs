@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 313
+// 315
 
 
 // 物品数目发生变化时

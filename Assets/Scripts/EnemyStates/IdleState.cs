@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 // 44
-class IdleState : IState
+partial class IdleState : IState
 {
     /// <summary>
     /// 敌人对象的引用

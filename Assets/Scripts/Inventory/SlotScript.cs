@@ -384,7 +384,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         //显示工具界面
         if (!IsEmpty)
         {
-            UIManager.MyInstance.ShowToolitip(new Vector2(1, 0),transform.position, MyItem);
+            UIManager.MyInstance.ShowTooltip(new Vector2(1, 0),transform.position, MyItem);
         }
         
     }

@@ -16,4 +16,6 @@ MonoBehaviour:
   stackSize: 0
   titel: "\u80CC\u5305"
   quality: 3
+  price: 1
+  slots: 4
   bagPrefab: {fileID: 1449629377057220, guid: 2efe6e5f6e3fb954785dcf5c975a72c9, type: 3}

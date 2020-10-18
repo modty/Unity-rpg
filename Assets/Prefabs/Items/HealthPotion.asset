@@ -16,4 +16,5 @@ MonoBehaviour:
   stackSize: 5
   titel: "\u6CBB\u7597\u836F\u6C34"
   quality: 0
+  price: 1
   health: 10
