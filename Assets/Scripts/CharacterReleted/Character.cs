@@ -119,7 +119,7 @@ public abstract class Character : MonoBehaviour {
     /// <summary>
     /// 正确调用动画类型
     /// </summary>
-    public void HandleLayers()
+    public virtual void HandleLayers()
     {
         if (IsAlive)
         {
@@ -149,7 +149,7 @@ public abstract class Character : MonoBehaviour {
     /// <summary>
     /// 根据字符串调用动画类型
     /// </summary>
-    public void ActivateLayer(string layerName)
+    public virtual void ActivateLayer(string layerName)
     {
         for (int i = 0; i < MyAnimator.layerCount; i++)
         {
@@ -157,7 +157,13 @@ public abstract class Character : MonoBehaviour {
         }
         MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName),1);
     }
-    public virtual void TakeDamage(float damage, Transform source)
+    
+    /// <summary>
+    /// 角色受伤
+    /// </summary>
+    /// <param name="damage"></param>
+    
+    public  virtual void TakeDamage(float damage, Transform source)
     {
         health.MyCurrentValue -= damage;
 

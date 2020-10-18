@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 79
+// 78
 [CreateAssetMenu(fileName ="Bag",menuName ="Items/Bag",order =1)]
 public class Bag : Item, IUseable
 {

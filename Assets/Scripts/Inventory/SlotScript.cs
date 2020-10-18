@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// 361
+// 390
 
 public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPointerEnterHandler, IPointerExitHandler
 {
@@ -128,12 +128,24 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
             if (InventoryScript.MyInstance.FromSlot == null && !IsEmpty)
             {
                 // 判断鼠标上是否拖拽背包物品
-                if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
+                if (HandScript.MyInstance.MyMoveable != null)
                 {
-                    // 如果有，而且当前格子中也是背包，就切换背包
-                    if (MyItem is Bag)
+                    if (HandScript.MyInstance.MyMoveable is Bag)
                     {
-                        InventoryScript.MyInstance.SwapBags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                        // 如果有，而且当前格子中也是背包，就切换背包
+                        if (MyItem is Bag)
+                        {
+                            InventoryScript.MyInstance.SwapBags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                        }
+                    }
+                    else if (HandScript.MyInstance.MyMoveable is Armor)
+                    {
+                        if (MyItem is Armor && (MyItem as Armor).MyArmorType == (HandScript.MyInstance.MyMoveable as Armor).MyArmorType)
+                        {
+                            (MyItem as Armor).Equip();
+                            
+                            HandScript.MyInstance.Drop();
+                        }
                     }
                 }
                 // 没有拖拽就直接拿起物品
@@ -144,20 +156,30 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
                 }
             }
             // 如果来源不是背包格子（FromSlot为空）、当前格子中物品已经耗尽、鼠标上的是背包（即鼠标上该物品为从装备上取下来的物品）
-            else if (InventoryScript.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
-            {   
-                // 从鼠标上获取背包
-                Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
-
-                // 确保脱下背包的时候不会放到自己里面，以及其他背包中有足够的空间
-                if (bag.MyBagScript != MyBag && InventoryScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+            else if (InventoryScript.MyInstance.FromSlot == null && IsEmpty)
+            {
+                if (HandScript.MyInstance.MyMoveable is Bag)
                 {
-                    // 将拖拽物品放到这个格子中
-                    AddItem(bag);
-                    
-                    // 装备栏中移除背包
-                    bag.MyBagButton.RemoveBag();
-                    // 鼠标上移除
+                    // 从鼠标上获取背包
+                    Bag bag = (Bag) HandScript.MyInstance.MyMoveable;
+
+                    // 确保脱下背包的时候不会放到自己里面，以及其他背包中有足够的空间
+                    if (bag.MyBagScript != MyBag && InventoryScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                    {
+                        // 将拖拽物品放到这个格子中
+                        AddItem(bag);
+
+                        // 装备栏中移除背包
+                        bag.MyBagButton.RemoveBag();
+                        // 鼠标上移除
+                        HandScript.MyInstance.Drop();
+                    }
+                }
+                else if (HandScript.MyInstance.MyMoveable is Armor)
+                {
+                    Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
+                    AddItem(armor);
+                    CharacterPanel.MyInstance.MySlectedButton.DequipArmor();
                     HandScript.MyInstance.Drop();
                 }
 
@@ -251,6 +273,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         if (MyItem is IUseable)
         {
             (MyItem as IUseable).Use();
+        }
+        else if (MyItem is Armor)
+        {
+            (MyItem as Armor).Equip();
         }
       
     }
@@ -358,7 +384,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         //显示工具界面
         if (!IsEmpty)
         {
-            UIManager.MyInstance.ShowToolitip(transform.position, MyItem);
+            UIManager.MyInstance.ShowToolitip(new Vector2(1, 0),transform.position, MyItem);
         }
         
     }

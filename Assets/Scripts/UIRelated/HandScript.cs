@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// 101
+// 104
 
 public class HandScript : MonoBehaviour
 {
@@ -51,7 +51,10 @@ public class HandScript : MonoBehaviour
     {
         // 使拉取的物体跟随鼠标
         icon.transform.position = Input.mousePosition+offset;
-        DeleteItem();
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
+        {
+            DeleteItem();
+        }
     }
 
     /// <summary>
@@ -80,6 +83,7 @@ public class HandScript : MonoBehaviour
     {
         MyMoveable = null;
         icon.color = new Color(0, 0, 0, 0);
+        InventoryScript.MyInstance.FromSlot = null;
     }
     /// <summary>
     /// 从仓库中删除物品

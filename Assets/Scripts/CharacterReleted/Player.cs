@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 241
+// 278
 public class Player : Character {
 
     private static Player instance;
@@ -50,6 +50,10 @@ public class Player : Character {
 
     private Vector3 min, max;
 
+    [SerializeField]
+    private GearSocket[] gearSockets;
+
+    
     protected override void Start()
     {
         mana.Initialize(initMana, initMana);
@@ -144,6 +148,11 @@ public class Player : Character {
 
         MyAnimator.SetBool("attack", IsAttacking); // 调用攻击动画
 
+        foreach (GearSocket g in gearSockets)
+        {
+            g.MyAnimator.SetBool("attack", IsAttacking);
+        }
+        
         yield return new WaitForSeconds(newSpell.MyCastTime); // 方便Debug
         if (currentTarget != null && InLineOfSight())
         {
@@ -159,7 +168,7 @@ public class Player : Character {
     {
         Block();
 
-        if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
+        if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight()) // 判断是否能够攻击
         {
             attackRoutine = StartCoroutine(Attack(spellName));
         }
@@ -215,9 +224,36 @@ public class Player : Character {
 
         MyAnimator.SetBool("attack", IsAttacking); // 停止攻击动画
 
+        foreach (GearSocket g in gearSockets)
+        {
+            g.MyAnimator.SetBool("attack", IsAttacking);
+        }
+        
         if (attackRoutine != null)
         {
             StopCoroutine(attackRoutine);
+        }
+    }
+    public override void HandleLayers()
+    {
+        base.HandleLayers();
+
+        if (IsMoving)
+        {
+            foreach (GearSocket g in gearSockets)
+            {
+                g.SetXAndY(Direction.x, Direction.y);
+            }
+        }
+    }
+
+    public override void ActivateLayer(string layerName)
+    {
+        base.ActivateLayer(layerName);
+
+        foreach (GearSocket g in gearSockets)
+        {
+            g.ActivateLayer(layerName);
         }
     }
 }

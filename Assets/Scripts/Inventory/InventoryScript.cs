@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 364
+// 313
 
 
 // 物品数目发生变化时
@@ -131,7 +131,7 @@ public class InventoryScript : MonoBehaviour
     private void Awake()
     {
         // 初始化一个背包，大小为20，并装备
-        Bag bag = (Bag)Instantiate(items[0]);
+        Bag bag = (Bag)Instantiate(items[8]);
         bag.Initialize(20);
         bag.Use();
     }
@@ -141,13 +141,13 @@ public class InventoryScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             // 添加物品0（背包）
-            Bag bag = (Bag)Instantiate(items[0]);
+            Bag bag = (Bag)Instantiate(items[8]);
             bag.Initialize(20);
             AddItem(bag);
         }
         if (Input.GetKeyDown(KeyCode.K))//测试往背包中添加物品
         {
-            Bag bag = (Bag)Instantiate(items[0]);
+            Bag bag = (Bag)Instantiate(items[8]);
             bag.Initialize(8);
             AddItem(bag);
 
@@ -155,15 +155,20 @@ public class InventoryScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             // 添加药瓶
-            HealthPotion potion = (HealthPotion)Instantiate(items[1]);
+            HealthPotion potion = (HealthPotion)Instantiate(items[9]);
             AddItem(potion);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
+            AddItem((Armor)Instantiate(items[0]));
+            AddItem((Armor)Instantiate(items[1]));
             AddItem((Armor)Instantiate(items[2]));
             AddItem((Armor)Instantiate(items[3]));
             AddItem((Armor)Instantiate(items[4]));
             AddItem((Armor)Instantiate(items[5]));
+            AddItem((Armor)Instantiate(items[6]));
+            AddItem((Armor)Instantiate(items[7]));
+            AddItem((Armor)Instantiate(items[10]));
         }
     
     }

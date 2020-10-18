@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// 176
+// 198
 
 public class UIManager : MonoBehaviour
 {
@@ -38,7 +39,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject tooltip;
 
+    [SerializeField]
+    private CharacterPanel charPanel;
+
+    
     private Text tooltipText;
+
+    
+    [SerializeField]
+    private RectTransform tooltipRect;
 
     
     /// <summary>
@@ -81,6 +90,10 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             InventoryScript.MyInstance.OpenClose();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            charPanel.OpenClose();
         }
     }
 
@@ -174,11 +187,19 @@ public class UIManager : MonoBehaviour
             clickable.MyStackText.color = new Color(0, 0, 0, 0);
         }
     }
+    
+    public void ClearStackCount(IClickable clickable)
+    {
+        clickable.MyStackText.color = new Color(0, 0, 0, 0);
+        clickable.MyIcon.color = Color.white;
+    }
+    
     /// <summary>
     /// 显示提示界面
     /// </summary>
-    public void ShowToolitip(Vector3 position, IDescribable description)
+    public void ShowToolitip(Vector2 pivot,Vector3 position, IDescribable description)
     {
+        tooltipRect.pivot = pivot;
         tooltip.SetActive(true);
         tooltip.transform.position = position;
         tooltipText.text = description.GetDescription();
@@ -190,5 +211,10 @@ public class UIManager : MonoBehaviour
     public void HideTooltip()
     {
         tooltip.SetActive(false);
+    }
+    
+    public void RefreshTooltip(IDescribable description)
+    {
+        tooltipText.text = description.GetDescription();
     }
 }

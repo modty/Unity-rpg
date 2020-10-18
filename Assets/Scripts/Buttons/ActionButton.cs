@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-// 180
+// 185
 public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
@@ -107,13 +107,13 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPoi
         {
             // 获取背包中放到快捷栏的所有该物体，并压入栈中
             useables = InventoryScript.MyInstance.GetUseables(useable);
-            count = useables.Count;
             // 物品来源格子颜色变化
             InventoryScript.MyInstance.FromSlot.MyIcon.color = Color.white;
             InventoryScript.MyInstance.FromSlot = null;
         }
         else
         {
+            useables.Clear();
             this.MyUseable = useable;
         }
         UpdateVisual();
@@ -128,6 +128,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPoi
         if (count > 1)
         {
             UIManager.MyInstance.UpdateStackSize(this);
+        }else if (MyUseable is Spell)
+        {
+            UIManager.MyInstance.ClearStackCount(this);
         }
     }
     /// <summary>
@@ -164,7 +167,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPoi
         }
         if (tmp != null)
         {
-            UIManager.MyInstance.ShowToolitip(transform.position, tmp);
+            UIManager.MyInstance.ShowToolitip(new Vector2(1,0),transform.position, tmp);
         }
     }
 

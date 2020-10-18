@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99639a2e726140d99f1316b4516267a5, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: da641a37d6ddd31489313d6f7fdcea6c, type: 3}
+  stackSize: 0
+  titel: "\u6124\u6012\u957F\u5251"
+  quality: 3
+  armorType: 6
+  intellect: 10
+  strength: 25
+  stamina: 4
+  animationClips:
+  - {fileID: 7400000, guid: 0d5eec8e044128145a119b928d2e241a, type: 2}
+  - {fileID: 7400000, guid: 85f6a1cd60763714f96fd5fb87c9a171, type: 2}
+  - {fileID: 7400000, guid: 031ee46a76be4d44aa81bb2eeec7d71a, type: 2}
+  - {fileID: 7400000, guid: 350f91af2e6f4f4458f2c7c7f6c753bd, type: 2}
+  - {fileID: 7400000, guid: 3283fe82c032eb242b02d802f3734950, type: 2}
+  - {fileID: 7400000, guid: b41dc365102e9b14e8ee40671378c67f, type: 2}
+  - {fileID: 7400000, guid: 1dd1d4f3265cb454b80badaace69cd80, type: 2}
+  - {fileID: 7400000, guid: 645dc3b2efe05b24ba929ba59e10e118, type: 2}
+  - {fileID: 7400000, guid: a4fed67f82e172744bbdce94d9e40e43, type: 2}
+  - {fileID: 7400000, guid: 8d6faa500329fd046935173b09e0297f, type: 2}
+  - {fileID: 7400000, guid: 49ec5cd7322d9014392f689e930690f9, type: 2}
+  - {fileID: 7400000, guid: a41b77f49d7172a4389e21904029dfcd, type: 2}
