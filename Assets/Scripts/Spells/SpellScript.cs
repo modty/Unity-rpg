@@ -1,5 +1,5 @@
 using UnityEngine;
-
+// 73
 public class SpellScript : MonoBehaviour {
     /// <summary>
     /// 技能刚体

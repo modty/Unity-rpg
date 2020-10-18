@@ -1,5 +1,5 @@
 using UnityEngine;
-
+// 155
 public class Enemy : NPC
 {
     /// <summary>
@@ -13,6 +13,10 @@ public class Enemy : NPC
     /// </summary>
     private IState currentState;
 
+    [SerializeField]
+    private LootTable lootTable;
+
+    
     /// <summary>
     /// 敌人攻击范围
     /// </summary>
@@ -125,5 +129,12 @@ public class Enemy : NPC
         this.MyAggroRange = initAggroRange;
         this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxValue;
         OnHealthChanged(health.MyCurrentValue);
+    }
+    public override void Interact()
+    {
+        if (!IsAlive)
+        {
+            lootTable.ShowLoot();
+        }
     }
 }

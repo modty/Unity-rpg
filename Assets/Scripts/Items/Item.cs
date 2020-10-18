@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>
-/// 物品品质枚举
-/// </summary>
-public enum Quality {Common, Uncommon, Rare, Epic }
+
+// 115
+
 /// <summary>
 /// 所有物品的父类
 /// </summary>
@@ -66,31 +65,28 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
             slot = value;
         }
     }
+    public Quality MyQuality
+    {
+        get
+        {
+            return quality;
+        }
+    }
+    public string MyTitle
+    {
+        get
+        {
+            return titel;
+        }
+    }
+    
     /// <summary>
-    /// 返回特定物品的颜色
+    /// 返回特殊物品的描述
     /// </summary>
     /// <returns></returns>
     public virtual string GetDescription()
     {
-        string color = string.Empty;
-
-        switch (quality)
-        {
-            case Quality.Common:
-                color = "#d6d6d6";
-                break;
-            case Quality.Uncommon:
-                color = "#00ff00ff";
-                break;
-            case Quality.Rare:
-                color = "#0000ffff";
-                break;
-            case Quality.Epic:
-                color = "#800080ff";
-                break;
-        }
-
-        return string.Format("<color={0}>{1}</color>", color, titel);
+        return string.Format("<color={0}>{1}</color>", QualityColor.MyColors[MyQuality], MyTitle);
     }
     /// <summary>
     /// 从仓库中移除物体

@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+// 28
 [Serializable]// 用于分割块的类
 public class Block
 {

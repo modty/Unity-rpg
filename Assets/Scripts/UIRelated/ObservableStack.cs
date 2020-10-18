@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// 67
+
 //用于创建特殊事件的委托
 public delegate void UpdateStackEvent();
 

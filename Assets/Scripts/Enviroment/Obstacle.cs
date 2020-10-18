@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// 70
 public class Obstacle : MonoBehaviour, IComparable<Obstacle>
 {
     /// <summary>

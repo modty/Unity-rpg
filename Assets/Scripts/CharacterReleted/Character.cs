@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// 208
 // 所有角色需要继承的父类
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]

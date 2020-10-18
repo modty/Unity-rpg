@@ -1,8 +1,10 @@
 using System;
 using UnityEngine;
 
+// 142
+
 [Serializable]
-public class Spell:IUseable, IMoveable{
+public class Spell:IUseable, IMoveable , IDescribable{
     /// <summary>
     /// 技能名
     /// </summary>
@@ -133,6 +135,6 @@ public class Spell:IUseable, IMoveable{
     }
     public string GetDescription()
     {
-        return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", name, castTime,description, damage);
+        return string.Format("{0}\n 释放时间: {1} 秒(s)\n<color=#ffd111>{2}\n 伤害： {3} 点</color>", name, castTime,description, damage);
     }
 }

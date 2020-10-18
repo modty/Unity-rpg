@@ -1,5 +1,7 @@
 using UnityEngine;
 
+//62
+
 public delegate void HealthChanged(float health);
 
 public delegate void CharacterRemoved();
@@ -48,5 +50,10 @@ public class NPC : Character
         }
 
         Destroy(gameObject);
+    }
+    public virtual void Interact()
+    {
+        // 没有被重载的话
+        Debug.Log("This will open a dialogue with the NPC");
     }
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 364
+
+
 // 物品数目发生变化时
 public delegate void ItemCountChanged(Item item);
 
@@ -155,6 +158,13 @@ public class InventoryScript : MonoBehaviour
             HealthPotion potion = (HealthPotion)Instantiate(items[1]);
             AddItem(potion);
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            AddItem((Armor)Instantiate(items[2]));
+            AddItem((Armor)Instantiate(items[3]));
+            AddItem((Armor)Instantiate(items[4]));
+            AddItem((Armor)Instantiate(items[5]));
+        }
     
     }
 
@@ -244,25 +254,25 @@ public class InventoryScript : MonoBehaviour
     /// 往背包中添加物品（目标位所有已经装备的背包）
     /// </summary>
     /// <param name="item">要添加的物品</param>
-    public void AddItem(Item item)
+    public bool AddItem(Item item)
     {
         if (item.MyStackSize > 0)
         {
             // 如果添加的物品有数量，尝试堆叠，如果堆叠成功，直接返回，不然放到空位上
             if (PlaceInStack(item))
             {
-                return;
+                return true;
             }
         }
         // 堆叠失败，直接放置
-        PlaceInEmpty(item);
+        return PlaceInEmpty(item);
     }
     
     /// <summary>
     /// 将物品放到空格子中（检索范围为所有已经装备的背包）
     /// </summary>
     /// <param name="item">要添加的物品</param>
-    private void PlaceInEmpty(Item item)
+    private bool  PlaceInEmpty(Item item)
     {
         foreach (Bag bag in bags)
         {
@@ -270,9 +280,11 @@ public class InventoryScript : MonoBehaviour
             {
                 // 添加成功触发事件
                 OnItemCountChanged(item);
-                return;
+                return true;
             }
         }
+
+        return false;
     }
 
     /// <summary>

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 背包快捷栏的格子
 /// </summary>
+// 97
 public class BagButton : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
