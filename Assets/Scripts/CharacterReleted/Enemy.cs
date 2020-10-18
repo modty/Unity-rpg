@@ -1,7 +1,15 @@
 using UnityEngine;
-// 160
-public class Enemy : NPC
+// 202
+
+public delegate void HealthChanged(float health);
+
+public delegate void CharacterRemoved();
+public class Enemy : Character, IInteractable
 {
+    
+    public event HealthChanged healthChanged;
+
+    public event CharacterRemoved characterRemoved;
     /// <summary>
     /// 血条画布
     /// </summary>
@@ -29,6 +37,17 @@ public class Enemy : NPC
 
     public Vector3 MyStartPosition { get; set; }
 
+    [SerializeField]
+    private Sprite portrait;
+
+    public Sprite MyPortrait
+    {
+        get
+        {
+            return portrait;
+        }
+    }
+    
     [SerializeField]
     private float initAggroRange;
 
@@ -68,23 +87,25 @@ public class Enemy : NPC
     /// <summary>
     /// 当敌人被选中
     /// </summary>
-    public override Transform Select()
+    public Transform Select()
     {
         //显示血条
         healthGroup.alpha = 1;
 
-        return base.Select();
+        return hitBox;
     }
 
     /// <summary>
     /// 当敌人被取消选中
     /// </summary>
-    public override void DeSelect()
+    public void DeSelect()
     {
         //隐藏
         healthGroup.alpha = 0;
 
-        base.DeSelect();
+        healthChanged -= new HealthChanged(UIManager.MyInstance.UpdateTargetFrame);
+
+        characterRemoved -= new CharacterRemoved(UIManager.MyInstance.HideTargetFrame);
     }
     public override void TakeDamage(float damage, Transform source)
     {
@@ -130,7 +151,7 @@ public class Enemy : NPC
         this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxValue;
         OnHealthChanged(health.MyCurrentValue);
     }
-    public override void Interact()
+    public void Interact()
     {
         if (!IsAlive)
         {
@@ -138,8 +159,27 @@ public class Enemy : NPC
         }
     }
     
-    public override void StopInteract()
+    public void StopInteract()
     {
         LootWindow.MyInstance.Close();
+    }
+    
+    public void OnHealthChanged(float health)
+    {
+        if (healthChanged != null)
+        {
+            healthChanged(health);
+        }
+
+    }
+
+    public void OnCharacterRemoved()
+    {
+        if (characterRemoved != null)
+        {
+            characterRemoved();
+        }
+
+        Destroy(gameObject);
     }
 }

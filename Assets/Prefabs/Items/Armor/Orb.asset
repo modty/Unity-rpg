@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Orb
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 08a3ce61b5f11c647ab262937eee5e00, type: 3}
+  type: Orb
   stackSize: 0
   titel: "\u6728\u5B9D\u73E0"
   quality: 3

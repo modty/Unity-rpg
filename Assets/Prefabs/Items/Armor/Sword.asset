@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: da641a37d6ddd31489313d6f7fdcea6c, type: 3}
+  type: Sword
   stackSize: 0
   titel: "\u6124\u6012\u957F\u5251"
   quality: 3

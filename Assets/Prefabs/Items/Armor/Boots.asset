@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 7f184100b1526d34a9af3c5415d39a2c, type: 3}
+  type: boots
   stackSize: 0
   titel: "\u8349\u978B"
   quality: 3

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pants
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: f89751523916adf45935143261d4e7c6, type: 3}
+  type: Pants
   stackSize: 0
   titel: "\u8349\u88E4\u5B50"
   quality: 3

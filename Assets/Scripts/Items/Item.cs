@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,19 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     /// </summary>
     [SerializeField]
     private Sprite icon;
-
+    
+    [SerializeField] 
+    private String type;
+    
+    public String MyType
+    {
+        get
+        {
+            return type.ToLower();
+        }
+        set { type = value; }
+    }
+    
     /// <summary>
     /// 堆叠数量
     /// </summary>

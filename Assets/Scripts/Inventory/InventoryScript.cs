@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 315
+// 361
 
 
 // 物品数目发生变化时
@@ -152,7 +152,7 @@ public class InventoryScript : MonoBehaviour
             AddItem(bag);
 
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             // 添加药瓶
             HealthPotion potion = (HealthPotion)Instantiate(items[9]);
@@ -359,6 +359,51 @@ public class InventoryScript : MonoBehaviour
         return useables;
     }
  
+    public int GetItemCount(string type)
+    {
+        int itemCount = 0;
+
+        foreach (Bag bag in bags)
+        {
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty && slot.MyItem.MyType == type)
+                {
+                    itemCount += slot.MyItems.Count;
+                }
+            }
+        }
+
+        return itemCount;
+
+    }
+    
+    public Stack<Item> GetItems(string type, int count)
+    {
+        Stack<Item> items = new Stack<Item>();
+
+        foreach (Bag bag in bags)
+        {
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty && slot.MyItem.MyType == type)
+                {
+                    foreach (Item item in slot.MyItems)
+                    {
+                        items.Push(item);
+
+                        if (items.Count == count)
+                        {
+                            return items;
+                        }
+                    }
+                }
+            }
+        }
+
+        return items;
+
+    }
     
     /// <summary>
     /// 当物品数目改变，唤醒事件

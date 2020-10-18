@@ -2,15 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-// 69
+// 96
+
+public delegate void KillConfirmed(Character character);
 public class GameManager : MonoBehaviour {
     
+    public event KillConfirmed killConfirmedEvent;
+    
+    private static GameManager instance;
+    
+    public static GameManager MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+            }
+            return instance;
+        }
+
+    }
     /// <summary>
     /// 角色引用
     /// </summary>
     [SerializeField]
     private Player player;
-    private NPC currentTarget;
+    private Enemy currentTarget;
 	void Update ()
     {
         ClickTarget();
@@ -29,7 +47,7 @@ public class GameManager : MonoBehaviour {
                 {
                     currentTarget.DeSelect(); // 取消当前选中
                 }
-                currentTarget = hit.collider.GetComponent<NPC>(); // 选中新物体
+                currentTarget = hit.collider.GetComponent<Enemy>(); // 选中新物体
 
                 player.MyTarget = currentTarget.Select(); // 给角色选中物体引用
                 
@@ -59,5 +77,12 @@ public class GameManager : MonoBehaviour {
             }
         }
    
+    }
+    public void OnKillConfirmed(Character character)
+    {
+        if (killConfirmedEvent !=null)
+        {
+            killConfirmedEvent(character);
+        }
     }
 }

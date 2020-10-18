@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
             OpenClose(keybindMenu);
         }
         // P键打开技能菜单
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             OpenClose(spellBook);
         }
@@ -101,7 +101,7 @@ public class UIManager : MonoBehaviour
     /// 显示选中敌人的界面UI
     /// </summary>
     /// <param name="target"></param>
-    public void ShowTargetFrame(NPC target)
+    public void ShowTargetFrame(Enemy target)
     {
         // 设置对象有效
         targetFrame.SetActive(true);

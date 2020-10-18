@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Helmet02
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: f12e6259250219943b11ebe8bb7555c5, type: 3}
+  type: Helmet02
   stackSize: 0
   titel: "\u94C1\u5934\u76D4"
   quality: 2

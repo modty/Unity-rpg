@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 68a03393a2974a64facce009410dc21b, type: 3}
+  type: chest
   stackSize: 0
   titel: "\u8349\u7532"
   quality: 2

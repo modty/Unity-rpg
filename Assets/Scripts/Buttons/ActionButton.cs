@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-// 200
+// 208
 public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
@@ -62,7 +62,15 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable,IPoi
 
         set
         {
-            MyUseable = value.Peek();
+            if (value.Count > 0)
+            {
+                MyUseable = value.Peek();
+            }
+            else
+            {
+                MyUseable = null;
+            }
+            
             useables = value;
         }
     }

@@ -18,7 +18,7 @@ public class DeathBehaviour : StateMachineBehaviour {
 
         if (timePassed >= 5)
         {
-            animator.GetComponent<NPC>().OnCharacterRemoved();
+            animator.GetComponent<Enemy>().OnCharacterRemoved();
         }
     }
 

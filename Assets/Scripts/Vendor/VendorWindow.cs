@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 101
+// 93
 
-public class VendorWindow : MonoBehaviour
+public class VendorWindow : Window
 {
-    [SerializeField]
-    private CanvasGroup canvasGroup;
 
     [SerializeField]
     private VendorButton[] vendorButtons;
@@ -58,21 +56,6 @@ public class VendorWindow : MonoBehaviour
         }
     }
 
-    public void Open(Vendor vendor)
-    {
-        this.vendor = vendor;
-        canvasGroup.alpha = 1;
-        canvasGroup.blocksRaycasts = true;
-    }
-
-    public void Close()
-    {
-        vendor.IsOpen = false;
-        canvasGroup.alpha = 0;
-        canvasGroup.blocksRaycasts = false;
-        vendor = null;
-    }
-
     public void NextPage()
     {
         if (pageIndex < pages.Count -1)
@@ -99,5 +82,10 @@ public class VendorWindow : MonoBehaviour
         {
             btn.gameObject.SetActive(false);
         }
+    }
+    public override void Open(NPC npc)
+    {
+        CreatePages((npc as Vendor).MyItems);
+        base.Open(npc);
     }
 }

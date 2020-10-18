@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 208
+// 220
 // 所有角色需要继承的父类
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -12,6 +12,18 @@ public abstract class Character : MonoBehaviour {
     [SerializeField]
     private float speed;
 
+    [SerializeField] private string title;
+
+    public string MyTitle {
+        get { return title.ToLower(); }
+        set { title = value; }
+    }
+    [SerializeField]
+    private string type;
+
+    /// <summary>
+    /// 角色的动画
+    /// </summary>
     public Animator MyAnimator { get; set; }
     // 角色移动方向
     protected Vector2 direction;
@@ -89,7 +101,14 @@ public abstract class Character : MonoBehaviour {
             return  health.MyCurrentValue > 0;
         }
     }
-    
+    public string MyType
+    {
+        get
+        {
+            return type;
+        }
+    }
+
     protected virtual void Start(){
         health.Initialize(initHealth, initHealth);
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -171,6 +190,7 @@ public abstract class Character : MonoBehaviour {
         {
             Direction = Vector2.zero;
             myRigidbody.velocity = Direction;
+            GameManager.MyInstance.OnKillConfirmed(this);
             MyAnimator.SetTrigger("die");
         }
     }
