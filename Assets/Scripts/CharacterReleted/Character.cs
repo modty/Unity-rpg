@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 220
+// 226
 // 所有角色需要继承的父类
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -186,6 +186,8 @@ public abstract class Character : MonoBehaviour {
     {
         health.MyCurrentValue -= damage;
 
+        CombatTextManager.MyInstance.CreateText(transform.position, damage.ToString(), SCTTYPE.DAMAGE,false);
+        
         if (health.MyCurrentValue <= 0)
         {
             Direction = Vector2.zero;
@@ -193,5 +195,10 @@ public abstract class Character : MonoBehaviour {
             GameManager.MyInstance.OnKillConfirmed(this);
             MyAnimator.SetTrigger("die");
         }
+    }
+    public void GetHealth(int health)
+    {
+        MyHealth.MyCurrentValue += health;
+        CombatTextManager.MyInstance.CreateText(transform.position, health.ToString(),SCTTYPE.HEAL,true);
     }
 }
