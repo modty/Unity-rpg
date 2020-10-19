@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 63
-
 public enum SCTTYPE {DAMAGE,HEAL,XP}
 
 public class CombatTextManager : MonoBehaviour
@@ -29,7 +27,6 @@ public class CombatTextManager : MonoBehaviour
 
     public void CreateText(Vector2 position, string text, SCTTYPE type, bool crit)
     {
-        // 偏移量
         position.y += 0.8f;
         Text sct = Instantiate(combatTextPrefab, transform).GetComponent<Text>();
         sct.transform.position = position;
@@ -52,7 +49,8 @@ public class CombatTextManager : MonoBehaviour
                 sct.color = Color.yellow;
                 break;
         }
-        sct.text = before + text+after;
+
+        sct.text = before + text + after;
 
         if (crit)
         {

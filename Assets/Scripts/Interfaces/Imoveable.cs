@@ -1,6 +1,4 @@
-using UnityEngine;
-
-// 9
+﻿using UnityEngine;
 
 public interface IMoveable
 {

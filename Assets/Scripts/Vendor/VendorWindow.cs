@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 93
-
 public class VendorWindow : Window
 {
-
     [SerializeField]
     private VendorButton[] vendorButtons;
 
@@ -56,6 +53,8 @@ public class VendorWindow : Window
         }
     }
 
+
+
     public void NextPage()
     {
         if (pageIndex < pages.Count -1)
@@ -83,6 +82,7 @@ public class VendorWindow : Window
             btn.gameObject.SetActive(false);
         }
     }
+
     public override void Open(NPC npc)
     {
         CreatePages((npc as Vendor).MyItems);

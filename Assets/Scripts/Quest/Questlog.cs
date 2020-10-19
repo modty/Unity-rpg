@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 197
-
 public class Questlog : MonoBehaviour
 {
 
@@ -49,17 +47,22 @@ public class Questlog : MonoBehaviour
 
     }
 
+    public List<Quest> MyQuests
+    {
+        get
+        {
+            return quests;
+        }
+
+        set
+        {
+            quests = value;
+        }
+    }
+
     private void Start()
     {
         questCountTxt.text = currentCount + "/" + maxCount;
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            OpenClose();
-        }
     }
 
     public void AcceptQuest(Quest quest)
@@ -79,7 +82,7 @@ public class Questlog : MonoBehaviour
                 GameManager.MyInstance.killConfirmedEvent += new KillConfirmed(o.UpdateKillCount);
             }
 
-            quests.Add(quest);
+            MyQuests.Add(quest);
 
             GameObject go = Instantiate(questPrefab, questParent);
 
@@ -120,14 +123,14 @@ public class Questlog : MonoBehaviour
 
             foreach (Objective obj in quest.MyCollectObjectives)
             {
-                objectives += obj.MyTitle + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+                objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
             }
             foreach (Objective obj in quest.MyKillObjectives)
             {
-                objectives += obj.MyTitle + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+                objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
             }
 
-            questDescription.text = string.Format("{0}\n<size=10>{1}</size>\n\n完成度：\n<size=10>{2}</size>", title, quest.MyDescription, objectives);
+            questDescription.text = string.Format("{0}\n<size=10>{1}</size>\n\nObjectives\n<size=10>{2}</size>", title, quest.MyDescription, objectives);
         }
 
 
@@ -163,7 +166,7 @@ public class Questlog : MonoBehaviour
 
     public void AbandonQuest()
     {
-        // 从任务列表中移除任务
+
         foreach (CollectObjective o in selected.MyCollectObjectives)
         {
             InventoryScript.MyInstance.itemCountChangedEvent -= new ItemCountChanged(o.UpdateItemCount);
@@ -180,21 +183,19 @@ public class Questlog : MonoBehaviour
 
     public void RemoveQuest(QuestScript qs)
     {
-        if (questScripts.Count > 0&&questScripts.Remove(qs))
-        {
-            Destroy(qs.gameObject);
-            quests.Remove(qs.MyQuest);
-            questDescription.text = string.Empty;
-            selected = null;
-            currentCount--;
-            questCountTxt.text = currentCount + "/" + maxCount;
-            qs.MyQuest.MyQuestGiver.UpdateQuestStatus();
-            qs = null;
-        }
+        questScripts.Remove(qs);
+        Destroy(qs.gameObject);
+        MyQuests.Remove(qs.MyQuest);
+        questDescription.text = string.Empty;
+        selected = null;
+        currentCount--;
+        questCountTxt.text = currentCount + "/" + maxCount;
+        qs.MyQuest.MyQuestGiver.UpdateQuestStatus();
+        qs = null;
     }
 
     public bool HasQuest(Quest quest)
     {
-        return quests.Exists(x => x.MyTitle == quest.MyTitle);
+        return MyQuests.Exists(x => x.MyTitle == quest.MyTitle);
     }
 }

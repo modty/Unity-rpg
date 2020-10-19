@@ -1,6 +1,6 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-// 29
 
 [System.Serializable]
 public class Loot

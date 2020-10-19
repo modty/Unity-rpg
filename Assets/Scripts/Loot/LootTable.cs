@@ -1,31 +1,30 @@
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-//39
 
 public class LootTable : MonoBehaviour
 {
     [SerializeField]
-    private Loot[] loot;
+    protected Loot[] loot;
 
-    private List<Item> droppedItems = new List<Item>();
+    public List<Drop> MyDroppedItems { get; set; }
 
     private bool rolled = false;
 
-    public void ShowLoot()
+    public List<Drop> GetLoot()
     {
         if (!rolled)
         {
+            MyDroppedItems = new List<Drop>();
             RollLoot();
         }
 
-
-        LootWindow.MyInstance.CreatePages(droppedItems);
+        return MyDroppedItems;
     }
-
-    // 根据概率添加战利品
-    private void RollLoot()
+    /// <summary>
+    /// 根据概率添加战利品
+    /// </summary>
+    protected virtual void RollLoot()
     {
         foreach (Loot item in loot)
         {
@@ -33,7 +32,7 @@ public class LootTable : MonoBehaviour
 
             if (roll <= item.MyDropChance)
             {
-                droppedItems.Add(item.MyItem);
+                MyDroppedItems.Add(new Drop(item.MyItem, this));
             }
         }
 

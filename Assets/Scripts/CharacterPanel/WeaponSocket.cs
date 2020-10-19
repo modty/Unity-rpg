@@ -1,14 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
-// 32
-
 class WeaponSocket : GearSocket
 {
     private float currentY;
+    private float currentX;
 
     [SerializeField]
     private SpriteRenderer parentRenderer;
@@ -21,12 +20,15 @@ class WeaponSocket : GearSocket
         {
             if (y == 1)
             {
-                spriteRenderer.sortingOrder = parentRenderer.sortingOrder - 1;
+                transform.localPosition = new Vector3(0, 0.854f, 0);
             }
             else
             {
-                spriteRenderer.sortingOrder = parentRenderer.sortingOrder + 5;
+                transform.localPosition = new Vector3(0, 0.850f, 0);
             }
+
+            currentY = y;
         }
+
     }
 }

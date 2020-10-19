@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-//59
-
 /// <summary>
 /// 敌人的跟随状态
 /// </summary>
@@ -12,14 +10,16 @@ class FollowState : IState
     /// </summary>
     private Enemy parent;
 
+    private Vector3 offset;
+
     /// <summary>
     /// 进入状态
     /// </summary>
     public void Enter(Enemy parent)
     {
+        Player.MyInstance.AddAttacker(parent);
         this.parent = parent;
     }
-
     /// <summary>
     /// 退出状态
     /// </summary>
@@ -35,15 +35,28 @@ class FollowState : IState
     {
         if (parent.MyTarget != null)// 如果有目标，保持跟随
         {
-            // 找到目标的位置
-            var position = parent.transform.position;
-            parent.Direction = (parent.MyTarget.transform.position - position).normalized;
+            parent.Direction = ((parent.MyTarget.transform.position+ offset) - parent.transform.position).normalized;
 
-            // 朝目标移动
-            position = Vector2.MoveTowards(position, parent.MyTarget.position, parent.Speed * Time.deltaTime);
-            parent.transform.position = position;
+            float distance = Vector2.Distance(parent.MyTarget.transform.position+offset, parent.transform.position);
 
-            float distance = Vector2.Distance(parent.MyTarget.position, position);
+            string animName = parent.MySpriteRenderer.sprite.name;
+
+            if (animName.Contains("right"))
+            {
+                offset = new Vector3(0.5f, 0.8f);
+            }
+            else if (animName.Contains("left"))
+            {
+                offset = new Vector3(-0.5f, 0.8f);
+            }
+            else if (animName.Contains("up"))
+            {
+                offset = new Vector3(0f, 1.2f);
+            }
+            else if (animName.Contains("down"))
+            {
+                offset = new Vector3(0, 0);
+            }
 
             if (distance <= parent.MyAttackRange)
             {
@@ -54,7 +67,7 @@ class FollowState : IState
         if (!parent.InRange)
         {
             parent.ChangeState(new EvadeState());
-        } // 失去目标，返回原位置并静止
+        } 
        
     }
 }

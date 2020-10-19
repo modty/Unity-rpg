@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 79
+
 public class AttackState : IState
 {
     /// <summary>
@@ -18,7 +18,11 @@ public class AttackState : IState
     /// </summary>
     public void Enter(Enemy parent)
     {
-        this.parent = parent; 
+       
+        this.parent = parent;
+        parent.MyRigidbody.velocity = Vector2.zero;
+        parent.Direction = Vector2.zero;
+        
     }
 
     public void Exit()
@@ -38,17 +42,27 @@ public class AttackState : IState
             parent.StartCoroutine(Attack());
         }
 
-        if (parent.MyTarget != null) // 如果有攻击目标判断是跟随他还是攻击他
+        if (parent.MyTarget != null)// 如果有攻击目标判断是跟随他还是攻击他
         {
             // 计算与目标之间的距离
-            float distance = Vector2.Distance(parent.MyTarget.position, parent.transform.position);
+            float distance = Vector2.Distance(parent.MyTarget.transform.parent.position, parent.transform.parent.position);
 
             // 如果目标太远，走向他
-            if (distance >= parent.MyAttackRange+extraRange && !parent.IsAttacking)
+            if (distance >= parent.MyAttackRange + extraRange && !parent.IsAttacking)
             {
-                parent.ChangeState(new FollowState());
+                if (parent is RangedEnemy)
+                {
+                    
+                    parent.ChangeState(new PathState());
+                }
+                else
+                {
+                    // 跟随目标
+                    parent.ChangeState(new FollowState());
+                }
+               
             }
-       
+
 
         }
         else// 如果距离太远，静止

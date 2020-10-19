@@ -1,9 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
-// 122
 
 public class KeybindManager : MonoBehaviour
 {
@@ -27,7 +25,6 @@ public class KeybindManager : MonoBehaviour
             return instance;
         }
     }
-
     /// <summary>
     /// 为所有移动键绑定的字典
     /// </summary>
@@ -86,7 +83,6 @@ public class KeybindManager : MonoBehaviour
         {
             //搜寻旧的快捷键
             string myKey = currentDictionary.FirstOrDefault(x => x.Value == keyBind).Key;
-
             //取消旧的快捷键
             currentDictionary[myKey] = KeyCode.None;
             UIManager.MyInstance.UpdateKeyText(key, KeyCode.None);

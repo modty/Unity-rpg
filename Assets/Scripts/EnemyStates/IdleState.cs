@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-// 44
-partial class IdleState : IState
+
+class IdleState : IState
 {
     /// <summary>
     /// 敌人对象的引用
@@ -37,7 +37,7 @@ partial class IdleState : IState
         // 如果有角色在附近，进入更随
         if (parent.MyTarget != null)
         {
-            parent.ChangeState(new FollowState());
+            parent.ChangeState(new PathState());
         }
     }
 }

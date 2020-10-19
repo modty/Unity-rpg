@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-// 64
+
 public class LootButton : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler, IPointerClickHandler
 {
 
@@ -54,7 +54,7 @@ public class LootButton : MonoBehaviour, IPointerEnterHandler,IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.MyInstance.ShowTooltip(new Vector2(1,0),transform.position, MyLoot);
+        UIManager.MyInstance.ShowTooltip(new Vector2(1,0), transform.position, MyLoot);
     }
 
     public void OnPointerExit(PointerEventData eventData)

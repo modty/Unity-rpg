@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 45
-
 [System.Serializable]
 public class VendorItem
 {

@@ -1,6 +1,10 @@
+﻿using Assets.Scripts.Debuffs;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-// 73
+
 public class SpellScript : MonoBehaviour {
+
     /// <summary>
     /// 技能刚体
     /// </summary>
@@ -12,20 +16,31 @@ public class SpellScript : MonoBehaviour {
     [SerializeField]
     private float speed;
 
-    private int damage;
-
     /// <summary>
     /// 技能目标
     /// </summary>
-    public Transform MyTarget { get; set; }
+    public Transform MyTarget { get; private set; }
 
-    private Transform source;
-    
+    private Character source;
+
+    private float damage;
+
+    private Debuff debuff;
+
     void Start ()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+	}
+
+    public void Initialize(Transform target, float damage, Character source, Debuff debuff)
+    {
+        this.MyTarget = target;
+        this.damage = damage;
+        this.source = source;
+        this.debuff = debuff;
     }
-    public void Initialize(Transform target, int damage, Transform source)
+
+    public void Initialize(Transform target, float damage, Character source)
     {
         this.MyTarget = target;
         this.damage = damage;
@@ -44,6 +59,7 @@ public class SpellScript : MonoBehaviour {
 
             // 计算旋转角度并旋转
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
@@ -57,6 +73,13 @@ public class SpellScript : MonoBehaviour {
             Character c = collision.GetComponentInParent<Character>();
             speed = 0;
             c.TakeDamage(damage, source);
+
+            if (debuff != null)
+            {
+                Debuff clone = debuff.Clone();
+                clone.Apply(c);
+            }
+
             GetComponent<Animator>().SetTrigger("impact");
             myRigidBody.velocity = Vector2.zero;
             MyTarget = null;

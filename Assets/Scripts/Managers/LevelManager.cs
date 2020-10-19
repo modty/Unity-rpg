@@ -4,9 +4,6 @@ using UnityEngine;
 using System;
 using UnityEngine.U2D;
 
-// 331
-
-// 根据图片像素创建地图
 public class LevelManager : MonoBehaviour
 {
     /// <summary>
@@ -27,6 +24,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private MapElement[] mapElements;
 
+
     /// <summary>
     /// 是用来测量瓷砖之间的距离
     /// </summary>
@@ -34,11 +32,12 @@ public class LevelManager : MonoBehaviour
     private Sprite defaultTile;
 
     /// <summary>
-    /// Dictionay for all water tiles
+    /// 所有水瓷砖字典
     /// </summary>
     private Dictionary<Point, GameObject> waterTiles = new Dictionary<Point, GameObject>();
+
     /// <summary>
-    /// 所有水瓷砖
+    /// 水瓷砖Atlas
     /// </summary>
     [SerializeField]
     private SpriteAtlas waterAtlas;
@@ -55,13 +54,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
 	void Start ()
-    {
+    { 
         GenerateMap();
 	}
-    
-
+	
+	void Update () {
+		
+	}
     /// <summary>
     /// 创造一个地图，根据像素图片
     /// </summary>
@@ -69,6 +69,7 @@ public class LevelManager : MonoBehaviour
     {
         int height = mapData[0].height;
         int width = mapData[0].width;
+
         for (int i = 0; i < mapData.Length; i++)// 遍历地图元素
         {
             for (int x = 0; x < mapData[i].width; x++) // 遍历所有像素点
@@ -90,6 +91,7 @@ public class LevelManager : MonoBehaviour
                         GameObject go = Instantiate(newElement.MyElementPrefab);
                         // 设置瓷砖位置
                         go.transform.position = new Vector2(xPos, yPos);
+
                         if (newElement.MyTileTag == "Water")
                         {
                             waterTiles.Add(new Point(x,y), go);
@@ -99,7 +101,7 @@ public class LevelManager : MonoBehaviour
                             // 将树放入地图需要设置其排序数
                             go.GetComponent<SpriteRenderer>().sortingOrder = height*2 - y*2;
                         }
-                        
+
                         // 将瓷砖元素添加到Map中
                         go.transform.parent = map;
 
@@ -108,15 +110,17 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+
         CheckWater();
     }
+
     /// <summary>
     /// 检测所有的水瓷砖，这样就能正确的切换图片
     /// </summary>
-    private void CheckWater()
+    public void CheckWater()
     {
-       foreach (KeyValuePair<Point, GameObject> tile in waterTiles)
-       {
+        foreach (KeyValuePair<Point, GameObject> tile in waterTiles)
+        {
             string composition = TileCheck(tile.Key);
 
             if (composition[1] == 'E' && composition[3] == 'W' && composition[4] == 'E' && composition[6] == 'W')
@@ -217,8 +221,9 @@ public class LevelManager : MonoBehaviour
 
             }
 
-       }
+        }
     }
+
     /// <summary>
     /// 检测每个瓷砖的相邻瓷砖
     /// </summary>
@@ -226,13 +231,12 @@ public class LevelManager : MonoBehaviour
     /// <returns></returns>
     private string TileCheck(Point currentPoint)
     {
-        string composition = string.Empty; 
-
+        string composition = string.Empty;
         for (int x = -1; x <= 1; x++)//遍历相邻瓷砖
         {
             for (int y = -1; y <= 1; y++)
             {
-                if (x != 0 || y != 0) //不检测自己
+                if (x != 0 || y != 0)  //不检测自己
                 {
                     // 如果检测到水
                     if (waterTiles.ContainsKey(new Point(currentPoint.MyX+x, currentPoint.MyY+y)))
@@ -246,9 +250,9 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log(composition);
         return composition;
-    }   
+
+    }
 }
 
 [Serializable]
@@ -259,18 +263,19 @@ public class MapElement
     /// </summary>
     [SerializeField]
     private string tileTag;
-
     /// <summary>
     /// 瓷砖颜色
     /// </summary>
     [SerializeField]
     private Color color;
 
+
     /// <summary>
     /// 平铺地图的瓷砖预制件
     /// </summary>
     [SerializeField]
     private GameObject elementPrefab;
+
 
     public GameObject MyElementPrefab
     {
@@ -280,6 +285,7 @@ public class MapElement
         }
     }
 
+
     public Color MyColor
     {
         get
@@ -287,6 +293,7 @@ public class MapElement
             return color;
         }
     }
+
 
     public string MyTileTag
     {

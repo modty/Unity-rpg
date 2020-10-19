@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// 67
-
-//用于创建特殊事件的委托
+//A delegate for creating event
 public delegate void UpdateStackEvent();
 
 public class ObservableStack<T> : Stack<T>
@@ -39,9 +37,9 @@ public class ObservableStack<T> : Stack<T>
     {
         base.Push(item);
 
-        if (OnPush != null) // 确保事件发生时不会空指针
+        if (OnPush != null) 
         {
-            OnPush(); // 触发事件
+            OnPush();
         }
     }
 
@@ -49,7 +47,7 @@ public class ObservableStack<T> : Stack<T>
     {
         T item = base.Pop();
 
-        if (OnPop != null)
+        if (OnPop != null) 
         {
             OnPop();
         }

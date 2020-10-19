@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-// 193
+
 public class SpellBook : MonoBehaviour
 {
-    
     private static SpellBook instance;
 
     public static SpellBook MyInstance
@@ -20,13 +20,13 @@ public class SpellBook : MonoBehaviour
             return instance;
         }
     }
-    
+
     /// <summary>
     /// 技能释放条
     /// </summary>
     [SerializeField]
     private Image castingBar;
-    
+
     /// <summary>
     /// 技能读条上面的技能
     /// </summary>
@@ -62,46 +62,48 @@ public class SpellBook : MonoBehaviour
     /// </summary>
     private Coroutine spellRoutine;
 
+
     /// <summary>
     /// 浅出效果协程
     /// </summary>
     private Coroutine fadeRoutine;
 
-    public Spell CastSpell(string spellName)
+    [SerializeField]
+    private GameObject[] obtainableSpells;
+
+
+    public void Cast(ICastable castable)
     {
-        Spell spell = Array.Find(spells, x => x.MyName == spellName);
         //初始化填充数
         castingBar.fillAmount = 0;
 
         //改变技能条颜色
-        castingBar.color = spell.MyBarColor;
+        castingBar.color = castable.MyBarColor;
 
         //改变技能读条文本
-        currentSpell.text = spell.MyName;
+        currentSpell.text = castable.MyTitle;
 
         //改变技能读条图标
-        icon.sprite = spell.MyIcon;
+        icon.sprite = castable.MyIcon;
 
         //开始读条
-        spellRoutine = StartCoroutine(Progress(spell));
+        spellRoutine = StartCoroutine(Progress(castable));
 
         //浅出效果
         fadeRoutine = StartCoroutine(FadeBar());
-
-        //返回技能
-        return spell;
     }
+    
     /// <summary>
     /// 更新技能释放条上相关信息
     /// </summary>
     /// <param name="spell">技能对象</param>
-    private IEnumerator Progress(Spell spell)
+    private IEnumerator Progress(ICastable castable)
     {
         // 技能释放已经等待的时间
         float timePassed = Time.deltaTime;
 
         //技能释放条加载速度
-        float rate = 1.0f / spell.MyCastTime;
+        float rate = 1.0f / castable.MyCastTime;
 
         //技能释放进度
         float progress = 0.0f;
@@ -110,16 +112,16 @@ public class SpellBook : MonoBehaviour
         {
             // 根据进度更新释放条
             castingBar.fillAmount = Mathf.Lerp(0, 1, progress);
-
             // 进度增加
             progress += rate * Time.deltaTime;
 
             //更新时间
             timePassed += Time.deltaTime;
-        
+
             //更新文本
-            castTime.text = (spell.MyCastTime - timePassed).ToString("F2");
-            if (spell.MyCastTime - timePassed < 0) // 确保不小于0
+            castTime.text = (castable.MyCastTime - timePassed).ToString("F2");
+
+            if (castable.MyCastTime - timePassed < 0) // 确保不小于0
             {
                 castTime.text = "0.00";
             }
@@ -127,9 +129,9 @@ public class SpellBook : MonoBehaviour
             yield return null;
         }
 
-
         StopCating();
     }
+
     /// <summary>
     /// 开始读条后添加暗淡效果
     /// </summary>
@@ -143,13 +145,14 @@ public class SpellBook : MonoBehaviour
 
         while (progress <= 1.0)
         {
-
             canvasGroup.alpha = Mathf.Lerp(0, 1, progress);
+
             progress += rate * Time.deltaTime;
 
             yield return null;
         }
     }
+
     /// <summary>
     /// 退出进度条
     /// </summary>
@@ -169,9 +172,28 @@ public class SpellBook : MonoBehaviour
             spellRoutine = null;
         }
     }
+
+    
+    public void LearnSpell(string name)
+    {
+        switch (name.ToLower())
+        {
+            case "rain of fire":
+                obtainableSpells[0].SetActive(true);
+                break;
+            case "blizzard":
+                obtainableSpells[1].SetActive(true);
+                break;
+            case "chainlightning":
+                obtainableSpells[2].SetActive(true);
+                break;
+
+        }
+    }
+
     public Spell GetSpell(string spellName)
     {
-        Spell spell = Array.Find(spells, x => x.MyName == spellName);
+        Spell spell = Array.Find(spells, x => x.MyTitle == spellName);
 
         return spell;
     }

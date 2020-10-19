@@ -3,8 +3,11 @@
 --- !u!221 &22100000
 AnimatorOverrideController:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: GearController
   m_Controller: {fileID: 9100000, guid: f6d77302cef8cd14f97184d3d7e5839c, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: db118ee3a70546a418862a460dc0c5d7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: db118ee3a70546a418862a460dc0c5d7, type: 2}

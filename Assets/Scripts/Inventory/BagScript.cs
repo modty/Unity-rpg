@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 140
+
 public class BagScript : MonoBehaviour
 {
-
     /// <summary>
     /// 背包格子预制体
     /// </summary>
@@ -21,6 +20,8 @@ public class BagScript : MonoBehaviour
     /// </summary>
     private List<SlotScript> slots = new List<SlotScript>();
 
+    public int MyBagIndex { get; set; }
+
     /// <summary>
     /// 背包打开还是关闭（根据透明度alpha判断，1：打开，0：未打开），true : 背包被打开，false : 背包没有打开
     /// </summary>
@@ -31,7 +32,6 @@ public class BagScript : MonoBehaviour
             return canvasGroup.alpha > 0;
         }
     }
-
     /// <summary>
     /// 当前背包中的所有格子
     /// </summary>
@@ -62,7 +62,9 @@ public class BagScript : MonoBehaviour
             return count;
         }
     }
-    
+
+   
+
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -86,9 +88,10 @@ public class BagScript : MonoBehaviour
                 }
             }
         }
+
         return items;
     }
-    
+
     /// <summary>
     /// 为背包初始化格子
     /// </summary>
@@ -98,6 +101,7 @@ public class BagScript : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             SlotScript slot = Instantiate(slotPrefab, transform).GetComponent<SlotScript>();
+            slot.MyIndex = i;
             slot.MyBag = this;
             MySlots.Add(slot);
         }
@@ -122,6 +126,7 @@ public class BagScript : MonoBehaviour
         return false;
     }
 
+
     /// <summary>
     /// 打开、关闭背包（1、透明度转换，2、鼠标射线是否阻挡转换）
     /// </summary>
@@ -132,6 +137,7 @@ public class BagScript : MonoBehaviour
 
         canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
     }
+
     public void Clear()
     {
         foreach (SlotScript slot in slots)

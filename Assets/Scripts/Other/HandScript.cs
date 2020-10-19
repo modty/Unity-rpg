@@ -1,16 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// 113
-
 public class HandScript : MonoBehaviour
 {
-    /// <summary>
-    /// 单例对象
-    /// </summary>
+
     private static HandScript instance;
 
     public static HandScript MyInstance
@@ -30,7 +26,6 @@ public class HandScript : MonoBehaviour
     /// 当前鼠标拉取的对象
     /// </summary>
     public IMoveable MyMoveable { get; set; }
-
     /// <summary>
     /// 鼠标拉取对象的图标
     /// </summary>
@@ -45,17 +40,20 @@ public class HandScript : MonoBehaviour
     void Start ()
     {
         icon = GetComponent<Image>();	
-    }
+	}
 	
-    void Update ()
+	void Update ()
     {
-        // 使拉取的物体跟随鼠标
         icon.transform.position = Input.mousePosition+offset;
+
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
         {
             DeleteItem();
         }
-    }
+
+      
+	}
+
 
     /// <summary>
     /// 将拉取物体复制到鼠标位置，跟随鼠标移动
@@ -65,30 +63,30 @@ public class HandScript : MonoBehaviour
     {
         this.MyMoveable = moveable;
         icon.sprite = moveable.MyIcon;
-        icon.color = Color.white;
+        icon.enabled = true;
     }
 
     public IMoveable Put()
     {
         IMoveable tmp = MyMoveable;
         MyMoveable = null;
-        icon.color = new Color(0, 0, 0, 0);
+        icon.enabled = false;
         return tmp;
     }
-    
     /// <summary>
     /// 取消鼠标上显示的物品图标（放下物品）
     /// </summary>
     public void Drop()
     {
         MyMoveable = null;
-        icon.color = new Color(0, 0, 0, 0);
+        icon.enabled = false;
         InventoryScript.MyInstance.FromSlot = null;
     }
+    
     /// <summary>
     /// 从仓库中删除物品
     /// </summary>
-    private void DeleteItem()
+    public void DeleteItem()
     {
         if (MyMoveable is Item)
         {

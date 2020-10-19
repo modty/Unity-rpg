@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 142
 
 /// <summary>
 /// 所有物品的父类
@@ -15,24 +13,13 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     /// </summary>
     [SerializeField]
     private Sprite icon;
-    
-    [SerializeField] 
-    private String type;
-    
-    public String MyType
-    {
-        get
-        {
-            return type.ToLower();
-        }
-        set { type = value; }
-    }
-    
+
     /// <summary>
     /// 堆叠数量
     /// </summary>
     [SerializeField]
     private int stackSize;
+
     /// <summary>
     /// 物品的标题
     /// </summary>
@@ -45,17 +32,13 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     [SerializeField]
     private Quality quality;
 
-    /// <summary>
-    /// 物品的格子
-    /// </summary>
     private SlotScript slot;
 
     private CharButton charButton;
-    
+
     [SerializeField]
     private int price;
 
-    
     public Sprite MyIcon
     {
         get
@@ -84,6 +67,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
             slot = value;
         }
     }
+
     public Quality MyQuality
     {
         get
@@ -91,6 +75,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
             return quality;
         }
     }
+
     public string MyTitle
     {
         get
@@ -98,6 +83,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
             return titel;
         }
     }
+
     public CharButton MyCharButton
     {
         get
@@ -119,6 +105,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
             return price;
         }
     }
+
     /// <summary>
     /// 返回特殊物品的描述
     /// </summary>
@@ -135,7 +122,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         if (MySlot != null)
         {
             MySlot.RemoveItem(this);
-            MySlot = null;
+
         }
     }
 }

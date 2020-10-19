@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 74
-
 public class CharacterPanel : MonoBehaviour {
-    
+
     private static CharacterPanel instance;
+
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
+    [SerializeField]
+    private CharButton head, shoulders, chest, hands, legs, feet, main, off;
+
+    public CharButton MySlectedButton { get; set; }
+
     public static CharacterPanel MyInstance
     {
         get
@@ -19,13 +26,6 @@ public class CharacterPanel : MonoBehaviour {
             return instance;
         }
     }
-    [SerializeField]
-    private CanvasGroup canvasGroup;
-
-    [SerializeField]
-    private CharButton head, shoulders, chest, hands, legs, feet, main, off;
-
-    public CharButton MySlectedButton { get; set; }
 
     public void OpenClose()
     {
@@ -40,6 +40,7 @@ public class CharacterPanel : MonoBehaviour {
             canvasGroup.alpha = 0;
         }
     }
+
     public void EquipArmor(Armor armor)
     {
         switch (armor.MyArmorType)

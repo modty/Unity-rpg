@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5e23b1150d13642bcafc8edae832dc, type: 3}
+  m_Name: Pants
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: f89751523916adf45935143261d4e7c6, type: 3}
+  stackSize: 0
+  titel: Pants
+  quality: 3
+  price: 0
+  armorType: 4
+  intellect: 10
+  strength: 25
+  stamina: 4
+  animationClips:
+  - {fileID: 7400000, guid: c9c140cd9aabc7c44bea1d8ec7f69221, type: 2}
+  - {fileID: 7400000, guid: 594f5fe2245d56f44b0c861dd772fc85, type: 2}
+  - {fileID: 7400000, guid: 559045b3f33025d41bd5b53bae7121d9, type: 2}
+  - {fileID: 7400000, guid: 54f1902cbf2311643b87d56776d033d4, type: 2}
+  - {fileID: 7400000, guid: f0f1eb984296e744e889c47d172cd0f4, type: 2}
+  - {fileID: 7400000, guid: 4f90633dd663bb5428cd32ae28306955, type: 2}
+  - {fileID: 7400000, guid: 2569521c657b45d4e9f6d7c7aaae1636, type: 2}
+  - {fileID: 7400000, guid: b74671cf82d42cc43b1103fa8bbd3cb1, type: 2}
+  - {fileID: 7400000, guid: 8bb6f701214a9bd468a982c367ee4205, type: 2}
+  - {fileID: 7400000, guid: 1937f0d53a2455b4387b10e57dad1629, type: 2}
+  - {fileID: 7400000, guid: aee63165f0c4fc44ba51c27f234a770f, type: 2}
+  - {fileID: 7400000, guid: 332f3bbcf79ed2f4197bee4fc58ce7d8, type: 2}

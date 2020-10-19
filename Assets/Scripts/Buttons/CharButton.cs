@@ -1,10 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-// 106
 
 public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 
@@ -18,6 +16,14 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     [SerializeField]
     private GearSocket gearSocket;
+
+    public Armor MyEquippedArmor
+    {
+        get
+        {
+            return equippedArmor;
+        }
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -34,10 +40,10 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
                 UIManager.MyInstance.RefreshTooltip(tmp);
             }
-            else if(HandScript.MyInstance.MyMoveable == null && equippedArmor != null)
+            else if(HandScript.MyInstance.MyMoveable == null && MyEquippedArmor != null)
             {
               
-                HandScript.MyInstance.TakeMoveable(equippedArmor);
+                HandScript.MyInstance.TakeMoveable(MyEquippedArmor);
                 CharacterPanel.MyInstance.MySlectedButton = this;
                 icon.color = Color.grey;
             }
@@ -48,14 +54,14 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         armor.Remove();
 
-        if (equippedArmor != null)
+        if (MyEquippedArmor != null)
         {
-            if (equippedArmor != armor)
+            if (MyEquippedArmor != armor)
             {
-                armor.MySlot.AddItem(equippedArmor);
+                armor.MySlot.AddItem(MyEquippedArmor);
             }
        
-            UIManager.MyInstance.RefreshTooltip(equippedArmor);
+            UIManager.MyInstance.RefreshTooltip(MyEquippedArmor);
         }
         else
         {
@@ -65,25 +71,26 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         icon.enabled = true;
         icon.sprite = armor.MyIcon;
         icon.color = Color.white;
-        this.equippedArmor = armor; 
+        this.equippedArmor = armor; // 对装备的引用
+        this.MyEquippedArmor.MyCharButton = this;
 
         if (HandScript.MyInstance.MyMoveable == (armor as IMoveable))
         {
             HandScript.MyInstance.Drop();
         }
 
-        if (gearSocket != null && equippedArmor.MyAnimationClips != null)
+        if (gearSocket != null && MyEquippedArmor.MyAnimationClips != null)
         {
-            gearSocket.Equip(equippedArmor.MyAnimationClips);
+            gearSocket.Equip(MyEquippedArmor.MyAnimationClips);
         }
     
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (equippedArmor != null)
+        if (MyEquippedArmor != null)
         {
-            UIManager.MyInstance.ShowTooltip(new Vector2(0, 0),transform.position, equippedArmor);
+            UIManager.MyInstance.ShowTooltip(new Vector2(0, 0),transform.position, MyEquippedArmor);
         }
     }
 
@@ -97,10 +104,11 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         icon.color = Color.white;
         icon.enabled = false;
        
-        if (gearSocket != null && equippedArmor.MyAnimationClips != null)
+        if (gearSocket != null && MyEquippedArmor.MyAnimationClips != null)
         {
             gearSocket.Dequip();
         }
+
         equippedArmor.MyCharButton = null;
         equippedArmor = null;
     }

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 /// <summary>
 /// 背包快捷栏的格子
 /// </summary>
-// 113
 public class BagButton : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
@@ -17,14 +16,11 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
     /// </summary>
     [SerializeField]
     private Sprite full, empty;
-
+    
     [SerializeField]
     private int bagIndex;
 
-    
-    /// <summary>
-    /// 背包类
-    /// </summary>
+
     public Bag MyBag
     {
         get
@@ -46,6 +42,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
             bag = value;
         }
     }
+
     public int MyBagIndex
     {
         get
@@ -58,6 +55,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
             bagIndex = value;
         }
     }
+
     /// <summary>
     /// 点击背包
     /// </summary>
@@ -68,8 +66,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             // 如果鼠标上有物体且鼠标上的物体是一个背包
-            if (InventoryScript.MyInstance.FromSlot != null && HandScript.MyInstance.MyMoveable != null &&
-                HandScript.MyInstance.MyMoveable is Bag)
+            if (InventoryScript.MyInstance.FromSlot != null && HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
             {
                 // 当前背包栏已经装备背包
                 if (MyBag != null)
@@ -81,7 +78,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
                 else
                 {
                     // 新建一个背包并赋值
-                    Bag tmp = (Bag) HandScript.MyInstance.MyMoveable;
+                    Bag tmp = (Bag)HandScript.MyInstance.MyMoveable;
                     tmp.MyBagButton = this;
                     tmp.Use();
                     MyBag = tmp;
@@ -104,6 +101,8 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
             }
 
         }
+
+  
     }
     /// <summary>
     /// 从装备栏移除背包

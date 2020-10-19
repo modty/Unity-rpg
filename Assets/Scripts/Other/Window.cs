@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 26
-
 public class Window : MonoBehaviour {
 
     [SerializeField]

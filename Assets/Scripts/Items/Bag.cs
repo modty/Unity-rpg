@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 79
+
 [CreateAssetMenu(fileName ="Bag",menuName ="Items/Bag",order =1)]
 public class Bag : Item, IUseable
 {
@@ -27,7 +27,7 @@ public class Bag : Item, IUseable
     /// <summary>
     /// 背包所有的格子数
     /// </summary>
-    public int Slots
+    public int MySlotCount
     {
         get
         {
@@ -64,11 +64,19 @@ public class Bag : Item, IUseable
                 InventoryScript.MyInstance.AddBag(this,MyBagButton);
             }
 
+            MyBagScript.MyBagIndex = MyBagButton.MyBagIndex;
         }
  
     }
+
+    public void SetupScript()
+    {
+        MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
+        MyBagScript.AddSlots(slots);
+    }
+
     public override string GetDescription()
     {
-        return base.GetDescription() + string.Format("\n{0} 容量背包", slots);
+        return base.GetDescription() + string.Format("\n{0} slot bag", slots);
     }
 }

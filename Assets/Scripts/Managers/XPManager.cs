@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-// 133
+
 static class XPManager
 {
     public static int CalculateXP(Enemy e)
     {
         //  每级经验值 = (Char Level * 5) +45, 当角色等级=怪物等级, 为了艾泽拉斯
-        int baseXP = (Player.MyInstance.MyLevel * 5) + 45;
 
+        int baseXP = (Player.MyInstance.MyLevel * 5) + 45;
         // 计算等级阈值
         int grayLevel = CalculateGrayLevel();
 

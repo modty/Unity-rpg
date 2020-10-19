@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using UnityEngine.UI;
 
-// 24
-
 public interface IClickable
 {
     Image MyIcon

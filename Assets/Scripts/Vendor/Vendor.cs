@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 17
-
 public class Vendor : NPC, IInteractable
 {
     [SerializeField]
@@ -16,5 +14,4 @@ public class Vendor : NPC, IInteractable
             return items;
         }
     }
-
 }

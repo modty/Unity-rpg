@@ -1,7 +1,8 @@
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-// 24
+
 public class SpellButton : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
@@ -10,12 +11,12 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private string spellName;
 
+
     public void OnPointerClick(PointerEventData eventData)
     {
         // 鼠标左键点击
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Debug.Log(spellName);
             //将被点击物体放到鼠标上
             HandScript.MyInstance.TakeMoveable(SpellBook.MyInstance.GetSpell(spellName));
         }

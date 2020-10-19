@@ -1,21 +1,30 @@
+﻿using Assets.Scripts.Debuffs;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
-// 142
-
 [Serializable]
-public class Spell:IUseable, IMoveable , IDescribable{
+public class Spell : IUseable, IMoveable, IDescribable, ICastable
+{
     /// <summary>
     /// 技能名
     /// </summary>
     [SerializeField]
-    private string name;
+    private string title;
 
     /// <summary>
     /// 技能伤害
     /// </summary>
     [SerializeField]
-    private int damage;
+    private float damage;
+
+    [SerializeField]
+    private float duration;
+
+    [SerializeField]
+    private float range;
 
     /// <summary>
     /// 技能图标
@@ -28,6 +37,7 @@ public class Spell:IUseable, IMoveable , IDescribable{
     /// </summary>
     [SerializeField]
     private float speed;
+
 
     /// <summary>
     /// 技能释放速度
@@ -51,27 +61,36 @@ public class Spell:IUseable, IMoveable , IDescribable{
     [SerializeField]
     private Color barColor;
 
+    [SerializeField]
+    private bool needsTarget;
+
+    public Debuff MyDebuff { get; set; }
+
     /// <summary>
     /// 设置技能名
     /// </summary>
-    public string MyName
+    public string MyTitle
     {
         get
         {
-            return name;
+            return title;
         }
     }
+
 
     /// <summary>
     /// 获取技能伤害
     /// </summary>
-    public int MyDamage
+    public float MyDamage
     {
         get
         {
-            return damage;
+            return Mathf.Ceil(damage);
         }
-
+        set
+        {
+            damage = value;
+        }
     }
 
     /// <summary>
@@ -83,11 +102,6 @@ public class Spell:IUseable, IMoveable , IDescribable{
         {
             return icon;
         }
-    }
-
-    public void Use()
-    {
-        Player.MyInstance.CastSpell(MyName);
     }
 
     /// <summary>
@@ -110,7 +124,12 @@ public class Spell:IUseable, IMoveable , IDescribable{
         {
             return castTime;
         }
+        set
+        {
+            castTime = value;
+        }
     }
+
 
     /// <summary>
     /// 获取技能预制体资源
@@ -123,6 +142,7 @@ public class Spell:IUseable, IMoveable , IDescribable{
         }
     }
 
+    
     /// <summary>
     /// 获取技能条颜色
     /// </summary>
@@ -133,8 +153,39 @@ public class Spell:IUseable, IMoveable , IDescribable{
             return barColor;
         }
     }
+
+    public float MyRange
+    {
+        get
+        {
+            return range;
+        }
+
+        set
+        {
+            range = value;
+        }
+    }
+
+    public bool NeedsTarget { get => needsTarget;}
+    public float MyDuration { get => duration; set => duration = value; }
+
     public string GetDescription()
     {
-        return string.Format("{0}\n 释放时间: {1} 秒(s)\n<color=#ffd111>{2}\n 伤害： {3} 点</color>", name, castTime,description, damage);
+        if (!needsTarget)
+        {
+            return $"{title}<color=#ffd100>\n{description}\nthat does {damage / MyDuration} damage\nevery sec for {MyDuration} sec</color>";
+        }
+        else
+        {
+            return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", title, castTime, description, MyDamage);
+        }
+
+
+    }
+
+    public void Use()
+    {
+        Player.MyInstance.CastSpell(this);
     }
 }

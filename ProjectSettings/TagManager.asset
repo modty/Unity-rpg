@@ -8,6 +8,8 @@ TagManager:
   - HitBox
   - Obstacle
   - Keybind
+  - Interactable
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -19,9 +21,9 @@ TagManager:
   - 
   - Block
   - Clickable
-  - 
-  - 
-  - 
+  - Both
+  - Minimap
+  - LineOfSight
   - 
   - 
   - 
@@ -42,9 +44,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 2595191673
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: TopLayer
-    uniqueID: 3067803099
+    uniqueID: 3676210671
+    locked: 0
+  - name: SCT
+    uniqueID: 2949256547
+    locked: 0
+  - name: UI
+    uniqueID: 3786878281
     locked: 0

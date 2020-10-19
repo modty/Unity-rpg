@@ -1,8 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-// 84
 
 public class GearSocket : MonoBehaviour
 {
@@ -28,6 +26,7 @@ public class GearSocket : MonoBehaviour
 
     public virtual void SetXAndY(float x, float y)
     {
+        // 设置正确的动画参数
         MyAnimator.SetFloat("x", x);
         MyAnimator.SetFloat("y", y);
     }

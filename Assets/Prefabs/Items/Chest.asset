@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5e23b1150d13642bcafc8edae832dc, type: 3}
+  m_Name: Chest
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 68a03393a2974a64facce009410dc21b, type: 3}
+  stackSize: 2
+  titel: Chest piece of wrath
+  quality: 2
+  price: 0
+  armorType: 2
+  intellect: 18
+  strength: 8
+  stamina: 3
+  animationClips:
+  - {fileID: 7400000, guid: 041a35877b1322344919df50e96955d1, type: 2}
+  - {fileID: 7400000, guid: ce0ba88ea0a72454f8b385fb6342e923, type: 2}
+  - {fileID: 7400000, guid: 7d58a918eb444d94b8360bca427c2cc3, type: 2}
+  - {fileID: 7400000, guid: d3da72e4db888b54fa916f5cf9e518f5, type: 2}
+  - {fileID: 7400000, guid: 36d5e7dbb8216c14ab9938949689e564, type: 2}
+  - {fileID: 7400000, guid: a303a98e48d603c4093331faa3c660cc, type: 2}
+  - {fileID: 7400000, guid: b7c521ea163e04047a823288a7ae5272, type: 2}
+  - {fileID: 7400000, guid: 73e18d81525bcb84a9ff861fde9ea93b, type: 2}
+  - {fileID: 7400000, guid: c59470ed4d8508c40a43895001969b07, type: 2}
+  - {fileID: 7400000, guid: 6e09b7e52713c19489c511c780786feb, type: 2}
+  - {fileID: 7400000, guid: 53fe075fe56e07f48b7637d9c65393cd, type: 2}
+  - {fileID: 7400000, guid: 02cb1bbb8c3515f43bd2734bbbbc30ed, type: 2}

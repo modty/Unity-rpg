@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 170
-
 public class QuestGiverWindow : Window
 {
     private static QuestGiverWindow instance;
@@ -55,7 +53,7 @@ public class QuestGiverWindow : Window
             {
                 GameObject go = Instantiate(questPrefab, questArea);
 
-                go.GetComponent<Text>().text = quest.MyTitle;
+                go.GetComponent<Text>().text = "["+quest.MyLevel+"] "+quest.MyTitle + "<color=#ffbb04> <size=12>!</size></color>";
 
                 go.GetComponent<QGQuestScript>().MyQuest = quest;
 
@@ -63,7 +61,7 @@ public class QuestGiverWindow : Window
 
                 if (Questlog.MyInstance.HasQuest(quest) && quest.IsComplete)
                 {
-                    go.GetComponent<Text>().text += "(完成)";
+                    go.GetComponent<Text>().text = quest.MyTitle + "<color=#ffbb04> <size=12>?</size></color>";
                 }
                 else if (Questlog.MyInstance.HasQuest(quest))
                 {
@@ -72,6 +70,7 @@ public class QuestGiverWindow : Window
                     c.a = 0.5f;
 
                     go.GetComponent<Text>().color = c;
+                    go.GetComponent<Text>().text = quest.MyTitle + "<color=#c0c0c0ff> <size=12>?</size></color>";
                 }
             }
             
@@ -143,7 +142,9 @@ public class QuestGiverWindow : Window
             {
                 if (selectedQuest == questGiver.MyQuests[i])
                 {
+                    questGiver.MyCompltedQuests.Add(selectedQuest.MyTitle);
                     questGiver.MyQuests[i] = null;
+                    selectedQuest.MyQuestGiver.UpdateQuestStatus();
                 }
             }
 
@@ -158,7 +159,9 @@ public class QuestGiverWindow : Window
                 GameManager.MyInstance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
     
             }
+
             Player.MyInstance.GainXP(XPManager.CalculateXP(selectedQuest));
+
             Questlog.MyInstance.RemoveQuest(selectedQuest.MyQuestScript);
             Back();
         }

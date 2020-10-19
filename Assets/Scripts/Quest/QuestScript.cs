@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 40
-
 public class QuestScript : MonoBehaviour {
 
     public Quest MyQuest { get; set; }
@@ -27,13 +25,13 @@ public class QuestScript : MonoBehaviour {
         if (MyQuest.IsComplete && !markedComplete)
         {
             markedComplete = true;
-            GetComponent<Text>().text += "(完成)";
-            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0} (完成)", MyQuest.MyTitle));
+            GetComponent<Text>().text = "[" + MyQuest.MyLevel + "] " + MyQuest.MyTitle +"(C)";
+            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0} (Complete)", MyQuest.MyTitle));
         }
         else if (!MyQuest.IsComplete)
         {
             markedComplete = false;
-            GetComponent<Text>().text = MyQuest.MyTitle;
+            GetComponent<Text>().text = "[" + MyQuest.MyLevel + "] " + MyQuest.MyTitle;
         }
 
 

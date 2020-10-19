@@ -1,8 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-// 65
 
 enum ArmorType {Head, Shoulders, Chest, Hands, Legs ,Feet, MainHand, Offhand, TwoHand }
 
@@ -39,26 +37,27 @@ public class Armor : Item
             return animationClips;
         }
     }
-    
+
     public override string GetDescription()
     {
         string stats = string.Empty;
 
         if (intellect > 0 )
         {
-            stats += string.Format("\n +{0} 智力", intellect);
+            stats += string.Format("\n +{0} intellect", intellect);
         }
         if (strength > 0)
         {
-            stats += string.Format("\n +{0} 力量", strength);
+            stats += string.Format("\n +{0} strength", strength);
         }
         if (stamina > 0)
         {
-            stats += string.Format("\n +{0} 耐力", stamina);
+            stats += string.Format("\n +{0} stamina", stamina);
         }
 
         return base.GetDescription() +stats;
     }
+
     public void Equip()
     {
         CharacterPanel.MyInstance.EquipArmor(this);

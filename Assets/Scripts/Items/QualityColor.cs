@@ -1,12 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// 29
-
 /// <summary>
-/// 物品质量描述
+/// 物品质量枚举
 /// </summary>
 public enum Quality { Common, Uncommon, Rare, Epic }
 

@@ -1,9 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-// 183
 
 public class LootWindow : MonoBehaviour
 {
@@ -27,9 +25,9 @@ public class LootWindow : MonoBehaviour
 
     private CanvasGroup canvasGroup;
 
-    private List<List<Item>> pages = new List<List<Item>>();
+    private List<List<Drop>> pages = new List<List<Drop>>();
 
-    private List<Item> droppedLoot = new List<Item>();
+    private List<Drop> droppedLoot = new List<Drop>();
 
     private int pageIndex = 0;
 
@@ -39,9 +37,8 @@ public class LootWindow : MonoBehaviour
     [SerializeField]
     private GameObject nextBtn, previousBtn;
 
-    /// <summary>
-    /// 测试使用
-    /// </summary>
+    public IInteractable MyInteractable { get; set; }
+
     [SerializeField]
     private Item[] items;
 
@@ -56,11 +53,11 @@ public class LootWindow : MonoBehaviour
         canvasGroup.alpha = 0;
     }
 
-    public void CreatePages(List<Item> items)
+    public void CreatePages(List<Drop> items)
     {
         if (!IsOpen)
         {
-            List<Item> page = new List<Item>();
+            List<Drop> page = new List<Drop>();
 
             droppedLoot = items;
 
@@ -71,7 +68,7 @@ public class LootWindow : MonoBehaviour
                 if (page.Count == 4 || i == items.Count - 1)
                 {
                     pages.Add(page);
-                    page = new List<Item>();
+                    page = new List<Drop>();
                 }
             }
 
@@ -99,14 +96,14 @@ public class LootWindow : MonoBehaviour
                 if (pages[pageIndex][i] != null)
                 {
                     // 设置掉落物图标
-                    lootButtons[i].MyIcon.sprite = pages[pageIndex][i].MyIcon;
+                    lootButtons[i].MyIcon.sprite = pages[pageIndex][i].MyItem.MyIcon;
 
-                    lootButtons[i].MyLoot = pages[pageIndex][i];
+                    lootButtons[i].MyLoot = pages[pageIndex][i].MyItem;
 
                     // 确认战利品按钮可用
                     lootButtons[i].gameObject.SetActive(true);
 
-                    string title = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[pages[pageIndex][i].MyQuality], pages[pageIndex][i].MyTitle);
+                    string title = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[pages[pageIndex][i].MyItem.MyQuality], pages[pageIndex][i].MyItem.MyTitle);
 
                     // 设置战利品名称
                     lootButtons[i].MyTitle.text = title;
@@ -129,7 +126,7 @@ public class LootWindow : MonoBehaviour
 
     public void NextPage()
     {
-        //we check if we have more pages
+        // 如果还有更多的页数
         if (pageIndex < pages.Count - 1)
         {
             pageIndex++;
@@ -140,7 +137,7 @@ public class LootWindow : MonoBehaviour
 
     public void PreviousPage()
     {
-        //We are checking if we have more pages in the backwards direction
+        // 如果有前一夜
         if (pageIndex > 0)
         {
             pageIndex--;
@@ -151,13 +148,16 @@ public class LootWindow : MonoBehaviour
 
     public void TakeLoot(Item loot)
     {
-        pages[pageIndex].Remove(loot);
 
-        droppedLoot.Remove(loot);
+        Drop drop = pages[pageIndex].Find(x => x.MyItem == loot);
+
+        pages[pageIndex].Remove(drop);
+
+        drop.Remove();
 
         if (pages[pageIndex].Count == 0)
         {
-            //Removes the empty page
+            // 移出空白页
             pages.Remove(pages[pageIndex]);
 
             if (pageIndex == pages.Count && pageIndex > 0)
@@ -171,10 +171,18 @@ public class LootWindow : MonoBehaviour
 
     public void Close()
     {
+        pageIndex = 0;
         pages.Clear();
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
         ClearButtons();
+
+        if (MyInteractable != null)
+        {
+            MyInteractable.StopInteract();
+        }
+
+        MyInteractable = null;
     }
 
     public void Open()

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 231
-
 [System.Serializable]
 public class Quest
 {
@@ -25,10 +23,11 @@ public class Quest
 
     [SerializeField]
     private int xp;
-    
+
     public QuestScript MyQuestScript { get; set; }
 
     public QuestGiver MyQuestGiver { get; set; }
+
 
     public string MyTitle
     {
@@ -42,27 +41,7 @@ public class Quest
             title = value;
         }
     }
-    public int MyLevel
-    {
-        get
-        {
-            return level;
-        }
 
-        set
-        {
-            level = value;
-        }
-    }
-
-    public int MyXp
-    {
-        get
-        {
-            return xp;
-        }
-
-    }
     public string MyDescription
     {
         get
@@ -86,7 +65,8 @@ public class Quest
 
     public bool IsComplete
     {
-        get {
+        get
+        {
 
             foreach (Objective o in collectObjectives)
             {
@@ -115,6 +95,30 @@ public class Quest
         {
             return killObjectives;
         }
+        set
+        { killObjectives = value; }
+    }
+
+    public int MyLevel
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
+        }
+    }
+
+    public int MyXp
+    {
+        get
+        {
+            return xp;
+        }
+
     }
 }
 
@@ -128,8 +132,7 @@ public abstract class Objective
 
     [SerializeField]
     private string type;
-    private string title;
-    
+
     public int MyAmount
     {
         get
@@ -158,14 +161,7 @@ public abstract class Objective
             return type;
         }
     }
-    public string MyTitle
-    {
-        get
-        {
-            return title;
-        }
-        set { title = value; }
-    }
+
     public bool IsComplete
     {
         get
@@ -180,17 +176,16 @@ public class CollectObjective : Objective
 {
     public void UpdateItemCount(Item item)
     {
-        if (MyType.ToLower() == item.MyType)
+        if (MyType.ToLower() == item.MyTitle.ToLower())
         {
-            MyTitle = item.MyTitle;
-            MyCurrentAmount = InventoryScript.MyInstance.GetItemCount(item.MyType);
+            MyCurrentAmount = InventoryScript.MyInstance.GetItemCount(item.MyTitle);
 
             if (MyCurrentAmount <= MyAmount)
             {
                 MessageFeedManager.MyInstance.WriteMessage(string.Format("{0}: {1}/{2}", item.MyTitle, MyCurrentAmount, MyAmount));
             }
 
-          
+
 
             Questlog.MyInstance.CheckCompletion();
             Questlog.MyInstance.UpdateSelected();
@@ -226,12 +221,13 @@ public class KillObjective : Objective
     {
         if (MyType == character.MyType)
         {
-            MyTitle = character.MyTitle;
-            MyCurrentAmount++;
-            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0}: {1}/{2}", character.MyTitle, MyCurrentAmount, MyAmount));
-            Questlog.MyInstance.CheckCompletion();
-            Questlog.MyInstance.UpdateSelected();
-
+            if (MyCurrentAmount < MyAmount)
+            {
+                MyCurrentAmount++;
+                MessageFeedManager.MyInstance.WriteMessage(string.Format("{0}: {1}/{2}", character.MyType, MyCurrentAmount, MyAmount));
+                Questlog.MyInstance.CheckCompletion();
+                Questlog.MyInstance.UpdateSelected();
+            }
         }
     }
 

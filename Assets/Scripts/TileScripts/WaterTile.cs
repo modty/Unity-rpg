@@ -4,43 +4,35 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-// 308
-
 public class WaterTile : Tile
 {
-    /// <summary>
-    /// 游戏中的所有水的精灵图片
-    /// </summary>
+
     [SerializeField]
     private Sprite[] waterSprites;
 
-    //瓦片的预览
+
     [SerializeField]
     private Sprite preview;
 
     public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go)
     {
+        GameManager.MyInstance.Blocked.Add(position);
         return base.StartUp(position, tilemap, go);
     }
 
-    /// <summary>
-    /// 刷新瓦片
-    /// </summary>
-    /// <param name="position">瓦片在网格中的位置</param>
-    /// <param name="tilemap">瓦片所属的瓦片地图</param>
+  
     public override void RefreshTile(Vector3Int position, ITilemap tilemap)
     {
        
-        for (int y = -1; y <= 1; y++) //遍历所有相邻元素
+        for (int y = -1; y <= 1; y++) 
         {
             for (int x = -1; x <= 1; x++)
             {
-
                 Vector3Int nPos = new Vector3Int(position.x + x, position.y + y, position.z);
 
-                if ( HasWater(tilemap, nPos)) // 如果相邻元素有水
+                if ( HasWater(tilemap, nPos))
                 {
-                    tilemap.RefreshTile(nPos); //刷新相邻元素
+                    tilemap.RefreshTile(nPos); 
                 }
             }
         }
@@ -48,26 +40,20 @@ public class WaterTile : Tile
 
     }
 
-    /// <summary>
-    /// 根据条件改变瓦片的图片精灵
-    /// </summary>
-    /// <param name="location">图片精灵的位置</param>
-    /// <param name="tilemap">瓦片所属地图</param>
-    /// <param name="tileData">瓦片所属对象</param>
+
     public override void GetTileData(Vector3Int location, ITilemap tilemap, ref TileData tileData)
     {
       
         base.GetTileData(location, tilemap, ref tileData);
 
-        string composition = string.Empty;// 空的对比变量
-
-        for (int x = -1; x <= 1; x++)//遍历相邻元素
+        string composition = string.Empty;
+        for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
-                if (x != 0 || y != 0) //不改变自己
+                if (x != 0 || y != 0)
                 {
-                    //如果元素为水
+
                     if (HasWater(tilemap, new Vector3Int(location.x + x, location.y + y, location.z)))
                     {
                         composition += 'W'; 
@@ -82,7 +68,6 @@ public class WaterTile : Tile
             }
         }
 
-        //随机选择水
         int randomVal = Random.Range(0, 100);
 
         if (randomVal < 15)
@@ -100,7 +85,6 @@ public class WaterTile : Tile
         }
 
 
-        // 根据条件选择相应的瓦片
         if (composition[1] == 'E' && composition[3] == 'E' && composition[4] == 'E' && composition[6] == 'E')
         {
             tileData.sprite = waterSprites[0];
