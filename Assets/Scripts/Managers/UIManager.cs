@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// 198
+// 224
 
 public class UIManager : MonoBehaviour
 {
@@ -32,6 +32,10 @@ public class UIManager : MonoBehaviour
     private GameObject targetFrame;
     
     private Stat healthStat;
+    
+    [SerializeField]
+    private Text levelText;
+
     
     [SerializeField]
     private Image portraitFrame;
@@ -109,6 +113,8 @@ public class UIManager : MonoBehaviour
         // 预置体复制，并初始化值
         healthStat.Initialize(target.MyHealth.MyCurrentValue, target.MyHealth.MyMaxValue);
         
+        levelText.text = target.MyLevel.ToString();
+        
         // 更新目标头像
         portraitFrame.sprite = target.MyPortrait;
         
@@ -116,7 +122,26 @@ public class UIManager : MonoBehaviour
         target.healthChanged += new HealthChanged(UpdateTargetFrame);
         
         target.characterRemoved += new CharacterRemoved(HideTargetFrame);
-        
+        if (target.MyLevel >= Player.MyInstance.MyLevel + 5)
+        {
+            levelText.color = Color.red;
+        }
+        else if (target.MyLevel == Player.MyInstance.MyLevel + 3 || target.MyLevel == Player.MyInstance.MyLevel + 4)
+        {
+            levelText.color = new Color32(255, 124, 0, 255);
+        }
+        else if (target.MyLevel >= Player.MyInstance.MyLevel -2 && target.MyLevel <= Player.MyInstance.MyLevel+2)
+        {
+            levelText.color = Color.yellow;
+        }
+        else if (target.MyLevel <= Player.MyInstance.MyLevel-3 && target.MyLevel > XPManager.CalculateGrayLevel())
+        {
+            levelText.color = Color.green;
+        }
+        else
+        {
+            levelText.color = Color.grey;
+        }
     }
     public void HideTargetFrame()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 167
+// 170
 
 public class QuestGiverWindow : Window
 {
@@ -158,7 +158,7 @@ public class QuestGiverWindow : Window
                 GameManager.MyInstance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
     
             }
-
+            Player.MyInstance.GainXP(XPManager.CalculateXP(selectedQuest));
             Questlog.MyInstance.RemoveQuest(selectedQuest.MyQuestScript);
             Back();
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 226
+// 247
 // 所有角色需要继承的父类
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -21,6 +21,23 @@ public abstract class Character : MonoBehaviour {
     [SerializeField]
     private string type;
 
+    [SerializeField]
+    private int level;
+
+    public int MyLevel
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
+        }
+    }
+
+    
     /// <summary>
     /// 角色的动画
     /// </summary>
@@ -194,6 +211,12 @@ public abstract class Character : MonoBehaviour {
             myRigidbody.velocity = Direction;
             GameManager.MyInstance.OnKillConfirmed(this);
             MyAnimator.SetTrigger("die");
+            
+            if (this is Enemy)
+            {
+                Player.MyInstance.GainXP(XPManager.CalculateXP((this as Enemy)));
+            }
+            
         }
     }
     public void GetHealth(int health)

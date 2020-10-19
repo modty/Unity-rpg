@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-// 125
+// 148
 public class Stat : MonoBehaviour
 {
 
@@ -23,6 +23,8 @@ public class Stat : MonoBehaviour
     // 最大当前当前生命值、魔法值
     public float MyMaxValue { get; set; }
 
+    private float overflow;
+
     // 当前当前生命值、魔法值
     private float currentValue;
 
@@ -37,6 +39,7 @@ public class Stat : MonoBehaviour
         {
             if (value > MyMaxValue)// 确保数值不上溢
             {
+                overflow = value - MyMaxValue;
                 currentValue = MyMaxValue;
             }
             else if (value < 0) // 确保数值不下溢
@@ -58,6 +61,23 @@ public class Stat : MonoBehaviour
         }
     }
 
+    public bool IsFull
+    {
+        get
+        {
+            return content.fillAmount == 1;
+        }
+    }
+
+    public float MyOverflow
+    {
+        get
+        {
+            float tmp = overflow;
+            overflow = 0;
+            return tmp;
+        }
+    }
 
 
 
@@ -91,8 +111,13 @@ public class Stat : MonoBehaviour
     {
         if (currentFill != content.fillAmount) // 在数据变化后才更新UI
         {
-            content.fillAmount = Mathf.Lerp(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
+            content.fillAmount = Mathf.MoveTowards(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
         }
 
+    }
+    
+    public void Reset()
+    {
+        content.fillAmount = 0;
     }
 }

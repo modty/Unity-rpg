@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// 325
+using UnityEngine.UI;
+
+// 374
 public class Player : Character {
 
     private static Player instance;
@@ -24,6 +26,15 @@ public class Player : Character {
     [SerializeField]
     private Stat mana;
     
+    [SerializeField]
+    private Stat xpStat;
+
+    [SerializeField]
+    private Text levelText;
+
+    [SerializeField]
+    private Animator ding;
+
     /// <summary>
     /// 初始魔法值
     /// </summary>
@@ -71,7 +82,8 @@ public class Player : Character {
     {
         MyGold = 10;
         mana.Initialize(initMana, initMana);
-        
+        xpStat.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
+        levelText.text = MyLevel.ToString();
         base.Start();
     }
 
@@ -98,6 +110,10 @@ public class Player : Character {
         {
             health.MyCurrentValue -= 10;
             mana.MyCurrentValue -= 10;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GainXP(600);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -280,6 +296,38 @@ public class Player : Character {
             interactable.Interact();
         }
     }
+    
+    public void GainXP(int xp)
+    {
+        xpStat.MyCurrentValue += xp;
+        CombatTextManager.MyInstance.CreateText(transform.position, xp.ToString(), SCTTYPE.XP, false);
+        if (xpStat.MyCurrentValue >= xpStat.MyMaxValue)
+        {
+            StartCoroutine(Ding());
+        }
+    }
+    
+    
+    private IEnumerator Ding()
+    {
+        while (!xpStat.IsFull)
+        {
+            yield return null;
+        }
+        MyLevel++;
+        ding.SetTrigger("Ding");
+        levelText.text = MyLevel.ToString();
+        xpStat.MyMaxValue = 100 * MyLevel * Mathf.Pow(MyLevel, 0.5f);
+        xpStat.MyMaxValue = Mathf.Floor(xpStat.MyMaxValue);
+        xpStat.MyCurrentValue = xpStat.MyOverflow;
+        xpStat.Reset();
+        if (xpStat.MyCurrentValue >= xpStat.MyMaxValue)
+        {
+            StartCoroutine(Ding());
+        }
+
+    }
+    
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy" ||collision.tag== "Interactable")

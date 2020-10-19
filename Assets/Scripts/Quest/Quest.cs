@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 200
+// 231
 
 [System.Serializable]
 public class Quest
@@ -20,6 +20,12 @@ public class Quest
     [SerializeField]
     private KillObjective[] killObjectives;
 
+    [SerializeField]
+    private int level;
+
+    [SerializeField]
+    private int xp;
+    
     public QuestScript MyQuestScript { get; set; }
 
     public QuestGiver MyQuestGiver { get; set; }
@@ -36,7 +42,27 @@ public class Quest
             title = value;
         }
     }
+    public int MyLevel
+    {
+        get
+        {
+            return level;
+        }
 
+        set
+        {
+            level = value;
+        }
+    }
+
+    public int MyXp
+    {
+        get
+        {
+            return xp;
+        }
+
+    }
     public string MyDescription
     {
         get
