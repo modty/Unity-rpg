@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Orb
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 08a3ce61b5f11c647ab262937eee5e00, type: 3}
-  stackSize: 2
-  titel: Orb of destruction
+  stackSize: 0
+  title: "\u6CD5\u7403"
+  type: orb
   quality: 3
-  price: 0
+  price: 5
   armorType: 7
   intellect: 10
   strength: 25

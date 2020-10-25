@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ImprovedThunderbolt : Talent
@@ -9,7 +9,7 @@ public class ImprovedThunderbolt : Talent
     {
         if (base.Click())
         {
-            Spell thunderBolt = SpellBook.MyInstance.GetSpell("Thunderbolt");
+            Spells thunderBolt = SpellBook.MyInstance.GetSpell("Thunderbolt");
 
             thunderBolt.MyDamage += (thunderBolt.MyDamage / 100) * percent;
             return true;
@@ -21,6 +21,6 @@ public class ImprovedThunderbolt : Talent
 
     public override string GetDescription()
     {
-        return string.Format($"Improved Thunderbolt\n<color=#ffd100>Increas the damge\nof your Thunderbolt by {percent}%. </color>");
+        return string.Format($"改良的闪电箭\n<color=#ffd100>提升你的闪电箭 {percent}% 的伤害。 </color>");
     }
 }

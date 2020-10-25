@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -170,7 +170,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         {
             UIManager.MyInstance.UpdateStackSize(this);
         }
-        else if (MyUseable is Spell)
+        else if (MyUseable is Spells)
         {
             UIManager.MyInstance.ClearStackCount(this);
         }

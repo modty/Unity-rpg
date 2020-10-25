@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 68a03393a2974a64facce009410dc21b, type: 3}
-  stackSize: 2
-  titel: Chest piece of wrath
+  stackSize: 0
+  title: "\u76D4\u7532"
+  type: chest
   quality: 2
-  price: 0
+  price: 5
   armorType: 2
   intellect: 18
   strength: 8

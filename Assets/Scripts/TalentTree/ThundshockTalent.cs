@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class ThundshockTalent : Talent
             if (MyCurrentCount < 3)
             {
                 procChance += procIncrease;
-                nextRank = $"<color=#ffffff>\n\nNext rank:\n</color><color=#ffd100>Your Thunderbolt has a {debuff.ProcChance + procIncrease}% chance\nto stun the target for {debuff.MyDuration} second(s)</color>\n";
+                nextRank = $"<color=#ffffff>\n\n下一等级:\n</color><color=#ffd100>向敌人释放闪电箭\n有 {debuff.ProcChance + procIncrease}% 的几率对敌人造成 {debuff.MyDuration} 秒(s)的眩晕。</color>\n";
             }
             else
             {
@@ -46,6 +46,6 @@ public class ThundshockTalent : Talent
 
     public override string GetDescription()
     {
-        return $"Thundershock<color=#ffd100>\nYour Thunderbolt has a {debuff.ProcChance}% chance\nto stun the target for {debuff.MyDuration} second(s)</color>{nextRank}";
+        return $"闪电箭Ⅱ<color=#ffd100>\n向敌人释放闪电箭\n有 {debuff.ProcChance}% 的几率对敌人造成 {debuff.MyDuration} 秒(s)的眩晕。</color>{nextRank}";
     }
 }

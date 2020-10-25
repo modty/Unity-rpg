@@ -1,0 +1,365 @@
+{
+    "1001000000000": {
+        "uid": 1001000000000,
+        "name_us": "Fire Ball",
+        "name_cn": "火球术",
+        "castTime": [
+            2000, -100
+        ],
+        "directDamage": [
+            [
+                10,
+                2
+            ]
+        ],
+        "continuousDamage": [],
+        "cooldown": [
+            2000, -100
+        ],
+        "nextLevel": 1002000000000,
+        "preLevel": -1,
+        "targetBuff": [
+            0
+        ],
+        "selfBuff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/fireball.png",
+        "spellImage": "Sprites/Spells/fire_.png",
+        "releaseType": 0,
+        "spellLevel": [
+            1,
+            5
+        ],
+        "description_cn": "朝敌人丢一个火球术。"
+    },
+    "1002000000000": {
+        "uid": 1002000000000,
+        "name_us": "Improved Fire Ball",
+        "name_cn": "改良的火球术",
+        "castTime": [
+            1500, -100
+        ],
+        "directDamage": [
+            [
+                30,
+                5
+            ]
+        ],
+        "continuousDamage": [
+            [
+                10,
+                1
+            ],
+            [
+                10000, -1000
+            ],
+            [
+                1,
+                0
+            ]
+        ],
+        "cooldown": [
+            1500, -100
+        ],
+        "nextLevel": 1003000000000,
+        "preLevel": 1001000000000,
+        "target_buff": [
+            0
+        ],
+        "self_buff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/fireball.png",
+        "spellImage": "Sprites/Spells/fire_.png",
+        "releaseType": 0,
+        "description_cn": "朝敌人丢一个火球术。"
+    },
+    "1003000000000": {
+        "uid": 1003000000000,
+        "name_us": "Rain Of Fire",
+        "name_cn": "火雨",
+        "castTime": [
+            3000, -200
+        ],
+        "directDamage": [
+            [
+                100,
+                10
+            ]
+        ],
+        "continuousDamage": [
+            [
+                50,
+                5
+            ],
+            [
+                5000, -200
+            ],
+            [
+                2,
+                0
+            ]
+        ],
+        "cooldown": [
+            3000, -100
+        ],
+        "nextLevel": -1,
+        "preLevel": 1002000000000,
+        "target_buff": [
+            0
+        ],
+        "self_buff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/fireball.png",
+        "spellImage": "Sprites/Spells/fire_.png",
+        "releaseType": 0,
+        "description_cn": "在敌人头上下火球术雨。"
+    },
+    "1001000000001": {
+        "uid": 1001000000001,
+        "name_us": "Frost Bolt",
+        "name_cn": "寒冰箭",
+        "castTime": [
+            2000, -100
+        ],
+        "directDamage": [
+            [
+                10,
+                2
+            ]
+        ],
+        "continuousDamage": [],
+        "cooldown": [
+            2000, -100
+        ],
+        "nextLevel": 1002000000001,
+        "preLevel": -1,
+        "targetBuff": [
+            0
+        ],
+        "selfBuff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/frostbolt.png",
+        "spellImage": "Sprites/Spells/ice.png",
+        "releaseType": 0,
+        "spellLevel": [
+            1,
+            5
+        ],
+        "description_cn": "朝敌人丢一个寒冰箭。"
+    },
+    "1002000000001": {
+        "uid": 1002000000001,
+        "name_us": "Improved Frost Bolt",
+        "name_cn": "改良的寒冰箭",
+        "castTime": [
+            1500, -100
+        ],
+        "directDamage": [
+            [
+                30,
+                5
+            ]
+        ],
+        "continuousDamage": [
+            [
+                10,
+                1
+            ],
+            [
+                10000, -1000
+            ],
+            [
+                1,
+                0
+            ]
+        ],
+        "cooldown": [
+            1500, -100
+        ],
+        "nextLevel": 1003000000001,
+        "preLevel": 1001000000001,
+        "target_buff": [
+            0
+        ],
+        "self_buff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/frostbolt.png",
+        "spellImage": "Sprites/Spells/ice.png",
+        "releaseType": 0,
+        "description_cn": "朝敌人丢一个寒冰箭。"
+    },
+    "1003000000001": {
+        "uid": 1003000000001,
+        "name_us": "Blizzard",
+        "name_cn": "暴雪",
+        "castTime": [
+            3000, -200
+        ],
+        "directDamage": [
+            [
+                100,
+                10
+            ]
+        ],
+        "continuousDamage": [
+            [
+                50,
+                5
+            ],
+            [
+                5000, -200
+            ],
+            [
+                2,
+                0
+            ]
+        ],
+        "cooldown": [
+            3000, -100
+        ],
+        "nextLevel": -1,
+        "preLevel": 1002000000001,
+        "target_buff": [
+            0
+        ],
+        "self_buff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/frostbolt.png",
+        "spellImage": "Sprites/Spells/ice.png",
+        "releaseType": 0,
+        "description_cn": "在敌人处召唤一场暴雪。"
+    },
+    "1001000000002": {
+        "uid": 1001000000002,
+        "name_us": "Thunder Bolt",
+        "name_cn": "闪电箭",
+        "castTime": [
+            2000, -100
+        ],
+        "directDamage": [
+            [
+                10,
+                2
+            ]
+        ],
+        "continuousDamage": [],
+        "cooldown": [
+            2000, -100
+        ],
+        "nextLevel": 1002000000001,
+        "preLevel": -1,
+        "targetBuff": [
+            0
+        ],
+        "selfBuff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/thunderbolt.png",
+        "spellImage": "Sprites/Spells/lightning.png",
+        "releaseType": 0,
+        "spellLevel": [
+            1,
+            5
+        ],
+        "description_cn": "朝敌人释放一束闪电。"
+    },
+    "1002000000002": {
+        "uid": 1002000000002,
+        "name_us": "Improved Thunder Bolt",
+        "name_cn": "改良的闪电箭",
+        "castTime": [
+            1500, -100
+        ],
+        "directDamage": [
+            [
+                30,
+                5
+            ]
+        ],
+        "continuousDamage": [
+            [
+                10,
+                1
+            ],
+            [
+                10000, -1000
+            ],
+            [
+                1,
+                0
+            ]
+        ],
+        "cooldown": [
+            1500, -100
+        ],
+        "nextLevel": 1003000000001,
+        "preLevel": 1001000000001,
+        "target_buff": [
+            0
+        ],
+        "self_buff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/thunderbolt.png",
+        "spellImage": "Sprites/Spells/lightning.png",
+        "releaseType": 0,
+        "description_cn": "朝敌人释放一束闪电。"
+    },
+    "1003000000002": {
+        "uid": 1003000000002,
+        "name_us": "Thund Shock",
+        "name_cn": "闪雷",
+        "castTime": [
+            3000, -200
+        ],
+        "directDamage": [
+            [
+                100,
+                10
+            ]
+        ],
+        "continuousDamage": [
+            [
+                50,
+                5
+            ],
+            [
+                5000, -200
+            ],
+            [
+                2,
+                0
+            ]
+        ],
+        "cooldown": [
+            3000, -100
+        ],
+        "nextLevel": -1,
+        "preLevel": 1002000000001,
+        "target_buff": [
+            0
+        ],
+        "self_buff": [],
+        "target_type": [
+            0
+        ],
+        "icon": "Sprites/UI/Spells/thunderbolt.png",
+        "spellImage": "Sprites/Spells/lightning.png",
+        "releaseType": 0,
+        "description_cn": "朝敌人释放一束巨大的闪电。"
+    }
+}

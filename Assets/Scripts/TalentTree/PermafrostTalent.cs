@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Debuffs;
+﻿﻿using Assets.Scripts.Debuffs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +29,7 @@ public class PermafrostTalent : Talent
             if (MyCurrentCount < 3)
             {
                 speedReduction += reductionIncrease;
-                nextRank = $"<color=#ffffff>\n\nNext rank:\n</color><color=#ffd100>Your Frostbolt applies a debuff\nto the target that\nreduces the movement speed \nby {debuff.MySpeedReduction+reductionIncrease}%</color>\n";
+                nextRank = $"<color=#ffffff>\n\n下一等级:\n</color><color=#ffd100>你的寒冰箭能使敌人减速\n减少敌人{debuff.MySpeedReduction+reductionIncrease}% 的移动速度</color>\n";
             }
             else
             {
@@ -46,6 +46,6 @@ public class PermafrostTalent : Talent
 
     public override string GetDescription()
     {
-        return $"Permafrost<color=#ffd100>\nYour Frostbolt applies a debuff\nto the target that\nreduces the movement speed by {debuff.MySpeedReduction}%</color>{nextRank}";
+        return $"寒冰箭Ⅱ<color=#ffd100>\n你的寒冰箭能使敌人减速\n减少敌人 {debuff.MySpeedReduction}%  的移动速度</color>{nextRank}";
     }
 }

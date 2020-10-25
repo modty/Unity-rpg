@@ -1,0 +1,22 @@
+{
+    "0": {
+        "color": "#ffffffff",
+        "name_us": "Common",
+        "name_cn": "普通"
+    },
+    "1": {
+        "color": "#00ff00ff",
+        "name_us": "Uncommon",
+        "name_cn": "精良"
+    },
+    "2": {
+        "color": "#0E6BECFF",
+        "name_us": "Rare",
+        "name_cn": "稀有"
+    },
+    "3": {
+        "color": "#A712DBFF",
+        "name_us": "Epic",
+        "name_cn": "史诗"
+    }
+}

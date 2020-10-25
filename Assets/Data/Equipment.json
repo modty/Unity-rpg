@@ -1,0 +1,147 @@
+{
+    "1006000000": {
+        "name_cn": "木剑",
+        "uid": "10000000",
+        "attribute": [
+            10,
+            12,
+            25
+        ],
+        "description_cn": "木头制作而成的剑。",
+        "icon": "Sprites/Character panel/equipment_1.png",
+        "maxStackSize": 1,
+        "price": 5
+    },
+    "1006000001": {
+        "name_cn": "木仗",
+        "uid": "1006000001",
+        "attribute": [
+            20,
+            12,
+            10
+        ],
+        "description_cn": "木头制作而成的法杖，能够略微提升法力流动。",
+        "icon": "Sprites/Character panel/staff.png",
+        "maxStackSize": 1,
+        "price": 5,
+        "animation": "Weapon"
+    },
+    "1007000000": {
+        "name_cn": "木盾",
+        "uid": "1007000000",
+        "attribute": [
+            10,
+            12,
+            50
+        ],
+        "description_cn": "木头制作而成的盾牌，当然具有一定的防御力。",
+        "icon": "Sprites/Character panel/equipment_2.png",
+        "maxStackSize": 1,
+        "price": 5
+    },
+    "1007000001": {
+        "name_cn": "木宝珠",
+        "uid": "1007000001",
+        "attribute": [
+            50,
+            12,
+            10
+        ],
+        "description_cn": "木头制作而成的宝珠，能够提升法术伤害。",
+        "icon": "Sprites/Character panel/orb.png",
+        "maxStackSize": 1,
+        "price": 5
+    },
+    "1000000000": {
+        "name_cn": "木头盔",
+        "uid": "1000000000",
+        "attribute": [
+            50,
+            12,
+            10
+        ],
+        "description_cn": "木头制作而成的头盔，保护你的脑袋不受伤害。",
+        "icon": "Sprites/Character panel/helmet.png",
+        "maxStackSize": 1,
+        "price": 5,
+        "animation": "Hat"
+    },
+    "1001000000": {
+        "name_cn": "木肩胛",
+        "uid": "1001000000",
+        "attribute": [
+            50,
+            12,
+            10
+        ],
+        "description_cn": "木头制作而成的肩胛，看起来非常帅气。",
+        "icon": "Sprites/Character panel/shoulder.png",
+        "maxStackSize": 1,
+        "price": 5,
+        "animation": "Shoulders"
+    },
+    "1002000000": {
+        "name_cn": "木盔甲",
+        "uid": "1002000000",
+        "attribute": [
+            50,
+            12,
+            10
+        ],
+        "description_cn": "木头制作而成的盔甲，有人说像纸一样脆，谁知道呢。",
+        "icon": "Sprites/Character panel/chest.png",
+        "maxStackSize": 1,
+        "price": 5,
+        "animation": "Robe"
+    },
+    "1003000000": {
+        "name_cn": "木手套",
+        "uid": "1003000000",
+        "attribute": [
+            50,
+            12,
+            10
+        ],
+        "description_cn": "有人说手套应该是两只，有人说木头不能制作手套，但属性面前，谁又能拒绝呢。",
+        "icon": "Sprites/Character panel/gloves.png",
+        "maxStackSize": 1,
+        "price": 5
+    },
+    "1004000000": {
+        "name_cn": "木裤子",
+        "uid": "1004000000",
+        "attribute": [
+            50,
+            12,
+            10
+        ],
+        "description_cn": "穿上这个，你就能无欲无求。",
+        "icon": "Sprites/Character panel/pants.png",
+        "maxStackSize": 1,
+        "price": 5,
+        "animation": "Pants"
+    },
+    "1005000000": {
+        "name_cn": "木鞋",
+        "uid": "1005000000",
+        "attribute": [
+            50,
+            12,
+            10
+        ],
+        "description_cn": "和木手套难兄难第，但同样，你无法拒绝。",
+        "icon": "Sprites/Character panel/boots.png",
+        "maxStackSize": 1,
+        "price": 5,
+        "animation": "Boots"
+    },
+    "1009000000": {
+        "name_cn": "小型背包",
+        "uid": "1008000000",
+        "capacity": 32,
+        "description_cn": "用来装东西的背包。",
+        "icon": "Sprites/UI/Inventory/bag.png",
+        "maxStackSize": 20,
+        "price": 5
+    }
+}

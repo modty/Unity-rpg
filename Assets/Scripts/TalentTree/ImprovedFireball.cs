@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ImprovedFireball : Talent
@@ -17,7 +17,7 @@ public class ImprovedFireball : Talent
 
     public override string GetDescription()
     {
-        return string.Format("Improved Fireball\n<color=#ffd100>Reduces the casting time\nof your Fireball by 0.1 sec. </color>");
+        return string.Format("改良火球术\n<color=#ffd100>减小你的火球术 0.1 s冷却。 </color>");
     }
 
 }

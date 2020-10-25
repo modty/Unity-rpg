@@ -98,7 +98,7 @@ public class Player : Character
 
     private GameObject unusedSpell;
 
-    private Spell aoeSpell;
+    private Spells aoeSpell;
 
     public int MyGold { get; set; }
 
@@ -296,7 +296,7 @@ public class Player : Character
 
         if (currentTarget != null && InLineOfSight())
         {
-            Spell newSpell = SpellBook.MyInstance.GetSpell(castable.MyTitle);
+            Spells newSpell = SpellBook.MyInstance.GetSpell(castable.MyTitle);
 
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
 
@@ -342,7 +342,7 @@ public class Player : Character
     /// <summary>
     /// 释放技能
     /// </summary>
-    public void CastSpell(Spell spell)
+    public void CastSpell(Spells spell)
     {
         Block();
 
@@ -359,7 +359,7 @@ public class Player : Character
         }
     }
 
-    private bool InRange(Spell spell, Vector2 targetPos)
+    private bool InRange(Spells spell, Vector2 targetPos)
     {
 
         if (Vector2.Distance(targetPos, transform.position) <= spell.MyRange)

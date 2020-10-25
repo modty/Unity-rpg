@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Debuffs;
+﻿﻿using Assets.Scripts.Debuffs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 
 [Serializable]
-public class Spell : IUseable, IMoveable, IDescribable, ICastable
+public class Spells : IUseable, IMoveable, IDescribable, ICastable
 {
     /// <summary>
     /// 技能名
@@ -174,11 +174,11 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     {
         if (!needsTarget)
         {
-            return $"{title}<color=#ffd100>\n{description}\nthat does {damage / MyDuration} damage\nevery sec for {MyDuration} sec</color>";
+            return $"{title}<color=#ffd100>\n{description}\n每秒造成 {damage / MyDuration} 点伤害\n持续 {MyDuration} 秒</color>";
         }
         else
         {
-            return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", title, castTime, description, MyDamage);
+            return string.Format("{0}\n花费: {1} 秒(s)\n<color=#ffd111>{2}\n造成 {3} 点伤害</color>", title, castTime, description, MyDamage);
         }
 
 

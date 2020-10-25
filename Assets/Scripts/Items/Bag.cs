@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,6 +77,6 @@ public class Bag : Item, IUseable
 
     public override string GetDescription()
     {
-        return base.GetDescription() + string.Format("\n{0} slot bag", slots);
+        return base.GetDescription() + string.Format("\n{0} 格子背包", slots);
     }
 }

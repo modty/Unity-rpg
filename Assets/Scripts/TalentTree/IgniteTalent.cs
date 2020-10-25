@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Debuffs;
+﻿﻿using Assets.Scripts.Debuffs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +30,7 @@ public class IgniteTalent : Talent
             if (MyCurrentCount < 3)
             {
                 tickDamage += damageIncrease;
-                nextRank = $"<color=#ffffff>\n\nNext rank:\n</color><color=#ffd100>Your fireball applies a debuff\nto the target that\ndoes {tickDamage * debuff.MyDuration} damage over {debuff.MyDuration} seconds</color>\n";
+                nextRank = $"<color=#ffffff>\n\n火球术Ⅱ:\n</color><color=#ffd100> 向敌人释放一个火球\n在 {debuff.MyDuration} s内造成 {tickDamage * debuff.MyDuration} 点伤害</color>\n";
             }
             else
             {
@@ -47,6 +47,6 @@ public class IgniteTalent : Talent
 
     public override string GetDescription()
     {
-        return $"Ignite<color=#ffd100>\nYour fireball applies a debuff\nto the target that\ndoes {debuff.MyTickDamage*debuff.MyDuration} damage over {debuff.MyDuration} seconds</color>{nextRank}";  
+        return $"火球术Ⅱ<color=#ffd100>\n 向敌人释放一个火球\n在 {debuff.MyDuration} s内造成 {debuff.MyTickDamage*debuff.MyDuration} 点伤害。</color>{nextRank}";  
     }
 }

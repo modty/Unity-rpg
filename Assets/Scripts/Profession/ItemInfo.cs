@@ -37,7 +37,7 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         this.MyItem = item;
         this.image.sprite = item.MyIcon;
-        this.title.text = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[item.MyQuality], item.MyTitle);
+        this.title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", item.MyTitle);
         this.count = count;
 
         if (count > 1)

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class Apple : Item
 
     public override string GetDescription()
     {
-        return base.GetDescription() + string.Format("\n<color=#00ff00ff>An apple a day keeps the doctor away!</color>");
+        return base.GetDescription() + string.Format("\n<color=#00ff00ff> 每天一苹果，医生远离我!</color>");
     }
 
 }

@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: f12e6259250219943b11ebe8bb7555c5, type: 3}
   stackSize: 0
-  titel: Great Helmet
+  title: "\u6728\u5934\u76D4"
+  type: Helmet02
   quality: 2
-  price: 0
+  price: 5
   armorType: 0
   intellect: 10
   strength: 2

@@ -28,7 +28,7 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
 
             icon.sprite = vendorItem.MyItem.MyIcon;
-            title.text = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[vendorItem.MyItem.MyQuality], vendorItem.MyItem.MyTitle);
+            title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", vendorItem.MyItem.MyTitle);
 
             if (!vendorItem.Unlimited)
             {

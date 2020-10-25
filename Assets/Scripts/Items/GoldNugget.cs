@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class GoldNugget : Item
 
     public override string GetDescription()
     {
-        return base.GetDescription() + string.Format("\n<color=#00ff00ff>A hand full of gold nugget</color>");
+        return base.GetDescription() + string.Format("\n<color=#00ff00ff>一堆碎金子。</color>");
     }
 
 }

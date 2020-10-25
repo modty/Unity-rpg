@@ -103,7 +103,7 @@ public class LootWindow : MonoBehaviour
                     // 确认战利品按钮可用
                     lootButtons[i].gameObject.SetActive(true);
 
-                    string title = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[pages[pageIndex][i].MyItem.MyQuality], pages[pageIndex][i].MyItem.MyTitle);
+                    string title = string.Format("<color={0}>{1}</color>", "#00ff00ff", pages[pageIndex][i].MyItem.MyTitle);
 
                     // 设置战利品名称
                     lootButtons[i].MyTitle.text = title;

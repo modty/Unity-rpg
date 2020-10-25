@@ -1,0 +1,42 @@
+{
+    "0": {
+        "name_us": "Head",
+        "name_cn": "头部"
+    },
+    "1": {
+        "name_us": "Shoulders",
+        "name_cn": "肩胛"
+    },
+    "2": {
+        "name_us": "Chest",
+        "name_cn": "盔甲"
+    },
+    "3": {
+        "name_us": "Hands",
+        "name_cn": "手套"
+    },
+    "4": {
+        "name_us": "Legs",
+        "name_cn": "裤子"
+    },
+    "5": {
+        "name_us": "Feet",
+        "name_cn": "鞋子"
+    },
+    "6": {
+        "name_us": "MainHand",
+        "name_cn": "主手武器"
+    },
+    "7": {
+        "name_us": "OffHand",
+        "name_cn": "副手武器"
+    },
+    "8": {
+        "name_us": "TwoHands",
+        "name_cn": "双手武器"
+    },
+    "9": {
+        "name_us": "Bag",
+        "name_cn": "背包"
+    }
+}

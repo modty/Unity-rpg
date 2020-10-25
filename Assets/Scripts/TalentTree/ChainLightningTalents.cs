@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
@@ -16,6 +16,6 @@ public class ChainLightningTalents : Talent
 
     public override string GetDescription()
     {
-        return $"Chain lightning<color=#ffd100>\nStrikes an enemy\nwith chain lightning</color>";
+        return $"惊雷<color=#ffd100>\n巨大的闪电给敌人狠狠一击。</color>";
     }
 }

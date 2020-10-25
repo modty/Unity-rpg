@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -64,13 +64,13 @@ public class SaveManager : MonoBehaviour
         switch (action)
         {
             case "Load":
-                dialogueText.text = "Load game?";
+                dialogueText.text = "加载存档?";
                 break;
             case "Save":
-                dialogueText.text = "Save game?";
+                dialogueText.text = "保存游戏?";
                 break;
             case "Delete":
-                dialogueText.text = "Delete savefile?";
+                dialogueText.text = "删除存档?";
                 break;
         }
 
@@ -232,9 +232,9 @@ public class SaveManager : MonoBehaviour
             {
                 ActionButtonData action;
 
-                if (actionButtons[i].MyUseable is Spell)
+                if (actionButtons[i].MyUseable is Spells)
                 {
-                    action = new ActionButtonData((actionButtons[i].MyUseable as Spell).MyTitle, false, i);
+                    action = new ActionButtonData((actionButtons[i].MyUseable as Spells).MyTitle, false, i);
                 }
                 else
                 {

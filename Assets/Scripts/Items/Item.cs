@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,13 +24,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     /// 物品的标题
     /// </summary>
     [SerializeField]
-    private string titel;
-
-    /// <summary>
-    /// 物品的品质
-    /// </summary>
-    [SerializeField]
-    private Quality quality;
+    private string title;
 
     private SlotScript slot;
 
@@ -68,19 +62,11 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         }
     }
 
-    public Quality MyQuality
-    {
-        get
-        {
-            return quality;
-        }
-    }
-
     public string MyTitle
     {
         get
         {
-            return titel;
+            return title;
         }
     }
 
@@ -112,7 +98,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     /// <returns></returns>
     public virtual string GetDescription()
     {
-        return string.Format("<color={0}>{1}</color>", QualityColor.MyColors[MyQuality], MyTitle);
+        return string.Format("<color={0}>{1}</color>", "#00ff00ff", MyTitle);
     }
     /// <summary>
     /// 从仓库中移除物体

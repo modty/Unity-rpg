@@ -55,7 +55,7 @@ public class SpellBook : MonoBehaviour
     /// 所有技能
     /// </summary>
     [SerializeField]
-    private Spell[] spells;
+    private Spells[] spells;
 
     /// <summary>
     /// 技能释放协程
@@ -191,9 +191,9 @@ public class SpellBook : MonoBehaviour
         }
     }
 
-    public Spell GetSpell(string spellName)
+    public Spells GetSpell(string spellName)
     {
-        Spell spell = Array.Find(spells, x => x.MyTitle == spellName);
+        Spells spell = Array.Find(spells, x => x.MyTitle == spellName);
 
         return spell;
     }

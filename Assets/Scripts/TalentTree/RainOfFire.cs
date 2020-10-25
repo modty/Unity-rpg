@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Debuffs;
+﻿﻿using Assets.Scripts.Debuffs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +30,6 @@ public class RainOfFire : Talent
 
     public override string GetDescription()
     {
-        return $"Rain Of Fire<color=#ffd100>\nCreates a rain of fire\non a target location\nthat does {damage/duration} damage \nevery second for {duration} seconds</color>";
+        return $"火雨<color=#ffd100>\n在目标点召唤一场火雨。\n持续 {duration} 秒(s)，每秒造成 {damage/duration} 点伤害。 </color>";
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -209,7 +209,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
       
         }
         //右键点击，使用物品
-        if (eventData.button == PointerEventData.InputButton.Right && HandScript.MyInstance.MyMoveable == null)//If we rightclick on the slot
+        if (eventData.button == PointerEventData.InputButton.Right && HandScript.MyInstance.MyMoveable == null)
         {
             UseItem();
         }

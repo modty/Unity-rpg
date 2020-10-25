@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +26,6 @@ public class BlizzardTalent : Talent
 
     public override string GetDescription()
     {
-        return $"Blizzard<color=#ffd100>\nCreates a Blizzard\non a target location\nthat reduces movement speed by 50% </color>";
+        return $"暴雪<color=#ffd100>\n在目标地点释放一个暴雪\n造成50%减速。 </color>";
     }
 }

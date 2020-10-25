@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,15 +44,15 @@ public class Armor : Item
 
         if (intellect > 0 )
         {
-            stats += string.Format("\n +{0} intellect", intellect);
+            stats += string.Format("\n +{0} 智力", intellect);
         }
         if (strength > 0)
         {
-            stats += string.Format("\n +{0} strength", strength);
+            stats += string.Format("\n +{0} 力量", strength);
         }
         if (stamina > 0)
         {
-            stats += string.Format("\n +{0} stamina", stamina);
+            stats += string.Format("\n +{0} 耐力", stamina);
         }
 
         return base.GetDescription() +stats;

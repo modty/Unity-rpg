@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ImprovedFrostbolt : Talent
@@ -17,6 +17,6 @@ public class ImprovedFrostbolt : Talent
 
     public override string GetDescription()
     {
-        return string.Format("Improved Frostbolt\n<color=#ffd100>Increases the range\nof your Frostbolt by 1. </color>");
+        return string.Format("改良的寒冰箭\n<color=#ffd100>提升 1 米寒冰箭的攻击范围。 </color>");
     }
 }

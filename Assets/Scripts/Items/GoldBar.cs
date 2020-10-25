@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class GoldBar : Item
 
     public override string GetDescription()
     {
-        return base.GetDescription() + string.Format("\n<color=#00ff00ff>A shiny gold bar!</color>");
+        return base.GetDescription() + string.Format("\n<color=#00ff00ff>一根根闪亮的金条!</color>");
     }
 
 }
