@@ -64,12 +64,12 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     [SerializeField]
     private bool needsTarget;
 
-    public Debuff MyDebuff { get; set; }
+    public Debuff Debuff { get; set; }
 
     /// <summary>
     /// 设置技能名
     /// </summary>
-    public string MyTitle
+    public string Title
     {
         get
         {
@@ -81,7 +81,7 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     /// <summary>
     /// 获取技能伤害
     /// </summary>
-    public float MyDamage
+    public float Damage
     {
         get
         {
@@ -96,7 +96,7 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     /// <summary>
     /// 获取图标
     /// </summary>
-    public Sprite MyIcon
+    public Sprite Icon
     {
         get
         {
@@ -107,7 +107,7 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     /// <summary>
     /// 获取技能移动速度
     /// </summary>
-    public float MySpeed
+    public float Speed
     {
         get
         {
@@ -118,7 +118,7 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     /// <summary>
     /// 获取技能释放时间
     /// </summary>
-    public float MyCastTime
+    public float CastTime
     {
         get
         {
@@ -134,7 +134,7 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     /// <summary>
     /// 获取技能预制体资源
     /// </summary>
-    public GameObject MySpellPrefab
+    public GameObject SpellPrefab
     {
         get
         {
@@ -146,7 +146,7 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     /// <summary>
     /// 获取技能条颜色
     /// </summary>
-    public Color MyBarColor
+    public Color BarColor
     {
         get
         {
@@ -154,7 +154,7 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
         }
     }
 
-    public float MyRange
+    public float Range
     {
         get
         {
@@ -168,17 +168,17 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
     }
 
     public bool NeedsTarget { get => needsTarget;}
-    public float MyDuration { get => duration; set => duration = value; }
+    public float Duration { get => duration; set => duration = value; }
 
     public string GetDescription()
     {
         if (!needsTarget)
         {
-            return $"{title}<color=#ffd100>\n{description}\n每秒造成 {damage / MyDuration} 点伤害\n持续 {MyDuration} 秒</color>";
+            return $"{title}<color=#ffd100>\n{description}\n每秒造成 {damage / Duration} 点伤害\n持续 {Duration} 秒</color>";
         }
         else
         {
-            return string.Format("{0}\n花费: {1} 秒(s)\n<color=#ffd111>{2}\n造成 {3} 点伤害</color>", title, castTime, description, MyDamage);
+            return string.Format("{0}\n花费: {1} 秒(s)\n<color=#ffd111>{2}\n造成 {3} 点伤害</color>", title, castTime, description, Damage);
         }
 
 
@@ -186,6 +186,6 @@ public class Spells : IUseable, IMoveable, IDescribable, ICastable
 
     public void Use()
     {
-        Player.MyInstance.CastSpell(this);
+        Player.Instance.CastSpell(this);
     }
 }

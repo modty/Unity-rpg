@@ -10,7 +10,7 @@ public class CombatTextManager : MonoBehaviour
 
     private static CombatTextManager instance;
 
-    public static CombatTextManager MyInstance
+    public static CombatTextManager Instance
     {
         get
         {

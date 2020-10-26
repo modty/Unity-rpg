@@ -20,7 +20,7 @@ public class RainOfFire : Talent
     {
         if (base.Click())
         {
-            SpellBook.MyInstance.LearnSpell("Rain Of Fire");
+            SpellBook.Instance.LearnSpell("Rain Of Fire");
             
         }
 

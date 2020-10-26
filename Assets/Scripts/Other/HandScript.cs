@@ -9,7 +9,7 @@ public class HandScript : MonoBehaviour
 
     private static HandScript instance;
 
-    public static HandScript MyInstance
+    public static HandScript Instance
     {
         get
         {
@@ -25,7 +25,7 @@ public class HandScript : MonoBehaviour
     /// <summary>
     /// 当前鼠标拉取的对象
     /// </summary>
-    public IMoveable MyMoveable { get; set; }
+    public IMoveable Moveable { get; set; }
     /// <summary>
     /// 鼠标拉取对象的图标
     /// </summary>
@@ -46,7 +46,7 @@ public class HandScript : MonoBehaviour
     {
         icon.transform.position = Input.mousePosition+offset;
 
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && Instance.Moveable != null)
         {
             DeleteItem();
         }
@@ -61,15 +61,15 @@ public class HandScript : MonoBehaviour
     /// <param name="moveable">可移动的对象</param>
     public void TakeMoveable(IMoveable moveable)
     {
-        this.MyMoveable = moveable;
-        icon.sprite = moveable.MyIcon;
+        this.Moveable = moveable;
+        icon.sprite = moveable.Icon;
         icon.enabled = true;
     }
 
     public IMoveable Put()
     {
-        IMoveable tmp = MyMoveable;
-        MyMoveable = null;
+        IMoveable tmp = Moveable;
+        Moveable = null;
         icon.enabled = false;
         return tmp;
     }
@@ -78,9 +78,9 @@ public class HandScript : MonoBehaviour
     /// </summary>
     public void Drop()
     {
-        MyMoveable = null;
+        Moveable = null;
         icon.enabled = false;
-        InventoryScript.MyInstance.FromSlot = null;
+        InventoryScript.Instance.FromSlot = null;
     }
     
     /// <summary>
@@ -88,22 +88,22 @@ public class HandScript : MonoBehaviour
     /// </summary>
     public void DeleteItem()
     {
-        if (MyMoveable is Item)
+        if (Moveable is Item)
         {
-            Item item = (Item)MyMoveable;
-            if (item.MySlot != null)
+            Item item = (Item)Moveable;
+            if (item.Slot != null)
             {
-                item.MySlot.Clear();
+                item.Slot.Clear();
             }
-            else if (item.MyCharButton != null)
+            else if (item.CharButton != null)
             {
-                item.MyCharButton.DequipArmor();
+                item.CharButton.DequipArmor();
             }
       
         }
 
         Drop();
 
-        InventoryScript.MyInstance.FromSlot = null;
+        InventoryScript.Instance.FromSlot = null;
     }
 }

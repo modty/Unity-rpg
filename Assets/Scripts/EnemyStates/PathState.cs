@@ -22,17 +22,17 @@ public class PathState : IState
 
         this.transform = parent.transform.parent;
 
-        targetPos = Player.MyInstance.MyCurrentTile.position;
+        targetPos = Player.Instance.CurrentTile.position;
 
-        if (targetPos != parent.MyCurrentTile.position)
+        if (targetPos != parent.CurrentTile.position)
         {
-            parent.MyPath = parent.MyAstar.Algorithm(parent.MyCurrentTile.position, targetPos);
+            parent.Path = parent.Astar.Algorithm(parent.CurrentTile.position, targetPos);
         }
-        if (parent.MyPath != null)
+        if (parent.Path != null)
         {
-            current = parent.MyPath.Pop();
-            destination = parent.MyPath.Pop();
-            this.goal = parent.MyCurrentTile.position;
+            current = parent.Path.Pop();
+            destination = parent.Path.Pop();
+            this.goal = parent.CurrentTile.position;
         }
         else
         {
@@ -45,23 +45,23 @@ public class PathState : IState
 
     public void Exit()
     {
-        parent.MyPath = null;
+        parent.Path = null;
     }
 
     public void Update()
     {
-        if (parent.MyPath != null)
+        if (parent.Path != null)
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, parent.CurrentSpeed * Time.deltaTime);
 
             parent.ActivateLayer("WalkLayer");
            
-            Vector3Int dest = parent.MyAstar.MyTilemap.WorldToCell(destination);
-            Vector3Int cur = parent.MyAstar.MyTilemap.WorldToCell(current);
+            Vector3Int dest = parent.Astar.Tilemap.WorldToCell(destination);
+            Vector3Int cur = parent.Astar.Tilemap.WorldToCell(current);
 
             float distance = Vector2.Distance(destination, transform.position);
 
-            float totalDistance = Vector2.Distance(parent.MyTarget.transform.parent.position, transform.position);
+            float totalDistance = Vector2.Distance(parent.Target.transform.parent.position, transform.position);
 
             if (cur.y > dest.y)
             {
@@ -82,30 +82,30 @@ public class PathState : IState
                     parent.Direction = Vector2.right;
                 }
             }
-            if (totalDistance <= parent.MyAttackRange)
+            if (totalDistance <= parent.AttackRange)
             {
                 parent.ChangeState(new AttackState());
             }
-            else if (Player.MyInstance.MyCurrentTile.position == parent.MyCurrentTile.position)
+            else if (Player.Instance.CurrentTile.position == parent.CurrentTile.position)
             {
                 parent.ChangeState(new FollowState());
             }
 
             if (distance <= 0f)
             {
-                if (parent.MyPath.Count > 0)
+                if (parent.Path.Count > 0)
                 {
                     current = destination;
-                    destination = parent.MyPath.Pop();
+                    destination = parent.Path.Pop();
 
-                    if (targetPos != Player.MyInstance.MyCurrentTile.position)
+                    if (targetPos != Player.Instance.CurrentTile.position)
                     {
                         parent.ChangeState(new PathState());
                     }
                 }
                 else
                 {
-                    parent.MyPath = null;
+                    parent.Path = null;
                     parent.ChangeState(new PathState());
                 }
             }

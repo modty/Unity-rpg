@@ -11,15 +11,15 @@ namespace Assets.Scripts.Debuffs
     public abstract class Debuff
     {
 
-        public float MyDuration { get; set; }
+        public float Duration { get; set; }
 
         public float ProcChance { get; set; }
 
         public float Elapsed { get; set; }
 
-        public Character MyCharacter { get; protected set; }
+        public Character Character { get; protected set; }
 
-        public Image MyIcon { get; set; }
+        public Image Icon { get; set; }
 
         public abstract string Name
         {
@@ -28,19 +28,19 @@ namespace Assets.Scripts.Debuffs
 
         public Debuff(Image image)
         {
-            this.MyIcon = image;
+            this.Icon = image;
         }
 
         public virtual void Apply(Character character)
         {
-            this.MyCharacter = character;
+            this.Character = character;
             character.ApplyDebuff(this);
-            UIManager.MyInstance.AddDebuffToTargetFrame(this);
+            UIManager.Instance.AddDebuffToTargetFrame(this);
         }
 
         public virtual void Remove()
         {
-            MyCharacter.RemoveDebuff(this);
+            Character.RemoveDebuff(this);
             Elapsed = 0;
         }
 
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Debuffs
         {
             Elapsed += Time.deltaTime;
 
-            if (Elapsed >= MyDuration)
+            if (Elapsed >= Duration)
             {
                 Remove();
             }

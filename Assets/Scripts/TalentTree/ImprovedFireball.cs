@@ -7,7 +7,7 @@ public class ImprovedFireball : Talent
     {
         if (base.Click())
         {
-            SpellBook.MyInstance.GetSpell("Fireball").MyCastTime -= 0.1f;
+            SpellBook.Instance.GetSpell("Fireball").CastTime -= 0.1f;
             return true;
         }
 

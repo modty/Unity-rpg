@@ -20,7 +20,7 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private int count;
 
-    public Item MyItem
+    public Item Item
     {
         get
         {
@@ -35,31 +35,30 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void Initialize(Item item, int count)
     {
-        this.MyItem = item;
-        this.image.sprite = item.MyIcon;
-        this.title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", item.MyTitle);
+        this.Item = item;
+        this.image.sprite = item.Icon;
+        this.title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", item.Title);
         this.count = count;
 
         if (count > 1)
         {
             stack.enabled = true;
-            stack.text = InventoryScript.MyInstance.GetItemCount(item.MyTitle).ToString() + "/" + count.ToString();
         }
     }
     
     public void UpdateStackCount()
     {
-        stack.text = InventoryScript.MyInstance.GetItemCount(MyItem.MyTitle) + "/" + count.ToString();
+        stack.text = InventoryScript.Instance.GetItemCount(Item.Title) + "/" + count.ToString();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.MyInstance.ShowTooltip(new Vector2(0, 0), transform.position, MyItem);
+        UIManager.Instance.ShowTooltip(new Vector2(0, 0), transform.position, Item);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UIManager.MyInstance.HideTooltip();
+        UIManager.Instance.HideTooltip();
     }
 
 }

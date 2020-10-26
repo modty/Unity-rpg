@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace New
 {
@@ -6,7 +7,7 @@ namespace New
     /// 所有物品父类
     /// </summary>
     [Serializable]
-    public class Item
+    public abstract class Item
     {
         public long uid;
         public string name_cn;
@@ -14,5 +15,6 @@ namespace New
         public string description_cn;
         public string icon;
         public int maxStackSize;
+
     }
 }

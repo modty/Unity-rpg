@@ -6,22 +6,22 @@ using UnityEngine;
 
 public interface ICastable
 {
-    string MyTitle
+    string Title
     {
         get;
     }
 
-    Sprite MyIcon
+    Sprite Icon
     {
         get;
     }
 
-    float MyCastTime
+    float CastTime
     {
         get;
     }
 
-    Color MyBarColor
+    Color BarColor
     {
         get;
     }

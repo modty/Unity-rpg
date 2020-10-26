@@ -14,7 +14,7 @@ public class VendorItem
     [SerializeField]
     private bool unlimited;
 
-    public Item MyItem
+    public Item Item
     {
         get
         {
@@ -22,7 +22,7 @@ public class VendorItem
         }
     }
 
-    public int MyQuantity
+    public int Quantity
     {
         get
         {

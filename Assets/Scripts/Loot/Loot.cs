@@ -11,7 +11,7 @@ public class Loot
     [SerializeField]
     private float dropChance;
 
-    public Item MyItem
+    public Item Item
     {
         get
         {
@@ -19,7 +19,7 @@ public class Loot
         }
     }
 
-    public float MyDropChance
+    public float DropChance
     {
         get
         {

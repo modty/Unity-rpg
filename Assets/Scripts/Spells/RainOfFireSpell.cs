@@ -14,7 +14,7 @@ public class RainOfFireSpell : AOESpell
         {
             for (int i = 0; i < enemies.Count; i++)
             {
-                enemies[i].TakeDamage(damage / duration, Player.MyInstance);
+                enemies[i].TakeDamage(damage / duration, Player.Instance);
             }
 
             tickElapsed = 0;

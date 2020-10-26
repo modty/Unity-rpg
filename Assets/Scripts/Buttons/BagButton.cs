@@ -21,7 +21,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
     private int bagIndex;
 
 
-    public Bag MyBag
+    public Bag Bag
     {
         get
         {
@@ -43,7 +43,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public int MyBagIndex
+    public int BagIndex
     {
         get
         {
@@ -66,38 +66,38 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             // 如果鼠标上有物体且鼠标上的物体是一个背包
-            if (InventoryScript.MyInstance.FromSlot != null && HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
+            if (InventoryScript.Instance.FromSlot != null && HandScript.Instance.Moveable != null && HandScript.Instance.Moveable is Bag)
             {
                 // 当前背包栏已经装备背包
-                if (MyBag != null)
+                if (Bag != null)
                 {
                     // 切换背包
-                    InventoryScript.MyInstance.SwapBags(MyBag, HandScript.MyInstance.MyMoveable as Bag);
+                    InventoryScript.Instance.SwapBags(Bag, HandScript.Instance.Moveable as Bag);
                 }
                 // 没有装备背包
                 else
                 {
                     // 新建一个背包并赋值
-                    Bag tmp = (Bag)HandScript.MyInstance.MyMoveable;
-                    tmp.MyBagButton = this;
+                    Bag tmp = (Bag)HandScript.Instance.Moveable;
+                    tmp.BagButton = this;
                     tmp.Use();
-                    MyBag = tmp;
+                    Bag = tmp;
                     // 删除鼠标上的对象
-                    HandScript.MyInstance.Drop();
-                    InventoryScript.MyInstance.FromSlot = null;
+                    HandScript.Instance.Drop();
+                    InventoryScript.Instance.FromSlot = null;
                 }
             }
             // 如果按下LeftShift键，表示取下当前装备的背包
             else if (Input.GetKey(KeyCode.LeftShift))
             {
                 // 拿起背包
-                HandScript.MyInstance.TakeMoveable(MyBag);
+                HandScript.Instance.TakeMoveable(Bag);
             }
             // 都不是，就打开、关闭背包
             else if (bag != null) // 如果有背包装备上
             {
                 // 打开或者关闭背包
-                bag.MyBagScript.OpenClose();
+                bag.BagScript.OpenClose();
             }
 
         }
@@ -109,15 +109,15 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public void RemoveBag()
     {
-        InventoryScript.MyInstance.RemoveBag(MyBag);
-        MyBag.MyBagButton = null;
+        InventoryScript.Instance.RemoveBag(Bag);
+        Bag.BagButton = null;
 
-        foreach (Item item in MyBag.MyBagScript.GetItems())
+        foreach (Item item in Bag.BagScript.GetItems())
         {
             // 将移除背包中的物品放到其他背包中
-            InventoryScript.MyInstance.AddItem(item);
+            InventoryScript.Instance.AddItem(item);
         }
 
-        MyBag = null;
+        Bag = null;
     }
 }

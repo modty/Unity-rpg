@@ -9,7 +9,7 @@ public class ChainLightningTalents : Talent
     {
         if (base.Click())
         {
-            SpellBook.MyInstance.LearnSpell("ChainLightning");
+            SpellBook.Instance.LearnSpell("ChainLightning");
         }
         return false;
     }

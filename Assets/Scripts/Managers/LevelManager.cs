@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour
                     Color c = mapData[i].GetPixel(x, y); // 获取当前像素颜色
 
                     //检查是否有一个匹配地图上像素颜色的瓷砖
-                    MapElement newElement = Array.Find(mapElements, e => e.MyColor == c);
+                    MapElement newElement = Array.Find(mapElements, e => e.Color == c);
 
                     if (newElement != null) // 获取到了颜色瓷砖
                     {
@@ -88,15 +88,15 @@ public class LevelManager : MonoBehaviour
                         float yPos = WorldStartPos.y + (defaultTile.bounds.size.y * y);
 
                         // 创建瓷砖
-                        GameObject go = Instantiate(newElement.MyElementPrefab);
+                        GameObject go = Instantiate(newElement.ElementPrefab);
                         // 设置瓷砖位置
                         go.transform.position = new Vector2(xPos, yPos);
 
-                        if (newElement.MyTileTag == "Water")
+                        if (newElement.TileTag == "Water")
                         {
                             waterTiles.Add(new Point(x,y), go);
                         }
-                        if (newElement.MyTileTag == "Tree")
+                        if (newElement.TileTag == "Tree")
                         {
                             // 将树放入地图需要设置其排序数
                             go.GetComponent<SpriteRenderer>().sortingOrder = height*2 - y*2;
@@ -239,7 +239,7 @@ public class LevelManager : MonoBehaviour
                 if (x != 0 || y != 0)  //不检测自己
                 {
                     // 如果检测到水
-                    if (waterTiles.ContainsKey(new Point(currentPoint.MyX+x, currentPoint.MyY+y)))
+                    if (waterTiles.ContainsKey(new Point(currentPoint.X+x, currentPoint.Y+y)))
                     {
                         composition += "W";
                     }
@@ -277,7 +277,7 @@ public class MapElement
     private GameObject elementPrefab;
 
 
-    public GameObject MyElementPrefab
+    public GameObject ElementPrefab
     {
        get
         {
@@ -286,7 +286,7 @@ public class MapElement
     }
 
 
-    public Color MyColor
+    public Color Color
     {
         get
         {
@@ -295,7 +295,7 @@ public class MapElement
     }
 
 
-    public string MyTileTag
+    public string TileTag
     {
         get
         {
@@ -308,13 +308,13 @@ public class MapElement
 /// </summary>
 public struct Point
 {
-    public int MyX { get; set; }
-    public int MyY { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
 
     public Point(int x, int y)
     {
-        this.MyX = x;
-        this.MyY = y;
+        this.X = x;
+        this.Y = y;
     }
 
 

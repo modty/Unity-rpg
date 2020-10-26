@@ -44,14 +44,14 @@ public class Enemy : Character, IInteractable
     /// <summary>
     /// 距离上次攻击过去的时间
     /// </summary>
-    public float MyAttackTime { get; set; }
+    public float AttackTime { get; set; }
 
-    public Vector3 MyStartPosition { get; set; }
+    public Vector3 StartPosition { get; set; }
 
     [SerializeField]
     private Sprite portrait;
 
-    public Sprite MyPortrait
+    public Sprite Portrait
     {
         get
         {
@@ -62,17 +62,17 @@ public class Enemy : Character, IInteractable
     [SerializeField]
     private float initAggroRange;
 
-    public float MyAggroRange { get; set; }
+    public float AggroRange { get; set; }
 
     public bool InRange
     {
         get
         {
-            return Vector2.Distance(transform.position, MyTarget.transform.position) < MyAggroRange;
+            return Vector2.Distance(transform.position, Target.transform.position) < AggroRange;
         }
     }
 
-    public AStar MyAstar
+    public AStar Astar
     {
         get
         {
@@ -82,7 +82,7 @@ public class Enemy : Character, IInteractable
     /// <summary>
     /// 敌人攻击范围
     /// </summary>
-    public float MyAttackRange
+    public float AttackRange
     {
         get
         {
@@ -101,15 +101,15 @@ public class Enemy : Character, IInteractable
         SpriteRenderer sr;
         sr = GetComponent<SpriteRenderer>();
         sr.enabled = true;
-        MyStartPosition = transform.position;
-        MyAggroRange = initAggroRange;
+        StartPosition = transform.position;
+        AggroRange = initAggroRange;
         ChangeState(new IdleState());
     }
 
     protected override void Start()
     {
         base.Start();
-        MyAnimator.SetFloat("y", -1);
+        Animator.SetFloat("y", -1);
     }
 
     protected override void Update()
@@ -119,12 +119,12 @@ public class Enemy : Character, IInteractable
 
             if (!IsAttacking)
             {
-                MyAttackTime += Time.deltaTime;
+                AttackTime += Time.deltaTime;
             }
 
             currentState.Update();
 
-            if (MyTarget != null && !Player.MyInstance.IsAlive)
+            if (Target != null && !Player.Instance.IsAlive)
             {
                 ChangeState(new EvadeState());
             }
@@ -153,9 +153,9 @@ public class Enemy : Character, IInteractable
         //隐藏
         healthGroup.alpha = 0;
 
-        healthChanged -= new HealthChanged(UIManager.MyInstance.UpdateTargetFrame);
+        healthChanged -= new HealthChanged(UIManager.Instance.UpdateTargetFrame);
 
-        characterRemoved -= new CharacterRemoved(UIManager.MyInstance.HideTargetFrame);
+        characterRemoved -= new CharacterRemoved(UIManager.Instance.HideTargetFrame);
   
     }
 
@@ -170,12 +170,12 @@ public class Enemy : Character, IInteractable
 
                 base.TakeDamage(damage, source);
 
-                OnHealthChanged(health.MyCurrentValue);
+                OnHealthChanged(health.CurrentValue);
 
                 if (!IsAlive)
                 {
-                    Player.MyInstance.MyAttackers.Remove(this);
-                    Player.MyInstance.GainXP(XPManager.CalculateXP((this as Enemy)));
+                    Player.Instance.Attackers.Remove(this);
+                    Player.Instance.GainXP(XPManager.CalculateXP((this as Enemy)));
                 }
             }
 
@@ -187,7 +187,7 @@ public class Enemy : Character, IInteractable
     {
         if (canDoDamage)
         {
-            MyTarget.TakeDamage(damage, this);
+            Target.TakeDamage(damage, this);
             canDoDamage = false;
         }
       
@@ -216,21 +216,21 @@ public class Enemy : Character, IInteractable
 
     public void SetTarget(Character target)
     {
-        if (MyTarget == null && !(currentState is EvadeState))
+        if (Target == null && !(currentState is EvadeState))
         {
             float distance = Vector2.Distance(transform.position, target.transform.position);
-            MyAggroRange = initAggroRange;
-            MyAggroRange += distance;
-            MyTarget = target;
+            AggroRange = initAggroRange;
+            AggroRange += distance;
+            Target = target;
         }
     }
 
     public void Reset()
     {
-        this.MyTarget = null;
-        this.MyAggroRange = initAggroRange;
-        this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxValue;
-        OnHealthChanged(health.MyCurrentValue);
+        this.Target = null;
+        this.AggroRange = initAggroRange;
+        this.Health.CurrentValue = this.Health.MaxValue;
+        OnHealthChanged(health.CurrentValue);
     }
 
     public void Interact()
@@ -239,7 +239,7 @@ public class Enemy : Character, IInteractable
         {
             List<Drop> drops = new List<Drop>();
 
-            foreach (IInteractable interactable in Player.MyInstance.MyInteractables)
+            foreach (IInteractable interactable in Player.Instance.Interactables)
             {
                 if (interactable is Enemy && !(interactable as Enemy).IsAlive)
                 {
@@ -247,14 +247,14 @@ public class Enemy : Character, IInteractable
                 }
             }
 
-            LootWindow.MyInstance.CreatePages(drops);
+            LootWindow.Instance.CreatePages(drops);
 
         }
     }
 
     public void StopInteract()
     {
-        LootWindow.MyInstance.Close();
+        LootWindow.Instance.Close();
     }
 
     public void OnHealthChanged(float health)

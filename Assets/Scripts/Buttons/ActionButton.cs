@@ -9,7 +9,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     /// <summary>
     /// 可供使用的按钮
     /// </summary>
-    public IUseable MyUseable { get; set; }
+    public IUseable Useable { get; set; }
 
     [SerializeField]
     private Text stackSize;
@@ -23,9 +23,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     /// <summary>
     /// 引用当前对象的Button
     /// </summary>
-    public Button MyButton { get; private set; }
+    public Button Button { get; private set; }
 
-    public Image MyIcon
+    public Image Icon
     {
         get
         {
@@ -38,7 +38,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         }
     }
 
-    public int MyCount
+    public int Count
     {
         get
         {
@@ -47,7 +47,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     }
 
 
-    public Text MyStackText
+    public Text StackText
     {
         get
         {
@@ -55,7 +55,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         }
     }
 
-    public Stack<IUseable> MyUseables
+    public Stack<IUseable> Useables
     {
         get
         {
@@ -66,11 +66,11 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         {
             if (value.Count > 0)
             {
-                MyUseable = value.Peek();
+                Useable = value.Peek();
             }
             else
             {
-                MyUseable = null;
+                Useable = null;
             }
             
             useables = value;
@@ -82,9 +82,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
 
     void Start()
     {
-        MyButton = GetComponent<Button>();
-        MyButton.onClick.AddListener(OnClick);
-        InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(UpdateItemCount);
+        Button = GetComponent<Button>();
+        Button.onClick.AddListener(OnClick);
+        InventoryScript.Instance.itemCountChangedEvent += new ItemCountChanged(UpdateItemCount);
 
     }
 
@@ -95,15 +95,15 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
 
     public void OnClick()
     {
-        if (HandScript.MyInstance.MyMoveable == null)
+        if (HandScript.Instance.Moveable == null)
         {
-            if (MyUseable != null)
+            if (Useable != null)
             {
-                MyUseable.Use();
+                Useable.Use();
             }
-            else if (MyUseables != null && MyUseables.Count > 0)
+            else if (Useables != null && Useables.Count > 0)
             {
-                MyUseables.Peek().Use();
+                Useables.Peek().Use();
             }
         }
 
@@ -117,9 +117,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is IUseable)
+            if (HandScript.Instance.Moveable != null && HandScript.Instance.Moveable is IUseable)
             {
-                SetUseable(HandScript.MyInstance.MyMoveable as IUseable);
+                SetUseable(HandScript.Instance.Moveable as IUseable);
             }
         }
     }
@@ -132,47 +132,47 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         if (useable is Item)
         {
             // 获取背包中放到快捷栏的所有该物体，并压入栈中
-            MyUseables = InventoryScript.MyInstance.GetUseables(useable);
+            Useables = InventoryScript.Instance.GetUseables(useable);
             // 物品来源格子颜色变化
-            if (InventoryScript.MyInstance.FromSlot != null)
+            if (InventoryScript.Instance.FromSlot != null)
             {
-                InventoryScript.MyInstance.FromSlot.MyCover.enabled = false;
-                InventoryScript.MyInstance.FromSlot.MyIcon.enabled = true;
-                InventoryScript.MyInstance.FromSlot = null;
+                InventoryScript.Instance.FromSlot.Cover.enabled = false;
+                InventoryScript.Instance.FromSlot.Icon.enabled = true;
+                InventoryScript.Instance.FromSlot = null;
             }
  
 
         }
         else
         {
-            MyUseables.Clear();
-            this.MyUseable = useable;
+            Useables.Clear();
+            this.Useable = useable;
         }
 
-        count = MyUseables.Count;
+        count = Useables.Count;
         UpdateVisual(useable as IMoveable);
-        UIManager.MyInstance.RefreshTooltip(MyUseable as IDescribable);
+        UIManager.Instance.RefreshTooltip(Useable as IDescribable);
     }
     /// <summary>
     /// 更新快捷键的图标等数据
     /// </summary>
     public void UpdateVisual(IMoveable moveable)
     {
-        if (HandScript.MyInstance.MyMoveable != null)
+        if (HandScript.Instance.Moveable != null)
         {
-            HandScript.MyInstance.Drop();
+            HandScript.Instance.Drop();
         }
 
-        MyIcon.sprite = moveable.MyIcon;
-        MyIcon.enabled = true;
+        Icon.sprite = moveable.Icon;
+        Icon.enabled = true;
 
         if (count > 1)
         {
-            UIManager.MyInstance.UpdateStackSize(this);
+            UIManager.Instance.UpdateStackSize(this);
         }
-        else if (MyUseable is Spells)
+        else if (Useable is Spells)
         {
-            UIManager.MyInstance.ClearStackCount(this);
+            UIManager.Instance.ClearStackCount(this);
         }
     }
     /// <summary>
@@ -182,16 +182,16 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     public void UpdateItemCount(Item item)
     {
         // 如果物品可使用且使用堆栈中还有没有使用的该物品
-        if (item is IUseable && MyUseables.Count > 0)
+        if (item is IUseable && Useables.Count > 0)
         {
             // 弹出物品并再次验证
-            if (MyUseables.Peek().GetType() == item.GetType())
+            if (Useables.Peek().GetType() == item.GetType())
             {
-                MyUseables = InventoryScript.MyInstance.GetUseables(item as IUseable);
+                Useables = InventoryScript.Instance.GetUseables(item as IUseable);
 
-                count = MyUseables.Count;
+                count = Useables.Count;
 
-                UIManager.MyInstance.UpdateStackSize(this);
+                UIManager.Instance.UpdateStackSize(this);
             }
         }
     }
@@ -200,23 +200,23 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     {
         IDescribable tmp = null;
 
-        if (MyUseable != null && MyUseable is IDescribable)
+        if (Useable != null && Useable is IDescribable)
         {
-            tmp = (IDescribable)MyUseable;
-            //UIManager.MyInstance.ShowToolitip(transform.position);
+            tmp = (IDescribable)Useable;
+            //UIManager.Instance.ShowToolitip(transform.position);
         }
-        else if (MyUseables.Count > 0)
+        else if (Useables.Count > 0)
         {
-            // UIManager.MyInstance.ShowToolitip(transform.position);
+            // UIManager.Instance.ShowToolitip(transform.position);
         }
         if (tmp != null)
         {
-            UIManager.MyInstance.ShowTooltip(new Vector2(1, 0), transform.position, tmp);
+            UIManager.Instance.ShowTooltip(new Vector2(1, 0), transform.position, tmp);
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UIManager.MyInstance.HideTooltip();
+        UIManager.Instance.HideTooltip();
     }
 }

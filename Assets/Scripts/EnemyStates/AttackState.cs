@@ -20,7 +20,7 @@ public class AttackState : IState
     {
        
         this.parent = parent;
-        parent.MyRigidbody.velocity = Vector2.zero;
+        parent.Rigidbody.velocity = Vector2.zero;
         parent.Direction = Vector2.zero;
         
     }
@@ -33,22 +33,22 @@ public class AttackState : IState
     public void Update()
     {
         // 确保只有冷却时间过后才能攻击
-        if (parent.MyAttackTime >= attackCooldown && !parent.IsAttacking)
+        if (parent.AttackTime >= attackCooldown && !parent.IsAttacking)
         {
             // 初始化攻击计数器
-            parent.MyAttackTime = 0;
+            parent.AttackTime = 0;
 
             // 开始攻击
             parent.StartCoroutine(Attack());
         }
 
-        if (parent.MyTarget != null)// 如果有攻击目标判断是跟随他还是攻击他
+        if (parent.Target != null)// 如果有攻击目标判断是跟随他还是攻击他
         {
             // 计算与目标之间的距离
-            float distance = Vector2.Distance(parent.MyTarget.transform.parent.position, parent.transform.parent.position);
+            float distance = Vector2.Distance(parent.Target.transform.parent.position, parent.transform.parent.position);
 
             // 如果目标太远，走向他
-            if (distance >= parent.MyAttackRange + extraRange && !parent.IsAttacking)
+            if (distance >= parent.AttackRange + extraRange && !parent.IsAttacking)
             {
                 if (parent is RangedEnemy)
                 {
@@ -78,9 +78,9 @@ public class AttackState : IState
     {
         parent.IsAttacking = true;
 
-        parent.MyAnimator.SetTrigger("attack");
+        parent.Animator.SetTrigger("attack");
 
-        yield return new WaitForSeconds(parent.MyAnimator.GetCurrentAnimatorStateInfo(2).length);
+        yield return new WaitForSeconds(parent.Animator.GetCurrentAnimatorStateInfo(2).length);
 
         parent.IsAttacking = false;
     }

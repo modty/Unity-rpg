@@ -16,7 +16,7 @@ public class BlizzardTalent : Talent
     {
         if (base.Click())
         {
-            SpellBook.MyInstance.LearnSpell("Blizzard");
+            SpellBook.Instance.LearnSpell("Blizzard");
 
         }
 

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
     private HashSet<Vector3Int> blocked = new HashSet<Vector3Int>();
 
 
-    public static GameManager MyInstance
+    public static GameManager Instance
     {
         get
         {
@@ -81,12 +81,12 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
-                UIManager.MyInstance.HideTargetFrame();
+                UIManager.Instance.HideTargetFrame();
 
                 DeSelectTarget();
 
                 currentTarget = null;
-                player.MyTarget = null;
+                player.Target = null;
             }
         }
         else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
             if (hit.collider != null)
             {
                 IInteractable entity = hit.collider.gameObject.GetComponent<IInteractable>();
-                if (hit.collider != null && (hit.collider.tag == "Enemy" || hit.collider.tag == "Interactable") && player.MyInteractables.Contains(entity))
+                if (hit.collider != null && (hit.collider.tag == "Enemy" || hit.collider.tag == "Interactable") && player.Interactables.Contains(entity))
                 {
                     entity.Interact();
                 }
@@ -120,13 +120,13 @@ public class GameManager : MonoBehaviour {
         {
             DeSelectTarget();
 
-            if (Player.MyInstance.MyAttackers.Count > 0)
+            if (Player.Instance.Attackers.Count > 0)
             {
-                if (targetIndex < Player.MyInstance.MyAttackers.Count)
+                if (targetIndex < Player.Instance.Attackers.Count)
                 {
-                    SelectTarget(Player.MyInstance.MyAttackers[targetIndex]);
+                    SelectTarget(Player.Instance.Attackers[targetIndex]);
                     targetIndex++;
-                    if (targetIndex >= Player.MyInstance.MyAttackers.Count)
+                    if (targetIndex >= Player.Instance.Attackers.Count)
                     {
                         targetIndex = 0;
                     }
@@ -154,8 +154,8 @@ public class GameManager : MonoBehaviour {
     private void SelectTarget(Enemy enemy)
     {
         currentTarget = enemy;
-        player.MyTarget = currentTarget.Select();
-        UIManager.MyInstance.ShowTargetFrame(currentTarget);
+        player.Target = currentTarget.Select();
+        UIManager.Instance.ShowTargetFrame(currentTarget);
 
 
     }

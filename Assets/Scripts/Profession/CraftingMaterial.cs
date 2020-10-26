@@ -12,7 +12,7 @@ public class CraftingMaterial
     [SerializeField]
     private int count;
 
-    public int MyCount
+    public int Count
     {
         get
         {
@@ -20,7 +20,7 @@ public class CraftingMaterial
         }
     }
 
-    public Item MyItem
+    public Item Item
     {
         get
         {

@@ -34,7 +34,7 @@ public class Profession : MonoBehaviour
 
     private int amount;
 
-    private int MyAmount
+    private int Amount
     {
         set {
             countTxt.text = value.ToString();
@@ -49,7 +49,7 @@ public class Profession : MonoBehaviour
 
     private void Start()
     {
-        InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(UpdateMaterialCount);
+        InventoryScript.Instance.itemCountChangedEvent += new ItemCountChanged(UpdateMaterialCount);
         ShowDescription(selectedRecipe);
 
     }
@@ -72,9 +72,9 @@ public class Profession : MonoBehaviour
 
         materials.Clear();
 
-        title.text = recipe.Output.MyTitle;
+        title.text = recipe.Output.Title;
 
-        description.text = recipe.MyDescription + " " + recipe.Output.MyTitle.ToLower();
+        description.text = recipe.Description + " " + recipe.Output.Title.ToLower();
 
         craftItemInfo.Initialize(recipe.Output, 1);
 
@@ -82,7 +82,7 @@ public class Profession : MonoBehaviour
         {
             GameObject tmp = Instantiate(materialPrefab, parent);
 
-            tmp.GetComponent<ItemInfo>().Initialize(material.MyItem, material.MyCount);
+            tmp.GetComponent<ItemInfo>().Initialize(material.Item, material.Count);
 
             materials.Add(tmp);
 
@@ -107,17 +107,17 @@ public class Profession : MonoBehaviour
             if (countTxt.text == "0")
             {
               
-                MyAmount = 1;
+                Amount = 1;
                 
             }
             else if (int.Parse(countTxt.text) > maxAmount)
             {
-                MyAmount = maxAmount;
+                Amount = maxAmount;
             }
         }
         else
         {
-            MyAmount = 0;
+            Amount = 0;
             maxAmount = 0;
         }
     }
@@ -125,7 +125,7 @@ public class Profession : MonoBehaviour
     public void Craft(bool all)
     {
       
-        if (CanCraft() && !Player.MyInstance.IsAttacking)
+        if (CanCraft() && !Player.Instance.IsAttacking)
         {
             if (all)
             {
@@ -135,7 +135,7 @@ public class Profession : MonoBehaviour
             }
             else
             {
-                StartCoroutine(CraftRoutine(MyAmount));
+                StartCoroutine(CraftRoutine(Amount));
             }
 
        
@@ -152,11 +152,11 @@ public class Profession : MonoBehaviour
 
         foreach (CraftingMaterial material in selectedRecipe.Materials)
         {
-            int count = InventoryScript.MyInstance.GetItemCount(material.MyItem.MyTitle);
+            int count = InventoryScript.Instance.GetItemCount(material.Item.Title);
 
-            if (count >= material.MyCount)
+            if (count >= material.Count)
             {
-                amounts.Add(count/material.MyCount);
+                amounts.Add(count/material.Count);
                 continue;
             }
             else
@@ -174,7 +174,7 @@ public class Profession : MonoBehaviour
     {
         if ((amount + i) > 0 && amount + i <= maxAmount)
         {
-            MyAmount += i;
+            Amount += i;
         }
     }
 
@@ -182,19 +182,19 @@ public class Profession : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            yield return Player.MyInstance.MyInitRoutine = StartCoroutine(Player.MyInstance.CraftRoutine(selectedRecipe));
+            yield return Player.Instance.MyInitRoutine = StartCoroutine(Player.Instance.CraftRoutine(selectedRecipe));
         }
     }
 
     public void AdddItemsToInventory()
     {
-        if (InventoryScript.MyInstance.AddItem(craftItemInfo.MyItem))
+        if (InventoryScript.Instance.AddItem(craftItemInfo.Item))
         {
             foreach (CraftingMaterial material in selectedRecipe.Materials)
             {
-                for (int i = 0; i < material.MyCount; i++)
+                for (int i = 0; i < material.Count; i++)
                 {
-                    InventoryScript.MyInstance.RemoveItem(material.MyItem);
+                    InventoryScript.Instance.RemoveItem(material.Item);
                 }
             }
         }

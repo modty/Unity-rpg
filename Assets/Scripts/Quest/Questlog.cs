@@ -34,7 +34,7 @@ public class Questlog : MonoBehaviour
 
     private static Questlog instance;
 
-    public static Questlog MyInstance
+    public static Questlog Instance
     {
         get
         {
@@ -47,7 +47,7 @@ public class Questlog : MonoBehaviour
 
     }
 
-    public List<Quest> MyQuests
+    public List<Quest> Quests
     {
         get
         {
@@ -71,28 +71,28 @@ public class Questlog : MonoBehaviour
         {
             currentCount++;
             questCountTxt.text = currentCount + "/" + maxCount;
-            foreach (CollectObjective o in quest.MyCollectObjectives)
+            foreach (CollectObjective o in quest.CollectObjectives)
             {
-                InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(o.UpdateItemCount);
+                InventoryScript.Instance.itemCountChangedEvent += new ItemCountChanged(o.UpdateItemCount);
 
                 o.UpdateItemCount();
             }
-            foreach (KillObjective o in quest.MyKillObjectives)
+            foreach (KillObjective o in quest.KillObjectives)
             {
-                GameManager.MyInstance.killConfirmedEvent += new KillConfirmed(o.UpdateKillCount);
+                GameManager.Instance.killConfirmedEvent += new KillConfirmed(o.UpdateKillCount);
             }
 
-            MyQuests.Add(quest);
+            Quests.Add(quest);
 
             GameObject go = Instantiate(questPrefab, questParent);
 
             QuestScript qs = go.GetComponent<QuestScript>();
-            quest.MyQuestScript = qs;
-            qs.MyQuest = quest;
+            quest.QuestScript = qs;
+            qs.Quest = quest;
 
             questScripts.Add(qs);
 
-            go.GetComponent<Text>().text = quest.MyTitle;
+            go.GetComponent<Text>().text = quest.Title;
 
             CheckCompletion();
         }
@@ -112,25 +112,25 @@ public class Questlog : MonoBehaviour
         {
             if (selected != null && selected != quest)
             {
-                selected.MyQuestScript.DeSelect();
+                selected.QuestScript.DeSelect();
             }
 
             string objectives = string.Empty;
 
             selected = quest;
 
-            string title = quest.MyTitle;
+            string title = quest.Title;
 
-            foreach (Objective obj in quest.MyCollectObjectives)
+            foreach (Objective obj in quest.CollectObjectives)
             {
-                objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+                objectives += obj.Type + ": " + obj.CurrentAmount + "/" + obj.Amount + "\n";
             }
-            foreach (Objective obj in quest.MyKillObjectives)
+            foreach (Objective obj in quest.KillObjectives)
             {
-                objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+                objectives += obj.Type + ": " + obj.CurrentAmount + "/" + obj.Amount + "\n";
             }
 
-            questDescription.text = string.Format("{0}\n<size=10>{1}</size>\n\nObjectives\n<size=10>{2}</size>", title, quest.MyDescription, objectives);
+            questDescription.text = string.Format("{0}\n<size=10>{1}</size>\n\nObjectives\n<size=10>{2}</size>", title, quest.Description, objectives);
         }
 
 
@@ -140,7 +140,7 @@ public class Questlog : MonoBehaviour
     {
         foreach (QuestScript qs in questScripts)
         {
-            qs.MyQuest.MyQuestGiver.UpdateQuestStatus();
+            qs.Quest.QuestGiver.UpdateQuestStatus();
             qs.IsComplete();
         }
     }
@@ -167,35 +167,35 @@ public class Questlog : MonoBehaviour
     public void AbandonQuest()
     {
 
-        foreach (CollectObjective o in selected.MyCollectObjectives)
+        foreach (CollectObjective o in selected.CollectObjectives)
         {
-            InventoryScript.MyInstance.itemCountChangedEvent -= new ItemCountChanged(o.UpdateItemCount);
+            InventoryScript.Instance.itemCountChangedEvent -= new ItemCountChanged(o.UpdateItemCount);
         }
 
-        foreach (KillObjective o in selected.MyKillObjectives)
+        foreach (KillObjective o in selected.KillObjectives)
         {
-            GameManager.MyInstance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
+            GameManager.Instance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
 
         }
 
-        RemoveQuest(selected.MyQuestScript);
+        RemoveQuest(selected.QuestScript);
     }
 
     public void RemoveQuest(QuestScript qs)
     {
         questScripts.Remove(qs);
         Destroy(qs.gameObject);
-        MyQuests.Remove(qs.MyQuest);
+        Quests.Remove(qs.Quest);
         questDescription.text = string.Empty;
         selected = null;
         currentCount--;
         questCountTxt.text = currentCount + "/" + maxCount;
-        qs.MyQuest.MyQuestGiver.UpdateQuestStatus();
+        qs.Quest.QuestGiver.UpdateQuestStatus();
         qs = null;
     }
 
     public bool HasQuest(Quest quest)
     {
-        return MyQuests.Exists(x => x.MyTitle == quest.MyTitle);
+        return Quests.Exists(x => x.Title == quest.Title);
     }
 }

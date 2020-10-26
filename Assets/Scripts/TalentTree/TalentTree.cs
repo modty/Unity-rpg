@@ -17,7 +17,7 @@ public class TalentTree : MonoBehaviour
     [SerializeField]
     private Text talentPointText;
 
-    public int MyPoints
+    public int Points
     {
         get
         {
@@ -40,15 +40,15 @@ public class TalentTree : MonoBehaviour
 
     public void TryUseTalent(Talent talent)
     {
-        if (MyPoints > 0 && talent.Click())
+        if (Points > 0 && talent.Click())
         {
-            MyPoints--;
+            Points--;
         }
-        if (MyPoints == 0)
+        if (Points == 0)
         {
             foreach (Talent t in talents)
             {
-                if (t.MyCurrentCount == 0)
+                if (t.CurrentCount == 0)
                 {
                     t.Lock();
                 }

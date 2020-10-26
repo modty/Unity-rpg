@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class ThundshockDebuff : Debuff
 {
-    public float MySpeedReduction { get; set; }
+    public float SpeedReduction { get; set; }
 
     public override string Name => "Thundershock";
 
     public ThundshockDebuff(Image icon) : base(icon)
     {
-        MyDuration = 1;
+        Duration = 1;
     }
 
     public override Debuff Clone()
@@ -30,7 +30,7 @@ public class ThundshockDebuff : Debuff
 
     public override void Remove()
     {
-        (MyCharacter as Enemy).ChangeState(new PathState());
+        (Character as Enemy).ChangeState(new PathState());
         base.Remove();
     }
 }

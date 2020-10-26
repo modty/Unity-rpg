@@ -10,7 +10,7 @@ public class MessageFeedManager : MonoBehaviour {
     [SerializeField]
     private GameObject messagePrefab;
 
-    public static MessageFeedManager MyInstance
+    public static MessageFeedManager Instance
     {
         get
         {

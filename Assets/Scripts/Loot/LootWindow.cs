@@ -7,7 +7,7 @@ public class LootWindow : MonoBehaviour
 {
     private static LootWindow instance;
 
-    public static LootWindow MyInstance
+    public static LootWindow Instance
     {
         get
         {
@@ -37,7 +37,7 @@ public class LootWindow : MonoBehaviour
     [SerializeField]
     private GameObject nextBtn, previousBtn;
 
-    public IInteractable MyInteractable { get; set; }
+    public IInteractable Interactable { get; set; }
 
     [SerializeField]
     private Item[] items;
@@ -96,17 +96,17 @@ public class LootWindow : MonoBehaviour
                 if (pages[pageIndex][i] != null)
                 {
                     // 设置掉落物图标
-                    lootButtons[i].MyIcon.sprite = pages[pageIndex][i].MyItem.MyIcon;
+                    lootButtons[i].Icon.sprite = pages[pageIndex][i].Item.Icon;
 
-                    lootButtons[i].MyLoot = pages[pageIndex][i].MyItem;
+                    lootButtons[i].Loot = pages[pageIndex][i].Item;
 
                     // 确认战利品按钮可用
                     lootButtons[i].gameObject.SetActive(true);
 
-                    string title = string.Format("<color={0}>{1}</color>", "#00ff00ff", pages[pageIndex][i].MyItem.MyTitle);
+                    string title = string.Format("<color={0}>{1}</color>", "#00ff00ff", pages[pageIndex][i].Item.Title);
 
                     // 设置战利品名称
-                    lootButtons[i].MyTitle.text = title;
+                    lootButtons[i].Title.text = title;
                 }
 
             }
@@ -149,7 +149,7 @@ public class LootWindow : MonoBehaviour
     public void TakeLoot(Item loot)
     {
 
-        Drop drop = pages[pageIndex].Find(x => x.MyItem == loot);
+        Drop drop = pages[pageIndex].Find(x => x.Item == loot);
 
         pages[pageIndex].Remove(drop);
 
@@ -177,12 +177,12 @@ public class LootWindow : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
         ClearButtons();
 
-        if (MyInteractable != null)
+        if (Interactable != null)
         {
-            MyInteractable.StopInteract();
+            Interactable.StopInteract();
         }
 
-        MyInteractable = null;
+        Interactable = null;
     }
 
     public void Open()

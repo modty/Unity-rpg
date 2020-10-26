@@ -10,7 +10,7 @@ namespace Assets.Scripts.Debuffs
 {
     class IgniteDebuff : Debuff
     {
-        public float MyTickDamage { get; set; }
+        public float TickDamage { get; set; }
 
         public override string Name
         {
@@ -21,16 +21,16 @@ namespace Assets.Scripts.Debuffs
 
         public  IgniteDebuff(Image icon) : base(icon)
         {
-            MyDuration = 20;
+            Duration = 20;
         }
 
         public override void Update()
         {
             elapsed += Time.deltaTime;
 
-            if (elapsed >= MyDuration/MyTickDamage)
+            if (elapsed >= Duration/TickDamage)
             {
-                MyCharacter.TakeDamage(MyTickDamage, null);
+                Character.TakeDamage(TickDamage, null);
                 elapsed = 0;
             }
 

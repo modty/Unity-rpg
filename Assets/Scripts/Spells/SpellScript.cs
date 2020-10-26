@@ -19,7 +19,7 @@ public class SpellScript : MonoBehaviour {
     /// <summary>
     /// 技能目标
     /// </summary>
-    public Transform MyTarget { get; private set; }
+    public Transform Target { get; private set; }
 
     private Character source;
 
@@ -34,7 +34,7 @@ public class SpellScript : MonoBehaviour {
 
     public void Initialize(Transform target, float damage, Character source, Debuff debuff)
     {
-        this.MyTarget = target;
+        this.Target = target;
         this.damage = damage;
         this.source = source;
         this.debuff = debuff;
@@ -42,17 +42,17 @@ public class SpellScript : MonoBehaviour {
 
     public void Initialize(Transform target, float damage, Character source)
     {
-        this.MyTarget = target;
+        this.Target = target;
         this.damage = damage;
         this.source = source;
     }
 
     private void FixedUpdate()
     {
-        if (MyTarget != null)
+        if (Target != null)
         {
             // 计算技能方向
-            Vector2 direction = MyTarget.position - transform.position;
+            Vector2 direction = Target.position - transform.position;
 
             // 技能移动
             myRigidBody.velocity = direction.normalized * speed;
@@ -68,7 +68,7 @@ public class SpellScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "HitBox" && collision.transform == MyTarget)
+        if (collision.tag == "HitBox" && collision.transform == Target)
         {
             Character c = collision.GetComponentInParent<Character>();
             speed = 0;
@@ -82,7 +82,7 @@ public class SpellScript : MonoBehaviour {
 
             GetComponent<Animator>().SetTrigger("impact");
             myRigidBody.velocity = Vector2.zero;
-            MyTarget = null;
+            Target = null;
         }
     }
 }

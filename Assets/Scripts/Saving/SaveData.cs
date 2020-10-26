@@ -5,68 +5,68 @@ using UnityEngine;
 [Serializable]
 public class SaveData
 {
-    public PlayerData MyPlayerData { get; set; }
+    public PlayerData PlayerData { get; set; }
 
-    public List<ChestData> MyChestData { get; set; }
+    public List<ChestData> ChestData { get; set; }
 
-    public List<EquipmentData> MyEquipmentData { get; set; }
+    public List<EquipmentData> EquipmentData { get; set; }
 
-    public InventoryData MyInventoryData { get; set; }
+    public InventoryData InventoryData { get; set; }
 
-    public List<ActionButtonData> MyActionButtonData { get; set; }
+    public List<ActionButtonData> ActionButtonData { get; set; }
 
-    public List<QuestData> MyQuestData { get; set; }
+    public List<QuestData> QuestData { get; set; }
 
-    public List<QuestGiverData> MyQuestGiverData { get; set; }
+    public List<QuestGiverData> QuestGiverData { get; set; }
 
-    public DateTime MyDateTime { get; set; }
+    public DateTime DateTime { get; set; }
 
-    public string MyScene { get; set; }
+    public string Scene { get; set; }
 
     public SaveData()
     {
-        MyInventoryData = new InventoryData();
-        MyChestData = new List<ChestData>();
-        MyActionButtonData = new List<ActionButtonData>();
-        MyEquipmentData = new List<EquipmentData>();
-        MyQuestData = new List<QuestData>();
-        MyQuestGiverData = new List<QuestGiverData>();
-        MyDateTime = DateTime.Now;
+        InventoryData = new InventoryData();
+        ChestData = new List<ChestData>();
+        ActionButtonData = new List<ActionButtonData>();
+        EquipmentData = new List<EquipmentData>();
+        QuestData = new List<QuestData>();
+        QuestGiverData = new List<QuestGiverData>();
+        DateTime = DateTime.Now;
     }
 }
 
 [Serializable]
 public class PlayerData
 {
-    public int MyLevel { get; set; }
+    public int Level { get; set; }
 
-    public float MyXp { get; set; }
+    public float Xp { get; set; }
 
-    public float MyMaxXP { get; set; }
+    public float MaxXP { get; set; }
 
-    public float MyHealth { get; set; }
+    public float Health { get; set; }
 
-    public float MyMaxHealth { get; set; }
+    public float MaxHealth { get; set; }
 
-    public float MyMana { get; set; }
+    public float Mana { get; set; }
 
-    public float MyMaxMana { get; set; }
+    public float MaxMana { get; set; }
 
-    public float MyX { get; set; }
+    public float X { get; set; }
 
-    public float MyY { get; set; }
+    public float Y { get; set; }
 
     public PlayerData(int level, float xp, float maxXp, float health, float maxHealth, float mana, float maxMana, Vector2 position)
     {
-        this.MyLevel = level;
-        this.MyXp = xp;
-        this.MyMaxXP = maxXp;
-        this.MyHealth = health;
-        this.MyMaxHealth = maxHealth;
-        this.MyMana = mana;
-        this.MyMaxMana = maxMana;
-        this.MyX = position.x;
-        this.MyY = position.y;
+        this.Level = level;
+        this.Xp = xp;
+        this.MaxXP = maxXp;
+        this.Health = health;
+        this.MaxHealth = maxHealth;
+        this.Mana = mana;
+        this.MaxMana = maxMana;
+        this.X = position.x;
+        this.Y = position.y;
 
     }
 }
@@ -74,62 +74,62 @@ public class PlayerData
 [Serializable]
 public class ItemData
 {
-    public string MyTitel { get; set; }
+    public string Titel { get; set; }
 
-    public int MyStackCount { get; set; }
+    public int StackCount { get; set; }
 
-    public int MySlotIndex { get; set; }
+    public int SlotIndex { get; set; }
 
-    public int MyBagIndex { get; set; }
+    public int BagIndex { get; set; }
 
     public ItemData(string titel, int stackCount = 0, int slotIndex = 0, int bagIndex = 0)
     {
-        MyBagIndex = bagIndex;
-        MyTitel = titel;
-        MyStackCount = stackCount;
-        MySlotIndex = slotIndex;
+        BagIndex = bagIndex;
+        Titel = titel;
+        StackCount = stackCount;
+        SlotIndex = slotIndex;
     }
 }
 
 [Serializable]
 public class ChestData
 {
-    public string MyName { get; set; }
+    public string Name { get; set; }
 
-    public List<ItemData> MyItems { get; set; }
+    public List<ItemData> Items { get; set; }
 
     public ChestData(string name)
     {
-        MyName = name;
+        Name = name;
 
-        MyItems = new List<ItemData>();
+        Items = new List<ItemData>();
     }
 }
 
 [Serializable]
 public class InventoryData
 {
-    public List<BagData> MyBags { get; set; }
+    public List<BagData> Bags { get; set; }
 
-    public List<ItemData> MyItems { get; set; }
+    public List<ItemData> Items { get; set; }
 
     public InventoryData()
     {
-        MyBags = new List<BagData>();
-        MyItems = new List<ItemData>();
+        Bags = new List<BagData>();
+        Items = new List<ItemData>();
     }
 }
 
 [Serializable]
 public class BagData
 {
-    public int MySlotCount { get; set; }
-    public int MyBagIndex { get; set; }
+    public int SlotCount { get; set; }
+    public int BagIndex { get; set; }
 
     public BagData(int count, int index)
     {
-        MySlotCount = count;
-        MyBagIndex = index;
+        SlotCount = count;
+        BagIndex = index;
 
     }
 }
@@ -137,14 +137,14 @@ public class BagData
 [Serializable]
 public class EquipmentData
 {
-    public string MyTitle { get; set; }
+    public string Title { get; set; }
 
-    public string MyType { get; set; }
+    public string Type { get; set; }
 
     public EquipmentData(string title, string type)
     {
-        MyTitle = title;
-        MyType = type;
+        Title = title;
+        Type = type;
     }
 
 }
@@ -152,57 +152,57 @@ public class EquipmentData
 [Serializable]
 public class ActionButtonData
 {
-    public string MyAction { get; set; }
+    public string Action { get; set; }
 
     public bool IsItem { get; set; }
 
-    public int MyIndex { get; set; }
+    public int Index { get; set; }
 
     public ActionButtonData(string action, bool isItem, int index)
     {
-        this.MyAction = action;
+        this.Action = action;
         this.IsItem = isItem;
-        this.MyIndex = index;
+        this.Index = index;
     }
 }
 
 [Serializable]
 public class QuestData
 {
-    public string MyTitle { get; set; }
+    public string Title { get; set; }
 
-    public string MyDescription { get; set; }
+    public string Description { get; set; }
 
-    public CollectObjective[] MyCollectObjectives { get; set; }
+    public CollectObjective[] CollectObjectives { get; set; }
 
-    public KillObjective[] MyKillObjectives { get; set; }
+    public KillObjective[] KillObjectives { get; set; }
 
-    public int MyQuestGiverID { get; set; }
+    public int QuestGiverID { get; set; }
 
     public QuestData(string title, string description, CollectObjective[] collectObjectives, KillObjective[] killObjectives, int questGiverID)
     {
-        MyTitle = title;
+        Title = title;
 
-        MyDescription = description;
+        Description = description;
 
-        MyCollectObjectives = collectObjectives;
+        CollectObjectives = collectObjectives;
 
-        MyKillObjectives = killObjectives;
+        KillObjectives = killObjectives;
 
-        MyQuestGiverID = questGiverID;
+        QuestGiverID = questGiverID;
     }
 }
 
 [Serializable]
 public class QuestGiverData
 {
-    public List<string> MyCompletedQuests { get; set; }
+    public List<string> CompletedQuests { get; set; }
 
-    public int MyQuestGiverID { get; set; }
+    public int QuestGiverID { get; set; }
 
     public QuestGiverData(int questGiverID, List<string> completedQuests)
     {
-        this.MyQuestGiverID = questGiverID;
-        MyCompletedQuests = completedQuests;
+        this.QuestGiverID = questGiverID;
+        CompletedQuests = completedQuests;
     }
 }

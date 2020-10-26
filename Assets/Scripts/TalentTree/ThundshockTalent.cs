@@ -26,17 +26,17 @@ public class ThundshockTalent : Talent
 
             debuff.ProcChance = procChance;
 
-            if (MyCurrentCount < 3)
+            if (CurrentCount < 3)
             {
                 procChance += procIncrease;
-                nextRank = $"<color=#ffffff>\n\n下一等级:\n</color><color=#ffd100>向敌人释放闪电箭\n有 {debuff.ProcChance + procIncrease}% 的几率对敌人造成 {debuff.MyDuration} 秒(s)的眩晕。</color>\n";
+                nextRank = $"<color=#ffffff>\n\n下一等级:\n</color><color=#ffd100>向敌人释放闪电箭\n有 {debuff.ProcChance + procIncrease}% 的几率对敌人造成 {debuff.Duration} 秒(s)的眩晕。</color>\n";
             }
             else
             {
                 nextRank = string.Empty;
             }
-            SpellBook.MyInstance.GetSpell("Thunderbolt").MyDebuff = debuff;
-            UIManager.MyInstance.RefreshTooltip(this);
+            SpellBook.Instance.GetSpell("Thunderbolt").Debuff = debuff;
+            UIManager.Instance.RefreshTooltip(this);
             return true;
         }
 
@@ -46,6 +46,6 @@ public class ThundshockTalent : Talent
 
     public override string GetDescription()
     {
-        return $"闪电箭Ⅱ<color=#ffd100>\n向敌人释放闪电箭\n有 {debuff.ProcChance}% 的几率对敌人造成 {debuff.MyDuration} 秒(s)的眩晕。</color>{nextRank}";
+        return $"闪电箭Ⅱ<color=#ffd100>\n向敌人释放闪电箭\n有 {debuff.ProcChance}% 的几率对敌人造成 {debuff.Duration} 秒(s)的眩晕。</color>{nextRank}";
     }
 }

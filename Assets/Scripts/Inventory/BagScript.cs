@@ -20,7 +20,7 @@ public class BagScript : MonoBehaviour
     /// </summary>
     private List<SlotScript> slots = new List<SlotScript>();
 
-    public int MyBagIndex { get; set; }
+    public int BagIndex { get; set; }
 
     /// <summary>
     /// 背包打开还是关闭（根据透明度alpha判断，1：打开，0：未打开），true : 背包被打开，false : 背包没有打开
@@ -35,7 +35,7 @@ public class BagScript : MonoBehaviour
     /// <summary>
     /// 当前背包中的所有格子
     /// </summary>
-    public List<SlotScript> MySlots
+    public List<SlotScript> Slots
     {
         get
         {
@@ -45,13 +45,13 @@ public class BagScript : MonoBehaviour
     /// <summary>
     /// 当前背包中剩余的格子数
     /// </summary>
-    public int MyEmptySlotCount
+    public int EmptySlotCount
     {
         get
         {
             int count = 0;
 
-            foreach (SlotScript slot in MySlots)
+            foreach (SlotScript slot in Slots)
             {
                 if (slot.IsEmpty)
                 {
@@ -82,7 +82,7 @@ public class BagScript : MonoBehaviour
         {
             if (!slot.IsEmpty)
             {
-                foreach (Item item in slot.MyItems)
+                foreach (Item item in slot.Items)
                 {
                     items.Add(item);
                 }
@@ -101,9 +101,9 @@ public class BagScript : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             SlotScript slot = Instantiate(slotPrefab, transform).GetComponent<SlotScript>();
-            slot.MyIndex = i;
-            slot.MyBag = this;
-            MySlots.Add(slot);
+            slot.Index = i;
+            slot.Bag = this;
+            Slots.Add(slot);
         }
     }
 
@@ -114,7 +114,7 @@ public class BagScript : MonoBehaviour
     /// <returns>是否添加成功</returns>
     public bool AddItem(Item item)
     {
-        foreach (SlotScript slot in MySlots)// 检查所有格子
+        foreach (SlotScript slot in Slots)// 检查所有格子
         {
             if (slot.IsEmpty) // 有格子为空，就添加进去
             {

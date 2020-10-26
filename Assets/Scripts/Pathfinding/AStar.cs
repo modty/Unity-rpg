@@ -27,7 +27,7 @@ public class AStar : MonoBehaviour
 
     private Vector3Int startPos, goalPos;
 
-    public Tilemap MyTilemap
+    public Tilemap Tilemap
     {
         get
         {
@@ -45,8 +45,8 @@ public class AStar : MonoBehaviour
 
     public Stack<Vector3> Algorithm(Vector3 start, Vector3 goal)
     {
-        startPos = MyTilemap.WorldToCell(start);
-        goalPos = MyTilemap.WorldToCell(goal);
+        startPos = Tilemap.WorldToCell(start);
+        goalPos = Tilemap.WorldToCell(goal);
 
         current = GetNode(startPos);
 
@@ -98,7 +98,7 @@ public class AStar : MonoBehaviour
                 {
                     Vector3Int neighbourPosition = new Vector3Int(parentPosition.x - x, parentPosition.y - y, parentPosition.z);
 
-                    if (neighbourPosition != startPos && !GameManager.MyInstance.Blocked.Contains(neighbourPosition))
+                    if (neighbourPosition != startPos && !GameManager.Instance.Blocked.Contains(neighbourPosition))
                     {
                         Node neighbour = GetNode(neighbourPosition);
                         neighbours.Add(neighbour);
@@ -155,7 +155,7 @@ public class AStar : MonoBehaviour
         Vector3Int first = new Vector3Int(currentNode.Position.x + (direction.x * -1), currentNode.Position.y, currentNode.Position.z);
         Vector3Int second = new Vector3Int(currentNode.Position.x, currentNode.Position.y + (direction.y * -1), currentNode.Position.z);
 
-        if (GameManager.MyInstance.Blocked.Contains(first) || GameManager.MyInstance.Blocked.Contains(second))
+        if (GameManager.Instance.Blocked.Contains(first) || GameManager.Instance.Blocked.Contains(second))
         {
             return false;
         }
@@ -202,7 +202,7 @@ public class AStar : MonoBehaviour
 
             while (current != null)
             {
-                finalPath.Push(MyTilemap.CellToWorld(current.Position));
+                finalPath.Push(Tilemap.CellToWorld(current.Position));
                 current = current.Parent;
             }
 

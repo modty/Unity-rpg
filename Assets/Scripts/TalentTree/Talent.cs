@@ -30,7 +30,7 @@ public class Talent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     [SerializeField]
     private Image arrowImage;
 
-    public int MyCurrentCount
+    public int CurrentCount
     {
         get
         {
@@ -47,7 +47,7 @@ public class Talent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     {
         icon = GetComponent<Image>();
 
-        countText.text = $"{MyCurrentCount}/{maxCount}";
+        countText.text = $"{CurrentCount}/{maxCount}";
 
         if (unlocked)
         {
@@ -58,12 +58,12 @@ public class Talent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public virtual bool Click()
     {
-        if (MyCurrentCount < maxCount && unlocked)
+        if (CurrentCount < maxCount && unlocked)
         {
-            MyCurrentCount++;
-            countText.text = $"{MyCurrentCount}/{maxCount}";
+            CurrentCount++;
+            countText.text = $"{CurrentCount}/{maxCount}";
 
-            if (MyCurrentCount == maxCount)
+            if (CurrentCount == maxCount)
             {
                 if (childTalent != null)
                 {
@@ -115,12 +115,12 @@ public class Talent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.MyInstance.ShowTooltip(new Vector2(1, 0), transform.position, this);
+        UIManager.Instance.ShowTooltip(new Vector2(1, 0), transform.position, this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UIManager.MyInstance.HideTooltip();
+        UIManager.Instance.HideTooltip();
     }
 
     public virtual string GetDescription()

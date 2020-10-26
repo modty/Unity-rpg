@@ -16,7 +16,7 @@ public class PermafrostTalent : Talent
     public void Start()
     {
         debuff = new PermafrostDebuff(icon);
-        debuff.MySpeedReduction = speedReduction;
+        debuff.SpeedReduction = speedReduction;
     }
 
     public override bool Click()
@@ -24,19 +24,19 @@ public class PermafrostTalent : Talent
         if (base.Click())
         {
 
-            debuff.MySpeedReduction = speedReduction;
+            debuff.SpeedReduction = speedReduction;
 
-            if (MyCurrentCount < 3)
+            if (CurrentCount < 3)
             {
                 speedReduction += reductionIncrease;
-                nextRank = $"<color=#ffffff>\n\n下一等级:\n</color><color=#ffd100>你的寒冰箭能使敌人减速\n减少敌人{debuff.MySpeedReduction+reductionIncrease}% 的移动速度</color>\n";
+                nextRank = $"<color=#ffffff>\n\n下一等级:\n</color><color=#ffd100>你的寒冰箭能使敌人减速\n减少敌人{debuff.SpeedReduction+reductionIncrease}% 的移动速度</color>\n";
             }
             else
             {
                 nextRank = string.Empty;
             }
-            SpellBook.MyInstance.GetSpell("Frostbolt").MyDebuff = debuff;
-            UIManager.MyInstance.RefreshTooltip(this);
+            SpellBook.Instance.GetSpell("Frostbolt").Debuff = debuff;
+            UIManager.Instance.RefreshTooltip(this);
             return true;
         }
 
@@ -46,6 +46,6 @@ public class PermafrostTalent : Talent
 
     public override string GetDescription()
     {
-        return $"寒冰箭Ⅱ<color=#ffd100>\n你的寒冰箭能使敌人减速\n减少敌人 {debuff.MySpeedReduction}%  的移动速度</color>{nextRank}";
+        return $"寒冰箭Ⅱ<color=#ffd100>\n你的寒冰箭能使敌人减速\n减少敌人 {debuff.SpeedReduction}%  的移动速度</color>{nextRank}";
     }
 }

@@ -22,7 +22,7 @@ public class Armor : Item
     [SerializeField]
     private AnimationClip[] animationClips;
 
-    internal ArmorType MyArmorType
+    internal ArmorType ArmorType
     {
         get
         {
@@ -30,7 +30,7 @@ public class Armor : Item
         }
     }
 
-    public AnimationClip[] MyAnimationClips
+    public AnimationClip[] AnimationClips
     {
         get
         {
@@ -60,6 +60,6 @@ public class Armor : Item
 
     public void Equip()
     {
-        CharacterPanel.MyInstance.EquipArmor(this);
+        CharacterPanel.Instance.EquipArmor(this);
     }
 }

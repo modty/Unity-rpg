@@ -17,7 +17,7 @@ public class IgniteTalent : Talent
     public void Start()
     {
         debuff = new IgniteDebuff(icon);
-        this.debuff.MyTickDamage = tickDamage;
+        this.debuff.TickDamage = tickDamage;
     }
 
     public override bool Click()
@@ -25,19 +25,19 @@ public class IgniteTalent : Talent
         if (base.Click())
         {
 
-            debuff.MyTickDamage = tickDamage;
+            debuff.TickDamage = tickDamage;
 
-            if (MyCurrentCount < 3)
+            if (CurrentCount < 3)
             {
                 tickDamage += damageIncrease;
-                nextRank = $"<color=#ffffff>\n\n火球术Ⅱ:\n</color><color=#ffd100> 向敌人释放一个火球\n在 {debuff.MyDuration} s内造成 {tickDamage * debuff.MyDuration} 点伤害</color>\n";
+                nextRank = $"<color=#ffffff>\n\n火球术Ⅱ:\n</color><color=#ffd100> 向敌人释放一个火球\n在 {debuff.Duration} s内造成 {tickDamage * debuff.Duration} 点伤害</color>\n";
             }
             else
             {
                 nextRank = string.Empty;
             }
-            SpellBook.MyInstance.GetSpell("Fireball").MyDebuff = debuff;
-            UIManager.MyInstance.RefreshTooltip(this);
+            SpellBook.Instance.GetSpell("Fireball").Debuff = debuff;
+            UIManager.Instance.RefreshTooltip(this);
             return true;
         }
 
@@ -47,6 +47,6 @@ public class IgniteTalent : Talent
 
     public override string GetDescription()
     {
-        return $"火球术Ⅱ<color=#ffd100>\n 向敌人释放一个火球\n在 {debuff.MyDuration} s内造成 {debuff.MyTickDamage*debuff.MyDuration} 点伤害。</color>{nextRank}";  
+        return $"火球术Ⅱ<color=#ffd100>\n 向敌人释放一个火球\n在 {debuff.Duration} s内造成 {debuff.TickDamage*debuff.Duration} 点伤害。</color>{nextRank}";  
     }
 }

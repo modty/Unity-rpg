@@ -85,7 +85,7 @@ public class VendorWindow : Window
 
     public override void Open(NPC npc)
     {
-        CreatePages((npc as Vendor).MyItems);
+        CreatePages((npc as Vendor).Items);
         base.Open(npc);
     }
 }

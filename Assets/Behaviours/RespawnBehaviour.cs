@@ -7,7 +7,7 @@ public class RespawnBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Player.MyInstance.StartCoroutine(Player.MyInstance.Respawn());
+        Player.Instance.StartCoroutine(Player.Instance.Respawn());
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -33,7 +33,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     [SerializeField]
     private int price;
 
-    public Sprite MyIcon
+    public Sprite Icon
     {
         get
         {
@@ -41,7 +41,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         }
     }
 
-    public int MyStackSize
+    public int StackSize
     {
         get
         {
@@ -49,7 +49,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         }
     }
 
-    public SlotScript MySlot
+    public SlotScript Slot
     {
         get
         {
@@ -62,7 +62,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         }
     }
 
-    public string MyTitle
+    public string Title
     {
         get
         {
@@ -70,7 +70,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         }
     }
 
-    public CharButton MyCharButton
+    public CharButton CharButton
     {
         get
         {
@@ -79,12 +79,12 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
 
         set
         {
-            MySlot = null;
+            Slot = null;
             charButton = value;
         }
     }
 
-    public int MyPrice
+    public int Price
     {
         get
         {
@@ -98,16 +98,16 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     /// <returns></returns>
     public virtual string GetDescription()
     {
-        return string.Format("<color={0}>{1}</color>", "#00ff00ff", MyTitle);
+        return string.Format("<color={0}>{1}</color>", "#00ff00ff", Title);
     }
     /// <summary>
     /// 从仓库中移除物体
     /// </summary>
     public void Remove()
     {
-        if (MySlot != null)
+        if (Slot != null)
         {
-            MySlot.RemoveItem(this);
+            Slot.RemoveItem(this);
 
         }
     }

@@ -7,7 +7,7 @@ public class ImprovedFrostbolt : Talent
     {
         if (base.Click())
         {
-            SpellBook.MyInstance.GetSpell("Frostbolt").MyRange += 1;
+            SpellBook.Instance.GetSpell("Frostbolt").Range += 1;
             return true;
         }
 

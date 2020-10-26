@@ -8,7 +8,7 @@ public class Player : Character
 {
     private static Player instance;
 
-    public static Player MyInstance
+    public static Player Instance
     {
         get
         {
@@ -102,7 +102,7 @@ public class Player : Character
 
     public int MyGold { get; set; }
 
-    public List<IInteractable> MyInteractables
+    public List<IInteractable> Interactables
     {
         get
         {
@@ -115,7 +115,7 @@ public class Player : Character
         }
     }
 
-    public Stat MyXp
+    public Stat Xp
     {
         get
         {
@@ -128,7 +128,7 @@ public class Player : Character
         }
     }
 
-    public Stat MyMana
+    public Stat Mana
     {
         get
         {
@@ -141,7 +141,7 @@ public class Player : Character
         }
     }
 
-    public List<Enemy> MyAttackers
+    public List<Enemy> Attackers
     {
         get
         {
@@ -170,7 +170,7 @@ public class Player : Character
 
             float distance = Vector2.Distance(transform.position, mainCam.ScreenToWorldPoint(Input.mousePosition));
 
-            if (distance >= aoeSpell.MyRange)
+            if (distance >= aoeSpell.Range)
             {
                 unusedSpell.GetComponent<AOESpell>().OutOfRange();
             }
@@ -179,12 +179,12 @@ public class Player : Character
                 unusedSpell.GetComponent<AOESpell>().InRange();
             }
 
-            if (Input.GetMouseButtonDown(0) && distance <= aoeSpell.MyRange)
+            if (Input.GetMouseButtonDown(0) && distance <= aoeSpell.Range)
             {
-                AOESpell s = Instantiate(aoeSpell.MySpellPrefab, unusedSpell.transform.position, Quaternion.identity).GetComponent<AOESpell>();
+                AOESpell s = Instantiate(aoeSpell.SpellPrefab, unusedSpell.transform.position, Quaternion.identity).GetComponent<AOESpell>();
                 Destroy(unusedSpell);
                 unusedSpell = null;
-                s.Initialize(aoeSpell.MyDamage, aoeSpell.MyDuration);
+                s.Initialize(aoeSpell.Damage, aoeSpell.Duration);
             }
         }
 
@@ -195,9 +195,9 @@ public class Player : Character
     {
         MyGold = 1000;
         health.Initialize(initHealth, initHealth);
-        MyMana.Initialize(initMana, initMana);
-        MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
-        levelText.text = MyLevel.ToString();
+        Mana.Initialize(initMana, initMana);
+        Xp.Initialize(0, Mathf.Floor(100 * Level * Mathf.Pow(Level, 0.5f)));
+        levelText.text = Level.ToString();
         initPos = transform.parent.position;
     }
 
@@ -210,8 +210,8 @@ public class Player : Character
 
         if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
-            health.MyCurrentValue -= 10;
-            MyMana.MyCurrentValue -= 10;
+            health.CurrentValue -= 10;
+            Mana.CurrentValue -= 10;
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
@@ -219,17 +219,17 @@ public class Player : Character
         }
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
-            health.MyCurrentValue += 10;
-            MyMana.MyCurrentValue += 10;
+            health.CurrentValue += 10;
+            Mana.CurrentValue += 10;
         }
 
-        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["UP"])) //Moves up
+        if (Input.GetKey(KeybindManager.Instance.Keybinds["UP"])) //Moves up
         {
             exitIndex = 0;
             Direction += Vector2.up;
             minimapIcon.eulerAngles = new Vector3(0, 0, 0);
         }
-        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["LEFT"]))
+        if (Input.GetKey(KeybindManager.Instance.Keybinds["LEFT"]))
         {
             exitIndex = 3;
             Direction += Vector2.left;
@@ -239,14 +239,14 @@ public class Player : Character
             }
 
         }
-        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["DOWN"]))
+        if (Input.GetKey(KeybindManager.Instance.Keybinds["DOWN"]))
         {
             exitIndex = 2;
             Direction += Vector2.down;
 
             minimapIcon.eulerAngles = new Vector3(0, 0, 180);
         }
-        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["RIGHT"]))
+        if (Input.GetKey(KeybindManager.Instance.Keybinds["RIGHT"]))
         {
             exitIndex = 1;
             Direction += Vector2.right;
@@ -262,11 +262,11 @@ public class Player : Character
             StopInit();
         }
 
-        foreach (string action in KeybindManager.MyInstance.ActionBinds.Keys)
+        foreach (string action in KeybindManager.Instance.ActionBinds.Keys)
         {
-            if (Input.GetKeyDown(KeybindManager.MyInstance.ActionBinds[action]))
+            if (Input.GetKeyDown(KeybindManager.Instance.ActionBinds[action]))
             {
-                UIManager.MyInstance.ClickActionButton(action);
+                UIManager.Instance.ClickActionButton(action);
 
             }
         }
@@ -290,17 +290,17 @@ public class Player : Character
     /// </summary>
     private IEnumerator AttackRoutine(ICastable castable)
     {
-        Transform currentTarget = MyTarget.MyHitbox;
+        Transform currentTarget = Target.Hitbox;
 
         yield return actionRoutine = StartCoroutine(ActionRoutine(castable));
 
         if (currentTarget != null && InLineOfSight())
         {
-            Spells newSpell = SpellBook.MyInstance.GetSpell(castable.MyTitle);
+            Spells newSpell = SpellBook.Instance.GetSpell(castable.Title);
 
-            SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
+            SpellScript s = Instantiate(newSpell.SpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
 
-            s.Initialize(currentTarget, newSpell.MyDamage, this,newSpell.MyDebuff);
+            s.Initialize(currentTarget, newSpell.Damage, this,newSpell.Debuff);
         }
 
         StopAction();
@@ -310,7 +310,7 @@ public class Player : Character
     {
         yield return actionRoutine = StartCoroutine(ActionRoutine(castable));
 
-        LootWindow.MyInstance.CreatePages(items);
+        LootWindow.Instance.CreatePages(items);
     }
 
     public IEnumerator CraftRoutine(ICastable castable)
@@ -323,18 +323,18 @@ public class Player : Character
 
     private IEnumerator ActionRoutine(ICastable castable)
     {
-        SpellBook.MyInstance.Cast(castable);
+        SpellBook.Instance.Cast(castable);
 
         IsAttacking = true; // 标明攻击状态
 
-        MyAnimator.SetBool("attack", IsAttacking);
+        Animator.SetBool("attack", IsAttacking);
 
         foreach (GearSocket g in gearSockets)
         {
             g.MyAnimator.SetBool("attack", IsAttacking);
         }
 
-        yield return new WaitForSeconds(castable.MyCastTime);
+        yield return new WaitForSeconds(castable.CastTime);
 
         StopAction();
 
@@ -348,12 +348,12 @@ public class Player : Character
 
         if (!spell.NeedsTarget)
         {
-            unusedSpell = Instantiate(spell.MySpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            unusedSpell = Instantiate(spell.SpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
             unusedSpell.transform.position = new Vector3(unusedSpell.transform.position.x, unusedSpell.transform.position.y, 0);
             aoeSpell = spell;
         }
 
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, MyTarget.transform.position)) // 检查当前是否能够攻击
+        if (Target != null && Target.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, Target.transform.position)) // 检查当前是否能够攻击
         {
             MyInitRoutine = StartCoroutine(AttackRoutine(spell));
         }
@@ -362,11 +362,11 @@ public class Player : Character
     private bool InRange(Spells spell, Vector2 targetPos)
     {
 
-        if (Vector2.Distance(targetPos, transform.position) <= spell.MyRange)
+        if (Vector2.Distance(targetPos, transform.position) <= spell.Range)
         {
             return true;
         }
-        MessageFeedManager.MyInstance.WriteMessage("超出距离啦!", Color.red);
+        MessageFeedManager.Instance.WriteMessage("超出距离啦!", Color.red);
         return false;
     }
 
@@ -383,13 +383,13 @@ public class Player : Character
     /// </summary>
     private bool InLineOfSight()
     {
-        if (MyTarget != null)
+        if (Target != null)
         {
             // 目标方向
-            Vector3 targetDirection = (MyTarget.transform.position - transform.position).normalized;
+            Vector3 targetDirection = (Target.transform.position - transform.position).normalized;
 
             // 向目标方向发射射线
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, MyTarget.transform.position), 256);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, Target.transform.position), 256);
 
             // 如果射线没有碰撞到视线方块，就发射技能
             if (hit.collider == null)
@@ -421,11 +421,11 @@ public class Player : Character
     public void StopAction()
     {
         // 停止技能释放
-        SpellBook.MyInstance.StopCating();
+        SpellBook.Instance.StopCating();
 
         IsAttacking = false; // 修改攻击状态
 
-        MyAnimator.SetBool("attack", IsAttacking); // 停止攻击动画
+        Animator.SetBool("attack", IsAttacking); // 停止攻击动画
 
         foreach (GearSocket g in gearSockets)
         {
@@ -473,10 +473,10 @@ public class Player : Character
 
     public void GainXP(int xp)
     {
-        MyXp.MyCurrentValue += xp;
-        CombatTextManager.MyInstance.CreateText(transform.position, xp.ToString(), SCTTYPE.XP, false);
+        Xp.CurrentValue += xp;
+        CombatTextManager.Instance.CreateText(transform.position, xp.ToString(), SCTTYPE.XP, false);
 
-        if (MyXp.MyCurrentValue >= MyXp.MyMaxValue)
+        if (Xp.CurrentValue >= Xp.MaxValue)
         {
             StartCoroutine(Ding());
         }
@@ -484,28 +484,28 @@ public class Player : Character
 
     public void AddAttacker(Enemy enemy)
     {
-        if (!MyAttackers.Contains(enemy))
+        if (!Attackers.Contains(enemy))
         {
-            MyAttackers.Add(enemy);
+            Attackers.Add(enemy);
         }
     }
 
     private IEnumerator Ding()
     {
-        while (!MyXp.IsFull)
+        while (!Xp.IsFull)
         {
             yield return null;
         }
 
-        MyLevel++;
+        Level++;
         ding.SetTrigger("Ding");
-        levelText.text = MyLevel.ToString();
-        MyXp.MyMaxValue = 100 * MyLevel * Mathf.Pow(MyLevel, 0.5f);
-        MyXp.MyMaxValue = Mathf.Floor(MyXp.MyMaxValue);
-        MyXp.MyCurrentValue = MyXp.MyOverflow;
-        MyXp.Reset();
+        levelText.text = Level.ToString();
+        Xp.MaxValue = 100 * Level * Mathf.Pow(Level, 0.5f);
+        Xp.MaxValue = Mathf.Floor(Xp.MaxValue);
+        Xp.CurrentValue = Xp.MyOverflow;
+        Xp.Reset();
 
-        if (MyXp.MyCurrentValue >= MyXp.MyMaxValue)
+        if (Xp.CurrentValue >= Xp.MaxValue)
         {
             StartCoroutine(Ding());
         }
@@ -514,26 +514,26 @@ public class Player : Character
 
     public void UpdateLevel()
     {
-        levelText.text = MyLevel.ToString();
+        levelText.text = Level.ToString();
     }
 
     public void GetPath(Vector3 goal)
     {
-        MyPath = astar.Algorithm(transform.position, goal);
-        current = MyPath.Pop();
-        destination = MyPath.Pop();
+        Path = astar.Algorithm(transform.position, goal);
+        current = Path.Pop();
+        destination = Path.Pop();
         this.goal = goal;
     }
 
     public IEnumerator Respawn()
     {
-        MySpriteRenderer.enabled = false;
+        SpriteRenderer.enabled = false;
         yield return new WaitForSeconds(5f);
         health.Initialize(initHealth, initHealth);
-        MyMana.Initialize(initMana, initMana);
+        Mana.Initialize(initMana, initMana);
         transform.parent.position = initPos;
-        MySpriteRenderer.enabled = true;
-        MyAnimator.SetTrigger("respawn");
+        SpriteRenderer.enabled = true;
+        Animator.SetTrigger("respawn");
         foreach (SpriteRenderer spriteRenderer in gearRenderers)
         {
             spriteRenderer.enabled = true;
@@ -542,13 +542,13 @@ public class Player : Character
 
     public void ClickToMove()
     {
-        if (MyPath != null)
+        if (Path != null)
         {
             // 使角色朝目标移动
             transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, 2 * Time.deltaTime);
 
-            Vector3Int dest = astar.MyTilemap.WorldToCell(destination);
-            Vector3Int cur = astar.MyTilemap.WorldToCell(current);
+            Vector3Int dest = astar.Tilemap.WorldToCell(destination);
+            Vector3Int cur = astar.Tilemap.WorldToCell(current);
 
             float distance = Vector2.Distance(destination, transform.parent.position);
 
@@ -573,14 +573,14 @@ public class Player : Character
             }
             if (distance <= 0f)
             {
-                if (MyPath.Count > 0)
+                if (Path.Count > 0)
                 {
                     current = destination;
-                    destination = MyPath.Pop();
+                    destination = Path.Pop();
                 }
                 else
                 {
-                    MyPath = null;
+                    Path = null;
                 }
             }
         }
@@ -601,9 +601,9 @@ public class Player : Character
         {
             IInteractable interactable = collision.GetComponent<IInteractable>();
 
-            if (!MyInteractables.Contains(interactable))
+            if (!Interactables.Contains(interactable))
             {
-                MyInteractables.Add(interactable);
+                Interactables.Add(interactable);
             }
         }
     }
@@ -612,16 +612,16 @@ public class Player : Character
     {
         if (collision.tag == "Enemy" || collision.tag == "Interactable")
         {
-            if (MyInteractables.Count > 0)
+            if (Interactables.Count > 0)
             {
-                IInteractable interactable = MyInteractables.Find(x => x == collision.GetComponent<IInteractable>());
+                IInteractable interactable = Interactables.Find(x => x == collision.GetComponent<IInteractable>());
 
                 if (interactable != null)
                 {
                     interactable.StopInteract();
                 }
 
-                MyInteractables.Remove(interactable);
+                Interactables.Remove(interactable);
             }
 
            

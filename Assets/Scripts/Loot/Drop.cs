@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Drop 
 {
-    public Item MyItem { get; set; }
+    public Item Item { get; set; }
 
-    public LootTable MyLootTabe { get; set; }
+    public LootTable LootTabe { get; set; }
 
     public Drop(Item item, LootTable lootTable)
     {
-        MyLootTabe = lootTable;
-        MyItem = item;
+        LootTabe = lootTable;
+        Item = item;
     }
 
     public void Remove()
     {
-        MyLootTabe.MyDroppedItems.Remove(this);
+        LootTabe.DroppedItems.Remove(this);
     }
 }

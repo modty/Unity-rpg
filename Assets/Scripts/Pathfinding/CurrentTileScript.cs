@@ -11,7 +11,7 @@ public class CurrentTileScript : MonoBehaviour
     {
         if (collision.tag == "Ground")
         {
-            character.MyCurrentTile = collision.transform;
+            character.CurrentTile = collision.transform;
         }
     }
 }

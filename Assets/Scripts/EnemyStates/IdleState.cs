@@ -35,7 +35,7 @@ class IdleState : IState
     public void Update()
     {
         // 如果有角色在附近，进入更随
-        if (parent.MyTarget != null)
+        if (parent.Target != null)
         {
             parent.ChangeState(new PathState());
         }

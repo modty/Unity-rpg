@@ -7,7 +7,7 @@ public class Vendor : NPC, IInteractable
     [SerializeField]
     private VendorItem[] items;
 
-    public VendorItem[] MyItems
+    public VendorItem[] Items
     {
         get
         {

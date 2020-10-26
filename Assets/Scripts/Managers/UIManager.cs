@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
 
-    public static UIManager MyInstance
+    public static UIManager Instance
     {
         get
         {
@@ -90,7 +90,7 @@ public class UIManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            InventoryScript.MyInstance.OpenClose();
+            InventoryScript.Instance.OpenClose();
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -115,29 +115,29 @@ public class UIManager : MonoBehaviour
     {
         targetFrame.SetActive(true);
 
-        healthStat.Initialize(target.MyHealth.MyCurrentValue, target.MyHealth.MyMaxValue);
+        healthStat.Initialize(target.Health.CurrentValue, target.Health.MaxValue);
 
-        portraitFrame.sprite = target.MyPortrait;
+        portraitFrame.sprite = target.Portrait;
 
-        levelText.text = target.MyLevel.ToString();
+        levelText.text = target.Level.ToString();
 
         target.healthChanged += new HealthChanged(UpdateTargetFrame);
 
         target.characterRemoved += new CharacterRemoved(HideTargetFrame);
 
-        if (target.MyLevel >= Player.MyInstance.MyLevel + 5)
+        if (target.Level >= Player.Instance.Level + 5)
         {
             levelText.color = Color.red;
         }
-        else if (target.MyLevel == Player.MyInstance.MyLevel + 3 || target.MyLevel == Player.MyInstance.MyLevel + 4)
+        else if (target.Level == Player.Instance.Level + 3 || target.Level == Player.Instance.Level + 4)
         {
             levelText.color = new Color32(255, 124, 0, 255);
         }
-        else if (target.MyLevel >= Player.MyInstance.MyLevel -2 && target.MyLevel <= Player.MyInstance.MyLevel+2)
+        else if (target.Level >= Player.Instance.Level -2 && target.Level <= Player.Instance.Level+2)
         {
             levelText.color = Color.yellow;
         }
-        else if (target.MyLevel <= Player.MyInstance.MyLevel-3 && target.MyLevel > XPManager.CalculateGrayLevel())
+        else if (target.Level <= Player.Instance.Level-3 && target.Level > XPManager.CalculateGrayLevel())
         {
             levelText.color = Color.green;
         }
@@ -153,7 +153,7 @@ public class UIManager : MonoBehaviour
 
         targetDebuffs.Clear();
 
-        foreach (Debuff debuff in target.MyDebuffs)
+        foreach (Debuff debuff in target.Debuffs)
         {
             TargetDebuff td = Instantiate(targetDebuffPrefab, targetDebuffsTransform);
             td.Initialize(debuff);
@@ -171,12 +171,12 @@ public class UIManager : MonoBehaviour
     /// <param name="health"></param>
     public void UpdateTargetFrame(float health)
     {
-        healthStat.MyCurrentValue = health;
+        healthStat.CurrentValue = health;
     }
 
     public void AddDebuffToTargetFrame(Debuff debuff)
     {
-        if (targetFrame.activeSelf && debuff.MyCharacter == Player.MyInstance.MyTarget)
+        if (targetFrame.activeSelf && debuff.Character == Player.Instance.Target)
         {
             TargetDebuff td = Instantiate(targetDebuffPrefab, targetDebuffsTransform);
             td.Initialize(debuff);
@@ -186,7 +186,7 @@ public class UIManager : MonoBehaviour
 
     public void RemoveDebuff(Debuff debuff)
     {
-        if (targetFrame.activeSelf && debuff.MyCharacter == Player.MyInstance.MyTarget)
+        if (targetFrame.activeSelf && debuff.Character == Player.Instance.Target)
         {
             TargetDebuff td = targetDebuffs.Find(x => x.Debuff.Name == debuff.Name);
 
@@ -213,7 +213,7 @@ public class UIManager : MonoBehaviour
     /// <param name="buttonName"></param>
     public void ClickActionButton(string buttonName)
     {
-        Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
+        Array.Find(actionButtons, x => x.gameObject.name == buttonName).Button.onClick.Invoke();
     }
     /// <summary>
     /// 技能菜单打开
@@ -249,28 +249,28 @@ public class UIManager : MonoBehaviour
     /// <param name="clickable">更改数量的UI位置（快捷栏、背包等）</param>
     public void UpdateStackSize(IClickable clickable)
     {
-        if (clickable.MyCount > 1)  // 如果传入可点击物品是复数
+        if (clickable.Count > 1)  // 如果传入可点击物品是复数
         {
-            clickable.MyStackText.text = clickable.MyCount.ToString();
-            clickable.MyStackText.enabled = true;
-            clickable.MyIcon.enabled = true;
+            clickable.StackText.text = clickable.Count.ToString();
+            clickable.StackText.enabled = true;
+            clickable.Icon.enabled = true;
         }
         else // 如果只有一个，不显示数量
         {
-            clickable.MyStackText.enabled = false;
-            clickable.MyIcon.enabled = true;
+            clickable.StackText.enabled = false;
+            clickable.Icon.enabled = true;
         }
-        if (clickable.MyCount == 0)  // 如果物品为空，隐藏slot
+        if (clickable.Count == 0)  // 如果物品为空，隐藏slot
         {
-            clickable.MyStackText.enabled = false;
-            clickable.MyIcon.enabled = false;
+            clickable.StackText.enabled = false;
+            clickable.Icon.enabled = false;
         }
     }
 
     public void ClearStackCount(IClickable clickable)
     {
-        clickable.MyStackText.enabled = false;
-        clickable.MyIcon.enabled = true;
+        clickable.StackText.enabled = false;
+        clickable.Icon.enabled = true;
     }
 
     

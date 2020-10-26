@@ -33,7 +33,7 @@ public class Stat : MonoBehaviour
     /// <summary>
     /// 最大当前当前生命值、魔法值
     /// </summary>
-    public float MyMaxValue { get; set; }
+    public float MaxValue { get; set; }
 
     /// <summary>
     /// 当前当前生命值、魔法值
@@ -58,7 +58,7 @@ public class Stat : MonoBehaviour
     /// <summary>
     /// 正确更新CurrentValue值
     /// </summary>
-    public float MyCurrentValue
+    public float CurrentValue
     {
         get
         {
@@ -68,10 +68,10 @@ public class Stat : MonoBehaviour
 
         set
         {
-            if (value > MyMaxValue)// 确保数值不上溢
+            if (value > MaxValue)// 确保数值不上溢
             {
-                overflow = value - MyMaxValue;
-                currentValue = MyMaxValue;
+                overflow = value - MaxValue;
+                currentValue = MaxValue;
             }
             else if (value < 0) // 确保数值不下溢
             {
@@ -83,12 +83,12 @@ public class Stat : MonoBehaviour
             }
 
             // 计算UI填充长度
-            currentFill = currentValue / MyMaxValue;
+            currentFill = currentValue / MaxValue;
 
             if (statValue != null)
             {
                 // 设置文本
-                statValue.text = currentValue + " / " + MyMaxValue;
+                statValue.text = currentValue + " / " + MaxValue;
             }
 
         }
@@ -119,9 +119,9 @@ public class Stat : MonoBehaviour
             content = GetComponent<Image>();
         }
 
-        MyMaxValue = maxValue;
-        MyCurrentValue = currentValue;
-        content.fillAmount = MyCurrentValue / MyMaxValue;
+        MaxValue = maxValue;
+        CurrentValue = currentValue;
+        content.fillAmount = CurrentValue / MaxValue;
     }
 
     /// <summary>

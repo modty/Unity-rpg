@@ -24,24 +24,24 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         this.vendorItem = vendorItem;
 
-        if (vendorItem.MyQuantity > 0 ||(vendorItem.MyQuantity == 0 && vendorItem.Unlimited))
+        if (vendorItem.Quantity > 0 ||(vendorItem.Quantity == 0 && vendorItem.Unlimited))
         {
 
-            icon.sprite = vendorItem.MyItem.MyIcon;
-            title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", vendorItem.MyItem.MyTitle);
+            icon.sprite = vendorItem.Item.Icon;
+            title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", vendorItem.Item.Title);
 
             if (!vendorItem.Unlimited)
             {
-                quantity.text = vendorItem.MyQuantity.ToString();
+                quantity.text = vendorItem.Quantity.ToString();
             }
             else
             {
                 quantity.text = string.Empty;
             }
 
-            if (vendorItem.MyItem.MyPrice > 0)
+            if (vendorItem.Item.Price > 0)
             {
-                price.text = "价格: " + vendorItem.MyItem.MyPrice.ToString();
+                price.text = "价格: " + vendorItem.Item.Price.ToString();
             }
             else
             {
@@ -56,7 +56,7 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if ((Player.MyInstance.MyGold >= vendorItem.MyItem.MyPrice) && InventoryScript.MyInstance.AddItem(Instantiate(vendorItem.MyItem)))
+        if ((Player.Instance.MyGold >= vendorItem.Item.Price) && InventoryScript.Instance.AddItem(Instantiate(vendorItem.Item)))
         {
             SellItem();
         }
@@ -64,24 +64,24 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.MyInstance.ShowTooltip(new Vector2(0, 1), transform.position, vendorItem.MyItem);
+        UIManager.Instance.ShowTooltip(new Vector2(0, 1), transform.position, vendorItem.Item);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UIManager.MyInstance.HideTooltip();
+        UIManager.Instance.HideTooltip();
     }
 
     private void SellItem()
     {
-        Player.MyInstance.MyGold -= vendorItem.MyItem.MyPrice;
+        Player.Instance.MyGold -= vendorItem.Item.Price;
 
         if (!vendorItem.Unlimited)
         {
-            vendorItem.MyQuantity--;
-            quantity.text = vendorItem.MyQuantity.ToString();
+            vendorItem.Quantity--;
+            quantity.text = vendorItem.Quantity.ToString();
 
-            if (vendorItem.MyQuantity == 0)
+            if (vendorItem.Quantity == 0)
             {
                 gameObject.SetActive(false);
             }

@@ -16,7 +16,7 @@ public class LootButton : MonoBehaviour, IPointerEnterHandler,IPointerExitHandle
 
     private LootWindow lootWindow;
 
-    public Image MyIcon
+    public Image Icon
     {
         get
         {
@@ -24,7 +24,7 @@ public class LootButton : MonoBehaviour, IPointerEnterHandler,IPointerExitHandle
         }
     }
 
-    public Text MyTitle
+    public Text Title
     {
         get
         {
@@ -33,7 +33,7 @@ public class LootButton : MonoBehaviour, IPointerEnterHandler,IPointerExitHandle
 
     }
 
-    public Item MyLoot { get; set; }
+    public Item Loot { get; set; }
 
     private void Awake()
     {
@@ -43,22 +43,22 @@ public class LootButton : MonoBehaviour, IPointerEnterHandler,IPointerExitHandle
     public void OnPointerClick(PointerEventData eventData)
     {
         // 添加战利品
-        if (InventoryScript.MyInstance.AddItem(MyLoot))
+        if (InventoryScript.Instance.AddItem(Loot))
         {
             gameObject.SetActive(false);
-            lootWindow.TakeLoot(MyLoot);
-            UIManager.MyInstance.HideTooltip();
+            lootWindow.TakeLoot(Loot);
+            UIManager.Instance.HideTooltip();
         }
      
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.MyInstance.ShowTooltip(new Vector2(1,0), transform.position, MyLoot);
+        UIManager.Instance.ShowTooltip(new Vector2(1,0), transform.position, Loot);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UIManager.MyInstance.HideTooltip();
+        UIManager.Instance.HideTooltip();
     }
 }

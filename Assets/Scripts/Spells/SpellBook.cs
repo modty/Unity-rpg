@@ -8,7 +8,7 @@ public class SpellBook : MonoBehaviour
 {
     private static SpellBook instance;
 
-    public static SpellBook MyInstance
+    public static SpellBook Instance
     {
         get
         {
@@ -78,13 +78,13 @@ public class SpellBook : MonoBehaviour
         castingBar.fillAmount = 0;
 
         //改变技能条颜色
-        castingBar.color = castable.MyBarColor;
+        castingBar.color = castable.BarColor;
 
         //改变技能读条文本
-        currentSpell.text = castable.MyTitle;
+        currentSpell.text = castable.Title;
 
         //改变技能读条图标
-        icon.sprite = castable.MyIcon;
+        icon.sprite = castable.Icon;
 
         //开始读条
         spellRoutine = StartCoroutine(Progress(castable));
@@ -103,7 +103,7 @@ public class SpellBook : MonoBehaviour
         float timePassed = Time.deltaTime;
 
         //技能释放条加载速度
-        float rate = 1.0f / castable.MyCastTime;
+        float rate = 1.0f / castable.CastTime;
 
         //技能释放进度
         float progress = 0.0f;
@@ -119,9 +119,9 @@ public class SpellBook : MonoBehaviour
             timePassed += Time.deltaTime;
 
             //更新文本
-            castTime.text = (castable.MyCastTime - timePassed).ToString("F2");
+            castTime.text = (castable.CastTime - timePassed).ToString("F2");
 
-            if (castable.MyCastTime - timePassed < 0) // 确保不小于0
+            if (castable.CastTime - timePassed < 0) // 确保不小于0
             {
                 castTime.text = "0.00";
             }
@@ -193,7 +193,7 @@ public class SpellBook : MonoBehaviour
 
     public Spells GetSpell(string spellName)
     {
-        Spells spell = Array.Find(spells, x => x.MyTitle == spellName);
+        Spells spell = Array.Find(spells, x => x.Title == spellName);
 
         return spell;
     }

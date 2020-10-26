@@ -17,7 +17,7 @@ class FollowState : IState
     /// </summary>
     public void Enter(Enemy parent)
     {
-        Player.MyInstance.AddAttacker(parent);
+        Player.Instance.AddAttacker(parent);
         this.parent = parent;
     }
     /// <summary>
@@ -33,13 +33,13 @@ class FollowState : IState
     /// </summary>
     public void Update()
     {
-        if (parent.MyTarget != null)// 如果有目标，保持跟随
+        if (parent.Target != null)// 如果有目标，保持跟随
         {
-            parent.Direction = ((parent.MyTarget.transform.position+ offset) - parent.transform.position).normalized;
+            parent.Direction = ((parent.Target.transform.position+ offset) - parent.transform.position).normalized;
 
-            float distance = Vector2.Distance(parent.MyTarget.transform.position+offset, parent.transform.position);
+            float distance = Vector2.Distance(parent.Target.transform.position+offset, parent.transform.position);
 
-            string animName = parent.MySpriteRenderer.sprite.name;
+            string animName = parent.SpriteRenderer.sprite.name;
 
             if (animName.Contains("right"))
             {
@@ -58,7 +58,7 @@ class FollowState : IState
                 offset = new Vector3(0, 0);
             }
 
-            if (distance <= parent.MyAttackRange)
+            if (distance <= parent.AttackRange)
             {
                 parent.ChangeState(new AttackState());
             }

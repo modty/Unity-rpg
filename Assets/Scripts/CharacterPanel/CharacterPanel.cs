@@ -14,7 +14,7 @@ public class CharacterPanel : MonoBehaviour {
 
     public CharButton MySlectedButton { get; set; }
 
-    public static CharacterPanel MyInstance
+    public static CharacterPanel Instance
     {
         get
         {
@@ -43,7 +43,7 @@ public class CharacterPanel : MonoBehaviour {
 
     public void EquipArmor(Armor armor)
     {
-        switch (armor.MyArmorType)
+        switch (armor.ArmorType)
         {
             case ArmorType.Head:
                 head.EquipArmor(armor);

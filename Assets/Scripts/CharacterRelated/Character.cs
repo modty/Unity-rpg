@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // 所有角色需要继承的父类
 [RequireComponent(typeof(Animator))]
@@ -36,11 +37,11 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// 角色的动画控制器
     /// </summary>
-    public Animator MyAnimator { get; set; }
+    public Animator Animator { get; set; }
 
-    public Transform MyCurrentTile { get; set; }
+    public Transform CurrentTile { get; set; }
 
-    public SpriteRenderer MySpriteRenderer { get; set; }
+    public SpriteRenderer SpriteRenderer { get; set; }
 
     /// <summary>
     /// 角色朝向
@@ -50,8 +51,8 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// 角色刚体
     /// </summary>
-    [SerializeField]
-    private Rigidbody2D myRigidbody;
+    [FormerlySerializedAs("myRigidbody")] [SerializeField]
+    private Rigidbody2D rigidbody;
 
     /// <summary>
     /// 标记是否正在攻击
@@ -69,17 +70,17 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     protected Stat health;
 
-    public Character MyTarget { get; set; }
+    public Character Target { get; set; }
 
-    public Stack<Vector3> MyPath { get; set; }
+    public Stack<Vector3> Path { get; set; }
 
-    public List<Debuff> MyDebuffs { get; set; } = new List<Debuff>();
+    public List<Debuff> Debuffs { get; set; } = new List<Debuff>();
 
     private List<Debuff> newDebuffs = new List<Debuff>();
 
     private List<Debuff> expiredDebuffs = new List<Debuff>();
 
-    public Stat MyHealth
+    public Stat Health
     {
         get { return health; }
     }
@@ -131,11 +132,11 @@ public abstract class Character : MonoBehaviour
     {
         get
         {
-          return  health.MyCurrentValue > 0;
+          return  health.CurrentValue > 0;
         }
     }
 
-    public string MyType
+    public string Type
     {
         get
         {
@@ -143,7 +144,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public int MyLevel
+    public int Level
     {
         get
         {
@@ -156,15 +157,15 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public Rigidbody2D MyRigidbody
+    public Rigidbody2D Rigidbody
     {
         get
         {
-            return myRigidbody;
+            return rigidbody;
         }
     }
 
-    public Transform MyHitbox
+    public Transform Hitbox
     {
         get
         {
@@ -182,8 +183,8 @@ public abstract class Character : MonoBehaviour
     protected virtual void Start()
     {
         currentSpeed = Speed;
-        MyAnimator = GetComponent<Animator>();
-        MySpriteRenderer = GetComponent<SpriteRenderer>();
+        Animator = GetComponent<Animator>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -207,11 +208,11 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public void Move()
     {
-        if (MyPath == null)
+        if (Path == null)
         {
             if (IsAlive)
             {
-                MyRigidbody.velocity = Direction.normalized * CurrentSpeed;
+                Rigidbody.velocity = Direction.normalized * CurrentSpeed;
             }
         }
     }
@@ -229,8 +230,8 @@ public abstract class Character : MonoBehaviour
                 ActivateLayer("WalkLayer");
 
                 // 控制角色朝向
-                MyAnimator.SetFloat("x", Direction.x);
-                MyAnimator.SetFloat("y", Direction.y);
+                Animator.SetFloat("x", Direction.x);
+                Animator.SetFloat("y", Direction.y);
             }
             else if (IsAttacking)
             {
@@ -252,9 +253,9 @@ public abstract class Character : MonoBehaviour
     private void HandleDebuffs()
     {
 
-        if (MyDebuffs.Count > 0)
+        if (Debuffs.Count > 0)
         {
-            foreach (Debuff debuff in MyDebuffs)
+            foreach (Debuff debuff in Debuffs)
             {
                 debuff.Update();
             }
@@ -262,7 +263,7 @@ public abstract class Character : MonoBehaviour
 
         if (newDebuffs.Count > 0)
         {
-            MyDebuffs.AddRange(newDebuffs);
+            Debuffs.AddRange(newDebuffs);
             newDebuffs.Clear();
         }
 
@@ -270,7 +271,7 @@ public abstract class Character : MonoBehaviour
         {
             foreach (Debuff debuff in expiredDebuffs)
             {
-                MyDebuffs.Remove(debuff);
+                Debuffs.Remove(debuff);
             }
 
             expiredDebuffs.Clear();
@@ -280,7 +281,7 @@ public abstract class Character : MonoBehaviour
     public void ApplyDebuff(Debuff debuff)
     {
         // 检查是否有相同名字的Debuff
-        Debuff tmp = MyDebuffs.Find(x => x.Name == debuff.Name);
+        Debuff tmp = Debuffs.Find(x => x.Name == debuff.Name);
 
         if (tmp != null)
         {
@@ -294,7 +295,7 @@ public abstract class Character : MonoBehaviour
 
     public void RemoveDebuff(Debuff debuff)
     {
-        UIManager.MyInstance.RemoveDebuff(debuff);
+        UIManager.Instance.RemoveDebuff(debuff);
         this.expiredDebuffs.Add(debuff);
     }
 
@@ -303,12 +304,12 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public virtual void ActivateLayer(string layerName)
     {
-        for (int i = 0; i < MyAnimator.layerCount; i++)
+        for (int i = 0; i < Animator.layerCount; i++)
         {
-            MyAnimator.SetLayerWeight(i, 0);
+            Animator.SetLayerWeight(i, 0);
         }
 
-        MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName),1);
+        Animator.SetLayerWeight(Animator.GetLayerIndex(layerName),1);
     }
 
     /// <summary>
@@ -317,24 +318,24 @@ public abstract class Character : MonoBehaviour
     /// <param name="damage"></param>
     public virtual void TakeDamage(float damage, Character source)
     {
-        health.MyCurrentValue -= damage;
+        health.CurrentValue -= damage;
 
-        CombatTextManager.MyInstance.CreateText(transform.position, damage.ToString(), SCTTYPE.DAMAGE,false);
+        CombatTextManager.Instance.CreateText(transform.position, damage.ToString(), SCTTYPE.DAMAGE,false);
 
-        if (health.MyCurrentValue <= 0)
+        if (health.CurrentValue <= 0)
         {
             // 确保死亡时停止移动
             Direction = Vector2.zero;
-            MyRigidbody.velocity = Direction;
-            GameManager.MyInstance.OnKillConfirmed(this);
-            MyAnimator.SetTrigger("die");
+            Rigidbody.velocity = Direction;
+            GameManager.Instance.OnKillConfirmed(this);
+            Animator.SetTrigger("die");
         }
     }
 
     public void GetHealth(int health)
     {
-        MyHealth.MyCurrentValue += health;
-        CombatTextManager.MyInstance.CreateText(transform.position, health.ToString(),SCTTYPE.HEAL,true);
+        Health.CurrentValue += health;
+        CombatTextManager.Instance.CreateText(transform.position, health.ToString(),SCTTYPE.HEAL,true);
     }
 
 }

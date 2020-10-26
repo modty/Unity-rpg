@@ -13,7 +13,7 @@ public class KeybindManager : MonoBehaviour
     /// <summary>
     /// 单例访问（构造器）
     /// </summary>
-    public static KeybindManager MyInstance
+    public static KeybindManager Instance
     {
         get
         {
@@ -77,7 +77,7 @@ public class KeybindManager : MonoBehaviour
             currentDictionary.Add(key, keyBind);
 
             //更新UI内容
-            UIManager.MyInstance.UpdateKeyText(key, keyBind);
+            UIManager.Instance.UpdateKeyText(key, keyBind);
         }
         else if (currentDictionary.ContainsValue(keyBind))
         {
@@ -85,12 +85,12 @@ public class KeybindManager : MonoBehaviour
             string myKey = currentDictionary.FirstOrDefault(x => x.Value == keyBind).Key;
             //取消旧的快捷键
             currentDictionary[myKey] = KeyCode.None;
-            UIManager.MyInstance.UpdateKeyText(key, KeyCode.None);
+            UIManager.Instance.UpdateKeyText(key, KeyCode.None);
         }
 
         // 确保新的快捷键已经绑定
         currentDictionary[key] = keyBind;
-        UIManager.MyInstance.UpdateKeyText(key, keyBind);
+        UIManager.Instance.UpdateKeyText(key, keyBind);
         bindName = string.Empty;
     }
 

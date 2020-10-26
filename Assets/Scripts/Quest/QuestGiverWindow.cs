@@ -22,7 +22,7 @@ public class QuestGiverWindow : Window
 
     private Quest selectedQuest;
 
-    public static QuestGiverWindow MyInstance
+    public static QuestGiverWindow Instance
     {
         get
         {
@@ -47,30 +47,30 @@ public class QuestGiverWindow : Window
         questArea.gameObject.SetActive(true);
         questDescription.SetActive(false);
 
-        foreach (Quest quest in questGiver.MyQuests)
+        foreach (Quest quest in questGiver.Quests)
         {
             if (quest != null)
             {
                 GameObject go = Instantiate(questPrefab, questArea);
 
-                go.GetComponent<Text>().text = "["+quest.MyLevel+"] "+quest.MyTitle + "<color=#ffbb04> <size=12>!</size></color>";
+                go.GetComponent<Text>().text = "["+quest.Level+"] "+quest.Title + "<color=#ffbb04> <size=12>!</size></color>";
 
-                go.GetComponent<QGQuestScript>().MyQuest = quest;
+                go.GetComponent<QGQuestScript>().Quest = quest;
 
                 quests.Add(go);
 
-                if (Questlog.MyInstance.HasQuest(quest) && quest.IsComplete)
+                if (Questlog.Instance.HasQuest(quest) && quest.IsComplete)
                 {
-                    go.GetComponent<Text>().text = quest.MyTitle + "<color=#ffbb04> <size=12>?</size></color>";
+                    go.GetComponent<Text>().text = quest.Title + "<color=#ffbb04> <size=12>?</size></color>";
                 }
-                else if (Questlog.MyInstance.HasQuest(quest))
+                else if (Questlog.Instance.HasQuest(quest))
                 {
                     Color c = go.GetComponent<Text>().color;
 
                     c.a = 0.5f;
 
                     go.GetComponent<Text>().color = c;
-                    go.GetComponent<Text>().text = quest.MyTitle + "<color=#c0c0c0ff> <size=12>?</size></color>";
+                    go.GetComponent<Text>().text = quest.Title + "<color=#c0c0c0ff> <size=12>?</size></color>";
                 }
             }
             
@@ -88,12 +88,12 @@ public class QuestGiverWindow : Window
     {
         this.selectedQuest = quest;
 
-        if (Questlog.MyInstance.HasQuest(quest) && quest.IsComplete)
+        if (Questlog.Instance.HasQuest(quest) && quest.IsComplete)
         {
             acceptBtn.SetActive(false);
             completeBtn.SetActive(true);
         }
-        else if (!Questlog.MyInstance.HasQuest(quest))
+        else if (!Questlog.Instance.HasQuest(quest))
         {
             acceptBtn.SetActive(true);
         }
@@ -105,12 +105,12 @@ public class QuestGiverWindow : Window
 
         string objectives = string.Empty;
 
-        foreach (Objective obj in quest.MyCollectObjectives)
+        foreach (Objective obj in quest.CollectObjectives)
         {
-            objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+            objectives += obj.Type + ": " + obj.CurrentAmount + "/" + obj.Amount + "\n";
         }
 
-        questDescription.GetComponent<Text>().text = string.Format("{0}\n<size=10>{1}</size>\n", quest.MyTitle, quest.MyDescription);
+        questDescription.GetComponent<Text>().text = string.Format("{0}\n<size=10>{1}</size>\n", quest.Title, quest.Description);
     }
 
     public void Back()
@@ -124,7 +124,7 @@ public class QuestGiverWindow : Window
 
     public void Accept()
     {
-        Questlog.MyInstance.AcceptQuest(selectedQuest);
+        Questlog.Instance.AcceptQuest(selectedQuest);
         Back();
     }
 
@@ -138,31 +138,31 @@ public class QuestGiverWindow : Window
     {
         if (selectedQuest.IsComplete)
         {
-            for (int i = 0; i < questGiver.MyQuests.Length; i++)
+            for (int i = 0; i < questGiver.Quests.Length; i++)
             {
-                if (selectedQuest == questGiver.MyQuests[i])
+                if (selectedQuest == questGiver.Quests[i])
                 {
-                    questGiver.MyCompltedQuests.Add(selectedQuest.MyTitle);
-                    questGiver.MyQuests[i] = null;
-                    selectedQuest.MyQuestGiver.UpdateQuestStatus();
+                    questGiver.CompltedQuests.Add(selectedQuest.Title);
+                    questGiver.Quests[i] = null;
+                    selectedQuest.QuestGiver.UpdateQuestStatus();
                 }
             }
 
-            foreach (CollectObjective o in selectedQuest.MyCollectObjectives)
+            foreach (CollectObjective o in selectedQuest.CollectObjectives)
             {
-                InventoryScript.MyInstance.itemCountChangedEvent -= new ItemCountChanged(o.UpdateItemCount);
+                InventoryScript.Instance.itemCountChangedEvent -= new ItemCountChanged(o.UpdateItemCount);
                 o.Complete();
             }
 
-            foreach (KillObjective o in selectedQuest.MyKillObjectives)
+            foreach (KillObjective o in selectedQuest.KillObjectives)
             {
-                GameManager.MyInstance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
+                GameManager.Instance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
     
             }
 
-            Player.MyInstance.GainXP(XPManager.CalculateXP(selectedQuest));
+            Player.Instance.GainXP(XPManager.CalculateXP(selectedQuest));
 
-            Questlog.MyInstance.RemoveQuest(selectedQuest.MyQuestScript);
+            Questlog.Instance.RemoveQuest(selectedQuest.QuestScript);
             Back();
         }
     }

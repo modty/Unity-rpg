@@ -25,7 +25,7 @@ public class QuestGiver : NPC {
     [SerializeField]
     private SpriteRenderer minimapRenderer;
 
-    public Quest[] MyQuests
+    public Quest[] Quests
     {
         get
         {
@@ -33,7 +33,7 @@ public class QuestGiver : NPC {
         }
     }
 
-    public int MyQuestGiverID
+    public int QuestGiverID
     {
         get
         {
@@ -41,7 +41,7 @@ public class QuestGiver : NPC {
         }
     }
 
-    public List<string> MyCompltedQuests
+    public List<string> CompltedQuests
     {
         get
         {
@@ -56,7 +56,7 @@ public class QuestGiver : NPC {
             {
                 for (int i = 0; i < quests.Length; i++)
                 {
-                    if (quests[i] != null && quests[i].MyTitle == title)
+                    if (quests[i] != null && quests[i].Title == title)
                     {
                         quests[i] = null;
                     }
@@ -69,7 +69,7 @@ public class QuestGiver : NPC {
     {
         foreach (Quest quest in quests)
         {
-            quest.MyQuestGiver = this;
+            quest.QuestGiver = this;
         }
     }
 
@@ -81,19 +81,19 @@ public class QuestGiver : NPC {
         {
             if (quest != null)
             {
-                if (quest.IsComplete && Questlog.MyInstance.HasQuest(quest))
+                if (quest.IsComplete && Questlog.Instance.HasQuest(quest))
                 {
                     statusRenderer.sprite = question;
                     minimapRenderer.sprite = mini_question;
                     break;
                 }
-                else if (!Questlog.MyInstance.HasQuest(quest))
+                else if (!Questlog.Instance.HasQuest(quest))
                 {
                     statusRenderer.sprite = exclamation;
                     minimapRenderer.sprite = mini_exclamation;
                     break;
                 }
-                else if (!quest.IsComplete && Questlog.MyInstance.HasQuest(quest))
+                else if (!quest.IsComplete && Questlog.Instance.HasQuest(quest))
                 {
                     statusRenderer.sprite = questionSilver;
                     minimapRenderer.sprite = mini_questionSilver;

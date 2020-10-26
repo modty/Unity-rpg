@@ -89,7 +89,7 @@ public class Chest : MonoBehaviour, IInteractable
         {
             foreach (Item item in MyItems)
             {
-                item.MySlot.AddItem(item);
+                item.Slot.AddItem(item);
             }
         }
     }

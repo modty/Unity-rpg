@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class QGQuestScript : MonoBehaviour {
 
-	public Quest MyQuest { get; set; }
+	public Quest Quest { get; set; }
 
     public void Select()
     {
-        QuestGiverWindow.MyInstance.ShowQuestInfo(MyQuest);
+        QuestGiverWindow.Instance.ShowQuestInfo(Quest);
     }
 }

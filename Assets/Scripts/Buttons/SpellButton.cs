@@ -18,7 +18,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             //将被点击物体放到鼠标上
-            HandScript.MyInstance.TakeMoveable(SpellBook.MyInstance.GetSpell(spellName));
+            HandScript.Instance.TakeMoveable(SpellBook.Instance.GetSpell(spellName));
         }
     }
 }

@@ -23,19 +23,19 @@ public class GatherLootTable : LootTable, IInteractable
 
     protected override void RollLoot()
     {
-        MyDroppedItems = new List<Drop>();
+        DroppedItems = new List<Drop>();
 
         foreach (Loot l in loot)
         {
             int roll = Random.Range(0, 100);
 
-            if (roll <= l.MyDropChance)
+            if (roll <= l.DropChance)
             {
                 int itemCount = Random.Range(1, 6);
 
                 for (int i = 0; i < itemCount; i++)
                 {
-                    MyDroppedItems.Add(new Drop(Instantiate(l.MyItem), this));
+                    DroppedItems.Add(new Drop(Instantiate(l.Item), this));
                 }
 
                 spriteRenderer.sprite = gatherSprite;
@@ -50,21 +50,21 @@ public class GatherLootTable : LootTable, IInteractable
 
     public void Interact()
     {
-        Player.MyInstance.Gather(SpellBook.MyInstance.GetSpell("Gather"), MyDroppedItems);
-        LootWindow.MyInstance.MyInteractable = this;
+        Player.Instance.Gather(SpellBook.Instance.GetSpell("Gather"), DroppedItems);
+        LootWindow.Instance.Interactable = this;
     }
 
     public void StopInteract()
     {
-        LootWindow.MyInstance.MyInteractable = null;
+        LootWindow.Instance.Interactable = null;
 
-        if (MyDroppedItems.Count == 0)
+        if (DroppedItems.Count == 0)
         {
             spriteRenderer.sprite = defaultSprite;
             gameObject.SetActive(false);
             gatherIndicator.SetActive(false);
         }
 
-        LootWindow.MyInstance.Close();
+        LootWindow.Instance.Close();
     }
 }

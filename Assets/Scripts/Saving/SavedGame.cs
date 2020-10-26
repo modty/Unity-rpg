@@ -35,7 +35,7 @@ public class SavedGame : MonoBehaviour
     [SerializeField]
     private int index;
 
-    public int MyIndex
+    public int Index
     {
         get
         {
@@ -53,17 +53,17 @@ public class SavedGame : MonoBehaviour
 
         visuals.SetActive(true);
 
-        dateTime.text = "Date: " + saveData.MyDateTime.ToString("dd/MM/yyy") + " - Time: " + saveData.MyDateTime.ToString("H:mm");
-        health.fillAmount = saveData.MyPlayerData.MyHealth / saveData.MyPlayerData.MyMaxHealth;
-        healthText.text = saveData.MyPlayerData.MyHealth + " / " +saveData.MyPlayerData.MyMaxHealth;
+        dateTime.text = "Date: " + saveData.DateTime.ToString("dd/MM/yyy") + " - Time: " + saveData.DateTime.ToString("H:mm");
+        health.fillAmount = saveData.PlayerData.Health / saveData.PlayerData.MaxHealth;
+        healthText.text = saveData.PlayerData.Health + " / " +saveData.PlayerData.MaxHealth;
 
-        mana.fillAmount = saveData.MyPlayerData.MyMana / saveData.MyPlayerData.MyMaxMana;
-        manaText.text = saveData.MyPlayerData.MyMana + " / " + saveData.MyPlayerData.MyMaxMana;
+        mana.fillAmount = saveData.PlayerData.Mana / saveData.PlayerData.MaxMana;
+        manaText.text = saveData.PlayerData.Mana + " / " + saveData.PlayerData.MaxMana;
 
-        xp.fillAmount = saveData.MyPlayerData.MyXp / saveData.MyPlayerData.MyMaxXP;
-        xpText.text = saveData.MyPlayerData.MyXp + " / " + saveData.MyPlayerData.MyMaxXP;
+        xp.fillAmount = saveData.PlayerData.Xp / saveData.PlayerData.MaxXP;
+        xpText.text = saveData.PlayerData.Xp + " / " + saveData.PlayerData.MaxXP;
 
-        levelText.text = saveData.MyPlayerData.MyLevel.ToString();
+        levelText.text = saveData.PlayerData.Level.ToString();
     }
 
     public void HideVisuals()

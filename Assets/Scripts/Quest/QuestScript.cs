@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class QuestScript : MonoBehaviour {
 
-    public Quest MyQuest { get; set; }
+    public Quest Quest { get; set; }
 
     private bool markedComplete = false;
 
     public void Select()
     {
         GetComponent<Text>().color = Color.red;
-        Questlog.MyInstance.ShowDescription(MyQuest);
+        Questlog.Instance.ShowDescription(Quest);
     }
 
     public void DeSelect()
@@ -22,16 +22,16 @@ public class QuestScript : MonoBehaviour {
 
     public void IsComplete()
     {
-        if (MyQuest.IsComplete && !markedComplete)
+        if (Quest.IsComplete && !markedComplete)
         {
             markedComplete = true;
-            GetComponent<Text>().text = "[" + MyQuest.MyLevel + "] " + MyQuest.MyTitle +"(C)";
-            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0} (完成)", MyQuest.MyTitle));
+            GetComponent<Text>().text = "[" + Quest.Level + "] " + Quest.Title +"(C)";
+            MessageFeedManager.Instance.WriteMessage(string.Format("{0} (完成)", Quest.Title));
         }
-        else if (!MyQuest.IsComplete)
+        else if (!Quest.IsComplete)
         {
             markedComplete = false;
-            GetComponent<Text>().text = "[" + MyQuest.MyLevel + "] " + MyQuest.MyTitle;
+            GetComponent<Text>().text = "[" + Quest.Level + "] " + Quest.Title;
         }
 
 

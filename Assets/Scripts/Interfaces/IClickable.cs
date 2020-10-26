@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public interface IClickable
 {
-    Image MyIcon
+    Image Icon
     {
         get;
         set;
     }
 
-    int MyCount
+    int Count
     {
         get;
     }
 
-    Text MyStackText
+    Text StackText
     {
         get;
     }

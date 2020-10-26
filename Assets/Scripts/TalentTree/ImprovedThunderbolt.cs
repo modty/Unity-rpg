@@ -9,9 +9,9 @@ public class ImprovedThunderbolt : Talent
     {
         if (base.Click())
         {
-            Spells thunderBolt = SpellBook.MyInstance.GetSpell("Thunderbolt");
+            Spells thunderBolt = SpellBook.Instance.GetSpell("Thunderbolt");
 
-            thunderBolt.MyDamage += (thunderBolt.MyDamage / 100) * percent;
+            thunderBolt.Damage += (thunderBolt.Damage / 100) * percent;
             return true;
         }
 

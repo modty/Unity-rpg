@@ -17,17 +17,17 @@ public class Bag : Item, IUseable
     [SerializeField]
     private GameObject bagPrefab;
 
-    public BagScript MyBagScript { get; set; }
+    public BagScript BagScript { get; set; }
 
     /// <summary>
     /// 背包绑定的按钮
     /// </summary>
-    public BagButton MyBagButton { get; set; }
+    public BagButton BagButton { get; set; }
 
     /// <summary>
     /// 背包所有的格子数
     /// </summary>
-    public int MySlotCount
+    public int SlotCount
     {
         get
         {
@@ -49,30 +49,30 @@ public class Bag : Item, IUseable
     /// </summary>
     public void Use()
     {
-        if (InventoryScript.MyInstance.CanAddBag)
+        if (InventoryScript.Instance.CanAddBag)
         {
             Remove();
-            MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
-            MyBagScript.AddSlots(slots);
+            BagScript = Instantiate(bagPrefab, InventoryScript.Instance.transform).GetComponent<BagScript>();
+            BagScript.AddSlots(slots);
 
-            if (MyBagButton == null)
+            if (BagButton == null)
             {
-                InventoryScript.MyInstance.AddBag(this);
+                InventoryScript.Instance.AddBag(this);
             }
             else
             {
-                InventoryScript.MyInstance.AddBag(this,MyBagButton);
+                InventoryScript.Instance.AddBag(this,BagButton);
             }
 
-            MyBagScript.MyBagIndex = MyBagButton.MyBagIndex;
+            BagScript.BagIndex = BagButton.BagIndex;
         }
  
     }
 
     public void SetupScript()
     {
-        MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
-        MyBagScript.AddSlots(slots);
+        BagScript = Instantiate(bagPrefab, InventoryScript.Instance.transform).GetComponent<BagScript>();
+        BagScript.AddSlots(slots);
     }
 
     public override string GetDescription()

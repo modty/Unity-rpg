@@ -9,13 +9,13 @@ namespace Assets.Scripts.Debuffs
 {
     class PermafrostDebuff : Debuff
     {
-        public float MySpeedReduction { get; set; }
+        public float SpeedReduction { get; set; }
 
         public override string Name => "Permafrost";
 
         public PermafrostDebuff(Image icon) : base(icon)
         {
-            MyDuration = 3;
+            Duration = 3;
         }
 
         public override void Apply(Character character)
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Debuffs
 
             if (character.CurrentSpeed >= character.Speed)
             {
-                character.CurrentSpeed = character.Speed - (character.Speed * (MySpeedReduction / 100));
+                character.CurrentSpeed = character.Speed - (character.Speed * (SpeedReduction / 100));
                 base.Apply(character);
             }
       
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Debuffs
 
         public override void Remove()
         {
-            MyCharacter.CurrentSpeed = MyCharacter.Speed;
+            Character.CurrentSpeed = Character.Speed;
             base.Remove();
         }
 

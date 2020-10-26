@@ -46,12 +46,11 @@ public class CharacterData:MonoBehaviour
         ObtainItem(1001000000000);
         ObtainItem(1001000000001);
         ObtainItem(1001000000002);
-        
-        spells.Add(1001000000000,_dataManager.GetSpell(1001000000000));
-        spells.Add(1001000000001,_dataManager.GetSpell(1001000000001));
-        spells.Add(1001000000002,_dataManager.GetSpell(1001000000002));
+        // 添加快捷键绑定
         actionButtons.Add(0,1001000000000);
         actionButtons.Add(3,1001000000001);
+        // 背包中添加物品
+        
 //        // 15个苹果
 //        bagItems.Add(2000000000,new ConsumbleInGame(_dataManager.GetConsumable(2000000000),new int[,]{{0,0},{0,14}},Utils.LoadSpriteByIO(_dataManager.GetConsumable(2000000000).icon),15));
 //        // 21个血瓶
@@ -83,7 +82,7 @@ public class CharacterData:MonoBehaviour
 
     public void Initial()
     {
-//        SpellBook.MyInstance.Initial(spells);
+//        SpellBook.Instance.Initial(spells);
 //        ActionBar.Instance.Initial(actionButtons);
     }
 
@@ -120,6 +119,7 @@ public class CharacterData:MonoBehaviour
     
     /// <summary>
     /// 获得装备
+    ///     如果为技能则是学习技能
     /// </summary>
     public void ObtainItem(long uid)
     {

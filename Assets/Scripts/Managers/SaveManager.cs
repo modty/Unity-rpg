@@ -53,7 +53,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Player.MyInstance.SetDefaultValues();
+            Player.Instance.SetDefaultValues();
         }
     }
 
@@ -106,8 +106,8 @@ public class SaveManager : MonoBehaviour
             SaveData data = (SaveData)bf.Deserialize(file);
             file.Close();
 
-            PlayerPrefs.SetInt("Load", savedGame.MyIndex);
-            SceneManager.LoadScene(data.MyScene);
+            PlayerPrefs.SetInt("Load", savedGame.Index);
+            SceneManager.LoadScene(data.Scene);
         }
     }
 
@@ -145,7 +145,7 @@ public class SaveManager : MonoBehaviour
 
             SaveData data = new SaveData();
 
-            data.MyScene = SceneManager.GetActiveScene().name;
+            data.Scene = SceneManager.GetActiveScene().name;
 
             SaveEquipment(data);
 
@@ -180,24 +180,24 @@ public class SaveManager : MonoBehaviour
 
     private void SavePlayer(SaveData data)
     {
-        data.MyPlayerData = new PlayerData(Player.MyInstance.MyLevel,
-            Player.MyInstance.MyXp.MyCurrentValue, Player.MyInstance.MyXp.MyMaxValue,
-            Player.MyInstance.MyHealth.MyCurrentValue, Player.MyInstance.MyHealth.MyMaxValue,
-            Player.MyInstance.MyMana.MyCurrentValue, Player.MyInstance.MyMana.MyMaxValue,
-            Player.MyInstance.transform.position);
+        data.PlayerData = new PlayerData(Player.Instance.Level,
+            Player.Instance.Xp.CurrentValue, Player.Instance.Xp.MaxValue,
+            Player.Instance.Health.CurrentValue, Player.Instance.Health.MaxValue,
+            Player.Instance.Mana.CurrentValue, Player.Instance.Mana.MaxValue,
+            Player.Instance.transform.position);
     }
 
     private void SaveChests(SaveData data)
     {
         for (int i = 0; i < chests.Length; i++)
         {
-            data.MyChestData.Add(new ChestData(chests[i].name));
+            data.ChestData.Add(new ChestData(chests[i].name));
 
             foreach (Item item in chests[i].MyItems)
             {
                 if (chests[i].MyItems.Count > 0)
                 {
-                    data.MyChestData[i].MyItems.Add(new ItemData(item.MyTitle, item.MySlot.MyItems.Count, item.MySlot.MyIndex));
+                    data.ChestData[i].Items.Add(new ItemData(item.Title, item.Slot.Items.Count, item.Slot.Index));
                 }
             }
         }
@@ -205,9 +205,9 @@ public class SaveManager : MonoBehaviour
 
     private void SaveBags(SaveData data)
     {
-        for (int i = 1; i < InventoryScript.MyInstance.MyBags.Count; i++)
+        for (int i = 1; i < InventoryScript.Instance.Bags.Count; i++)
         {
-            data.MyInventoryData.MyBags.Add(new BagData(InventoryScript.MyInstance.MyBags[i].MySlotCount, InventoryScript.MyInstance.MyBags[i].MyBagButton.MyBagIndex));
+            data.InventoryData.Bags.Add(new BagData(InventoryScript.Instance.Bags[i].SlotCount, InventoryScript.Instance.Bags[i].BagButton.BagIndex));
 
         }
     }
@@ -219,7 +219,7 @@ public class SaveManager : MonoBehaviour
         {
             if (charButton.MyEquippedArmor != null)
             {
-                data.MyEquipmentData.Add(new EquipmentData(charButton.MyEquippedArmor.MyTitle, charButton.name));
+                data.EquipmentData.Add(new EquipmentData(charButton.MyEquippedArmor.Title, charButton.name));
             }
         }
     }
@@ -228,40 +228,40 @@ public class SaveManager : MonoBehaviour
     {
         for (int i = 0; i < actionButtons.Length; i++)
         {
-            if (actionButtons[i].MyUseable != null)
+            if (actionButtons[i].Useable != null)
             {
                 ActionButtonData action;
 
-                if (actionButtons[i].MyUseable is Spells)
+                if (actionButtons[i].Useable is Spells)
                 {
-                    action = new ActionButtonData((actionButtons[i].MyUseable as Spells).MyTitle, false, i);
+                    action = new ActionButtonData((actionButtons[i].Useable as Spells).Title, false, i);
                 }
                 else
                 {
-                    action = new ActionButtonData((actionButtons[i].MyUseable as Item).MyTitle, true, i);
+                    action = new ActionButtonData((actionButtons[i].Useable as Item).Title, true, i);
                 }
 
-                data.MyActionButtonData.Add(action);
+                data.ActionButtonData.Add(action);
             }
         }
     }
 
     private void SaveInventory(SaveData data)
     {
-        List<SlotScript> slots = InventoryScript.MyInstance.GetAllItems();
+        List<SlotScript> slots = InventoryScript.Instance.GetAllItems();
 
         foreach (SlotScript slot in slots)
         {
-            data.MyInventoryData.MyItems.Add(new ItemData(slot.MyItem.MyTitle, slot.MyItems.Count, slot.MyIndex, slot.MyBag.MyBagIndex));
+            data.InventoryData.Items.Add(new ItemData(slot.Item.Title, slot.Items.Count, slot.Index, slot.Bag.BagIndex));
         }
 
     }
 
     private void SaveQuests(SaveData data)
     {
-        foreach (Quest quest in Questlog.MyInstance.MyQuests)
+        foreach (Quest quest in Questlog.Instance.Quests)
         {
-            data.MyQuestData.Add(new QuestData(quest.MyTitle, quest.MyDescription, quest.MyCollectObjectives, quest.MyKillObjectives,quest.MyQuestGiver.MyQuestGiverID));
+            data.QuestData.Add(new QuestData(quest.Title, quest.Description, quest.CollectObjectives, quest.KillObjectives,quest.QuestGiver.QuestGiverID));
         }
     }
 
@@ -271,7 +271,7 @@ public class SaveManager : MonoBehaviour
 
         foreach (QuestGiver questGiver in questGivers)
         {
-            data.MyQuestGiverData.Add(new QuestGiverData(questGiver.MyQuestGiverID, questGiver.MyCompltedQuests));
+            data.QuestGiverData.Add(new QuestGiverData(questGiver.QuestGiverID, questGiver.CompltedQuests));
         }
 
     }
@@ -316,25 +316,25 @@ public class SaveManager : MonoBehaviour
 
     private void LoadPlayer(SaveData data)
     {
-        Player.MyInstance.MyLevel = data.MyPlayerData.MyLevel;
-        Player.MyInstance.UpdateLevel();
-        Player.MyInstance.MyHealth.Initialize(data.MyPlayerData.MyHealth, data.MyPlayerData.MyMaxHealth);
-        Player.MyInstance.MyMana.Initialize(data.MyPlayerData.MyMana, data.MyPlayerData.MyMaxMana);
-        Player.MyInstance.MyXp.Initialize(data.MyPlayerData.MyXp, data.MyPlayerData.MyMaxXP);
-        Player.MyInstance.transform.position = new Vector2(data.MyPlayerData.MyX, data.MyPlayerData.MyY);
+        Player.Instance.Level = data.PlayerData.Level;
+        Player.Instance.UpdateLevel();
+        Player.Instance.Health.Initialize(data.PlayerData.Health, data.PlayerData.MaxHealth);
+        Player.Instance.Mana.Initialize(data.PlayerData.Mana, data.PlayerData.MaxMana);
+        Player.Instance.Xp.Initialize(data.PlayerData.Xp, data.PlayerData.MaxXP);
+        Player.Instance.transform.position = new Vector2(data.PlayerData.X, data.PlayerData.Y);
 
     }
 
     private void LoadChests(SaveData data)
     {
-        foreach (ChestData chest in data.MyChestData)
+        foreach (ChestData chest in data.ChestData)
         {
-            Chest c = Array.Find(chests, x => x.name == chest.MyName);
+            Chest c = Array.Find(chests, x => x.name == chest.Name);
 
-            foreach (ItemData itemData in chest.MyItems)
+            foreach (ItemData itemData in chest.Items)
             {
-                Item item = Instantiate(Array.Find(items, x => x.MyTitle == itemData.MyTitel));
-                item.MySlot = c.MyBag.MySlots.Find(x => x.MyIndex == itemData.MySlotIndex);
+                Item item = Instantiate(Array.Find(items, x => x.Title == itemData.Titel));
+                item.Slot = c.MyBag.Slots.Find(x => x.Index == itemData.SlotIndex);
                 c.MyItems.Add(item);
             }
         }
@@ -343,50 +343,50 @@ public class SaveManager : MonoBehaviour
 
     private void LoadBags(SaveData data)
     {
-        foreach (BagData bagData in data.MyInventoryData.MyBags)
+        foreach (BagData bagData in data.InventoryData.Bags)
         {
             Bag newBag = (Bag)Instantiate(items[0]);
 
-            newBag.Initialize(bagData.MySlotCount);
+            newBag.Initialize(bagData.SlotCount);
 
-            InventoryScript.MyInstance.AddBag(newBag, bagData.MyBagIndex);
+            InventoryScript.Instance.AddBag(newBag, bagData.BagIndex);
         }
     }
 
     private void LoadEquipment(SaveData data)
     {
-        foreach (EquipmentData equipmentData in data.MyEquipmentData)
+        foreach (EquipmentData equipmentData in data.EquipmentData)
         {
-            CharButton cb = Array.Find(equipment, x => x.name == equipmentData.MyType);
+            CharButton cb = Array.Find(equipment, x => x.name == equipmentData.Type);
 
-            cb.EquipArmor(Array.Find(items, x => x.MyTitle == equipmentData.MyTitle) as Armor);
+            cb.EquipArmor(Array.Find(items, x => x.Title == equipmentData.Title) as Armor);
         }
     }
 
     private void LoadActionButtons(SaveData data)
     {
-        foreach (ActionButtonData buttonData in data.MyActionButtonData)
+        foreach (ActionButtonData buttonData in data.ActionButtonData)
         {
             if (buttonData.IsItem)
             {
-                actionButtons[buttonData.MyIndex].SetUseable(InventoryScript.MyInstance.GetUseable(buttonData.MyAction));
+                actionButtons[buttonData.Index].SetUseable(InventoryScript.Instance.GetUseable(buttonData.Action));
             }
             else
             {
-                actionButtons[buttonData.MyIndex].SetUseable(SpellBook.MyInstance.GetSpell(buttonData.MyAction));
+                actionButtons[buttonData.Index].SetUseable(SpellBook.Instance.GetSpell(buttonData.Action));
             }
         }
     }
 
     private void LoadInventory(SaveData data)
     {
-        foreach (ItemData itemData in data.MyInventoryData.MyItems)
+        foreach (ItemData itemData in data.InventoryData.Items)
         {
-            Item item = Instantiate(Array.Find(items, x => x.MyTitle == itemData.MyTitel));
+            Item item = Instantiate(Array.Find(items, x => x.Title == itemData.Titel));
 
-            for (int i = 0; i < itemData.MyStackCount; i++)
+            for (int i = 0; i < itemData.StackCount; i++)
             {
-                InventoryScript.MyInstance.PlaceInSpecific(item, itemData.MySlotIndex, itemData.MyBagIndex);
+                InventoryScript.Instance.PlaceInSpecific(item, itemData.SlotIndex, itemData.BagIndex);
             }
         }
     }
@@ -395,13 +395,13 @@ public class SaveManager : MonoBehaviour
     {
         QuestGiver[] questGivers = FindObjectsOfType<QuestGiver>();
 
-        foreach (QuestData questData in data.MyQuestData)
+        foreach (QuestData questData in data.QuestData)
         {
-            QuestGiver qg = Array.Find(questGivers, x => x.MyQuestGiverID == questData.MyQuestGiverID);
-            Quest q = Array.Find(qg.MyQuests, x => x.MyTitle == questData.MyTitle);
-            q.MyQuestGiver = qg;
-            q.MyKillObjectives = questData.MyKillObjectives;
-            Questlog.MyInstance.AcceptQuest(q);
+            QuestGiver qg = Array.Find(questGivers, x => x.QuestGiverID == questData.QuestGiverID);
+            Quest q = Array.Find(qg.Quests, x => x.Title == questData.Title);
+            q.QuestGiver = qg;
+            q.KillObjectives = questData.KillObjectives;
+            Questlog.Instance.AcceptQuest(q);
         }
     }
 
@@ -409,10 +409,10 @@ public class SaveManager : MonoBehaviour
     {
         QuestGiver[] questGivers = FindObjectsOfType<QuestGiver>();
 
-        foreach (QuestGiverData questGiverData in data.MyQuestGiverData)
+        foreach (QuestGiverData questGiverData in data.QuestGiverData)
         {
-            QuestGiver questGiver = Array.Find(questGivers, x => x.MyQuestGiverID == questGiverData.MyQuestGiverID);
-            questGiver.MyCompltedQuests = questGiverData.MyCompletedQuests;
+            QuestGiver questGiver = Array.Find(questGivers, x => x.QuestGiverID == questGiverData.QuestGiverID);
+            questGiver.CompltedQuests = questGiverData.CompletedQuests;
             questGiver.UpdateQuestStatus();
         }
     }

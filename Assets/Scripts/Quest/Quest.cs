@@ -24,12 +24,12 @@ public class Quest
     [SerializeField]
     private int xp;
 
-    public QuestScript MyQuestScript { get; set; }
+    public QuestScript QuestScript { get; set; }
 
-    public QuestGiver MyQuestGiver { get; set; }
+    public QuestGiver QuestGiver { get; set; }
 
 
-    public string MyTitle
+    public string Title
     {
         get
         {
@@ -42,7 +42,7 @@ public class Quest
         }
     }
 
-    public string MyDescription
+    public string Description
     {
         get
         {
@@ -55,7 +55,7 @@ public class Quest
         }
     }
 
-    public CollectObjective[] MyCollectObjectives
+    public CollectObjective[] CollectObjectives
     {
         get
         {
@@ -76,7 +76,7 @@ public class Quest
                 }
             }
 
-            foreach (Objective o in MyKillObjectives)
+            foreach (Objective o in KillObjectives)
             {
                 if (!o.IsComplete)
                 {
@@ -89,7 +89,7 @@ public class Quest
         }
     }
 
-    public KillObjective[] MyKillObjectives
+    public KillObjective[] KillObjectives
     {
         get
         {
@@ -99,7 +99,7 @@ public class Quest
         { killObjectives = value; }
     }
 
-    public int MyLevel
+    public int Level
     {
         get
         {
@@ -112,7 +112,7 @@ public class Quest
         }
     }
 
-    public int MyXp
+    public int Xp
     {
         get
         {
@@ -133,7 +133,7 @@ public abstract class Objective
     [SerializeField]
     private string type;
 
-    public int MyAmount
+    public int Amount
     {
         get
         {
@@ -141,7 +141,7 @@ public abstract class Objective
         }
     }
 
-    public int MyCurrentAmount
+    public int CurrentAmount
     {
         get
         {
@@ -154,7 +154,7 @@ public abstract class Objective
         }
     }
 
-    public string MyType
+    public string Type
     {
         get
         {
@@ -166,7 +166,7 @@ public abstract class Objective
     {
         get
         {
-            return MyCurrentAmount >= MyAmount;
+            return CurrentAmount >= Amount;
         }
     }
 }
@@ -176,33 +176,33 @@ public class CollectObjective : Objective
 {
     public void UpdateItemCount(Item item)
     {
-        if (MyType.ToLower() == item.MyTitle.ToLower())
+        if (Type.ToLower() == item.Title.ToLower())
         {
-            MyCurrentAmount = InventoryScript.MyInstance.GetItemCount(item.MyTitle);
+            CurrentAmount = InventoryScript.Instance.GetItemCount(item.Title);
 
-            if (MyCurrentAmount <= MyAmount)
+            if (CurrentAmount <= Amount)
             {
-                MessageFeedManager.MyInstance.WriteMessage(string.Format("{0}: {1}/{2}", item.MyTitle, MyCurrentAmount, MyAmount));
+                MessageFeedManager.Instance.WriteMessage(string.Format("{0}: {1}/{2}", item.Title, CurrentAmount, Amount));
             }
 
 
 
-            Questlog.MyInstance.CheckCompletion();
-            Questlog.MyInstance.UpdateSelected();
+            Questlog.Instance.CheckCompletion();
+            Questlog.Instance.UpdateSelected();
         }
     }
 
     public void UpdateItemCount()
     {
-        MyCurrentAmount = InventoryScript.MyInstance.GetItemCount(MyType);
+        CurrentAmount = InventoryScript.Instance.GetItemCount(Type);
 
-        Questlog.MyInstance.CheckCompletion();
-        Questlog.MyInstance.UpdateSelected();
+        Questlog.Instance.CheckCompletion();
+        Questlog.Instance.UpdateSelected();
     }
 
     public void Complete()
     {
-        Stack<Item> items = InventoryScript.MyInstance.GetItems(MyType, MyAmount);
+        Stack<Item> items = InventoryScript.Instance.GetItems(Type, Amount);
 
         foreach (Item item in items)
         {
@@ -219,14 +219,14 @@ public class KillObjective : Objective
 
     public void UpdateKillCount(Character character)
     {
-        if (MyType == character.MyType)
+        if (Type == character.Type)
         {
-            if (MyCurrentAmount < MyAmount)
+            if (CurrentAmount < Amount)
             {
-                MyCurrentAmount++;
-                MessageFeedManager.MyInstance.WriteMessage(string.Format("{0}: {1}/{2}", character.MyType, MyCurrentAmount, MyAmount));
-                Questlog.MyInstance.CheckCompletion();
-                Questlog.MyInstance.UpdateSelected();
+                CurrentAmount++;
+                MessageFeedManager.Instance.WriteMessage(string.Format("{0}: {1}/{2}", character.Type, CurrentAmount, Amount));
+                Questlog.Instance.CheckCompletion();
+                Questlog.Instance.UpdateSelected();
             }
         }
     }

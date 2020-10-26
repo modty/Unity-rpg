@@ -17,12 +17,12 @@ public class TargetDebuff : MonoBehaviour
     public void Initialize(Debuff debuff)
     {
         this.Debuff = debuff;
-        this.icon.sprite = debuff.MyIcon.sprite;
+        this.icon.sprite = debuff.Icon.sprite;
         this.durationImage.fillAmount = 0;
     }
 
     void Update()
     {
-        durationImage.fillAmount = Debuff.Elapsed / Debuff.MyDuration;
+        durationImage.fillAmount = Debuff.Elapsed / Debuff.Duration;
     }
 }

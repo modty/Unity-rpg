@@ -7,7 +7,7 @@ public class LootTable : MonoBehaviour
     [SerializeField]
     protected Loot[] loot;
 
-    public List<Drop> MyDroppedItems { get; set; }
+    public List<Drop> DroppedItems { get; set; }
 
     private bool rolled = false;
 
@@ -15,11 +15,11 @@ public class LootTable : MonoBehaviour
     {
         if (!rolled)
         {
-            MyDroppedItems = new List<Drop>();
+            DroppedItems = new List<Drop>();
             RollLoot();
         }
 
-        return MyDroppedItems;
+        return DroppedItems;
     }
     /// <summary>
     /// 根据概率添加战利品
@@ -30,9 +30,9 @@ public class LootTable : MonoBehaviour
         {
             int roll = Random.Range(0, 100);
 
-            if (roll <= item.MyDropChance)
+            if (roll <= item.DropChance)
             {
-                MyDroppedItems.Add(new Drop(item.MyItem, this));
+                DroppedItems.Add(new Drop(item.Item, this));
             }
         }
 

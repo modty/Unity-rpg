@@ -49,7 +49,7 @@ public class Recipe : MonoBehaviour, ICastable
         }
     }
 
-    public string MyDescription
+    public string Description
     {
         get
         {
@@ -65,28 +65,28 @@ public class Recipe : MonoBehaviour, ICastable
         }
     }
 
-    public string MyTitle
+    public string Title
     {
         get
         {
-            return output.MyTitle;
+            return output.Title;
         }
     }
-    public Sprite MyIcon
+    public Sprite Icon
     {
         get
         {
-            return output.MyIcon;
+            return output.Icon;
         }
     }
-    public float MyCastTime
+    public float CastTime
     {
         get
         {
             return craftTime;
         }
     }
-    public Color MyBarColor
+    public Color BarColor
     {
         get
         {
@@ -97,7 +97,7 @@ public class Recipe : MonoBehaviour, ICastable
 
     void Start()
     {
-        GetComponent<Text>().text = output.MyTitle;
+        GetComponent<Text>().text = output.Title;
     }
 
     public void Select()
