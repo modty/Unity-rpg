@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
+using static New.Item;
 
-public delegate void ItemCountChanged(Item item);
+public delegate void ItemCountChanged(ItemInGame itemInGame);
 /// <summary>
 /// 界面UI中显示背包的区域
 /// </summary>
@@ -42,7 +45,8 @@ public class InventoryScript : MonoBehaviour
     /// <summary>
     /// 游戏中的所有物品
     /// </summary>
-    private Item[] items;
+    [FormerlySerializedAs("items")] [SerializeField]
+    private ItemInGame[] itemsInGame;
     /// <summary>
     /// 背包栏（5个）是否还能装备背包
     /// </summary>
@@ -128,51 +132,47 @@ public class InventoryScript : MonoBehaviour
     private void Awake()
     {
         // 初始化一个背包，大小为20，并装备
-        Bag bag = (Bag)Instantiate(items[8]);
-        bag.Initialize(20);
-        bag.Use();
+//        Bag bag = (Bag)Instantiate(itemsInGame[8]);
+//        bag.Initialize(20);
+//        bag.Use();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            Bag bag = (Bag)Instantiate(items[8]);
-            bag.Initialize(40);
-            AddItem(bag);
+//            Bag bag = (Bag)Instantiate(itemsInGame[8]);
+//            bag.Initialize(40);
+//            AddItem(bag);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Bag bag = (Bag)Instantiate(items[8]);
-            bag.Initialize(20);
-            AddItem(bag);
+//            Bag bag = (Bag)Instantiate(itemsInGame[8]);
+//            bag.Initialize(20);
+//            AddItem(bag);
 
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            HealthPotion potion = (HealthPotion)Instantiate(items[9]);
-            AddItem(potion);
+//            HealthPotion potion = (HealthPotion)Instantiate(itemsInGame[9]);
+//            AddItem(potion);
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            GoldNugget nugget = (GoldNugget)Instantiate(items[11]);
-            AddItem(nugget);
-            AddItem((HealthPotion)Instantiate(items[9]));
+//            GoldNugget nugget = (GoldNugget)Instantiate(itemsInGame[11]);
+//            AddItem(nugget);
+//            AddItem((HealthPotion)Instantiate(itemsInGame[9]));
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-
-            AddItem((Armor)Instantiate(items[0]));
-            AddItem((Armor)Instantiate(items[1]));
-            AddItem((Armor)Instantiate(items[2]));
-            AddItem((Armor)Instantiate(items[3]));
-            AddItem((Armor)Instantiate(items[4]));
-            AddItem((Armor)Instantiate(items[5]));
-            AddItem((Armor)Instantiate(items[6]));
-            AddItem((Armor)Instantiate(items[7]));
-            AddItem((Armor)Instantiate(items[10]));
-           
-
+//            AddItem((Armor)Instantiate(itemsInGame[0]));
+//            AddItem((Armor)Instantiate(itemsInGame[1]));
+//            AddItem((Armor)Instantiate(itemsInGame[2]));
+//            AddItem((Armor)Instantiate(itemsInGame[3]));
+//            AddItem((Armor)Instantiate(itemsInGame[4]));
+//            AddItem((Armor)Instantiate(itemsInGame[5]));
+//            AddItem((Armor)Instantiate(itemsInGame[6]));
+//            AddItem((Armor)Instantiate(itemsInGame[7]));
         }
 
     }
@@ -238,7 +238,7 @@ public class InventoryScript : MonoBehaviour
         if (newSlotCount - FullSlotCount >= 0)
         {
             // 获取旧背包的所有物品
-            List<Item> bagItems = oldBag.BagScript.GetItems();
+            List<ItemInGame> bagItems = oldBag.BagScript.GetItems();
             // 移除旧背包
             RemoveBag(oldBag);
             // 新背包按钮绑定
@@ -247,7 +247,7 @@ public class InventoryScript : MonoBehaviour
             // 装备新背包
             newBag.Use();
             // 新背包物品复制
-            foreach (Item item in bagItems)
+            foreach (ItemInGame item in bagItems)
             {
                 if (item != newBag)// 避免旧背包中含有新背包，物品复制后会有新背包指向新背包的引用
                 {
@@ -268,65 +268,73 @@ public class InventoryScript : MonoBehaviour
     /// <summary>
     /// 往背包中添加物品（目标位所有已经装备的背包）
     /// </summary>
-    /// <param name="item">要添加的物品</param>
-    public bool AddItem(Item item)
+    /// <param name="itemInGame">要添加的物品</param>
+    public int[] AddItem(ItemInGame itemInGame)
     {
-        if (item.StackSize > 0)
+        if (itemInGame.StackCount > 0)
         {
             // 如果添加的物品有数量，尝试堆叠，如果堆叠成功，直接返回，不然放到空位上
-            if (PlaceInStack(item))
+            int[] position = PlaceInStack(itemInGame);
+            if (position[1]!=-1)
             {
-                return true;
+                return position;
             }
         }
         // 堆叠失败，直接放置
-       return PlaceInEmpty(item);
+        return PlaceInEmpty(itemInGame);
     }
 
     /// <summary>
     /// 将物品放到空格子中（检索范围为所有已经装备的背包）
     /// </summary>
-    /// <param name="item">要添加的物品</param>
-    private bool PlaceInEmpty(Item item)
+    /// <param name="itemInGame">要添加的物品</param>
+    private int[] PlaceInEmpty(ItemInGame itemInGame)
     {
-        foreach (Bag bag in Bags)
+        int[] position = {-1, -1};
+        for (int i = 0; i < Bags.Count; i++)
         {
-            if (bag.BagScript.AddItem(item)) 
+            List<SlotScript> slots = Bags[i].BagScript.Slots;
+            for (int j = 0; j < slots.Count; j++)
             {
-                // 添加成功触发事件
-                OnItemCountChanged(item);
-                return true;
+                if (slots[j].IsEmpty)
+                {
+                    position[0] = i;
+                    position[1] = j;
+                }
             }
         }
-
-        return false;
+        return position;
     }
 
     /// <summary>
     /// 尝试堆叠物品（检索所有已经装备的背包）
     /// </summary>
-    /// <param name="item">想要堆叠的物品</param>
+    /// <param name="itemInGame">想要堆叠的物品</param>
     /// <returns></returns>
-    private bool PlaceInStack(Item item)
+    private int[] PlaceInStack(ItemInGame itemInGame)
     {
-        foreach (Bag bag in Bags) // 遍历所有背包
+        int[] position = {-1,-1};
+        for (int i = 0; i < Bags.Count; i++)
         {
-            foreach (SlotScript slots in bag.BagScript.Slots) // 检查当前背包的所有格子
+            List<SlotScript> slots = Bags[i].BagScript.Slots;
+            for (int j = 0; j < slots.Count; j++)
             {
-                if (slots.StackItem(item))// 尝试堆叠物品，堆叠成功触发物品数量改变事件，返回堆叠成功
+                position[0] = i;
+                if(slots[j].StackItem(itemInGame))
+                    position[1]=j;
+                if (position[1]!=-1)// 尝试堆叠物品，堆叠成功触发物品数量改变事件，返回堆叠成功
                 {
-                    OnItemCountChanged(item);
-                    return true;
+                    OnItemCountChanged(itemInGame);
+                    return position;
                 }
             }
         }
-
-        return false;
+        return position;
     }
 
-    public void PlaceInSpecific(Item item, int slotIndex, int bagIndex)
+    public void PlaceInSpecific(ItemInGame itemInGame, int slotIndex, int bagIndex)
     {
-        bags[bagIndex].BagScript.Slots[slotIndex].AddItem(item);
+        bags[bagIndex].BagScript.Slots[slotIndex].AddItem(itemInGame);
 
     }
 
@@ -337,16 +345,16 @@ public class InventoryScript : MonoBehaviour
     public void OpenClose()
     {
         // 检查是否有关闭的背包（透明度为alpha=0（完全透明）的背包）
-        bool closedBag = Bags.Find(x => !x.BagScript.IsOpen);
+//        bool closedBag = Bags.Find(x => !x.BagScript.IsOpen);
 
         // 遍历所有已经装备的背包
         foreach (Bag bag in Bags)
         {
-            // 如果没有关闭的背包（closedBad = false 背包全部打开），全部关闭。如果有关闭的背包（closedBag = true），没有关闭的背包将会关闭
-            if (bag.BagScript.IsOpen != closedBag)
-            {
-                bag.BagScript.OpenClose();
-            }
+//            // 如果没有关闭的背包（closedBad = false 背包全部打开），全部关闭。如果有关闭的背包（closedBag = true），没有关闭的背包将会关闭
+//            if (bag.BagScript.IsOpen != closedBag)
+//            {
+//                bag.BagScript.OpenClose();
+//            }
         }
     }
 
@@ -383,9 +391,9 @@ public class InventoryScript : MonoBehaviour
         {
             foreach (SlotScript slot in bag.BagScript.Slots)
             {
-                if (!slot.IsEmpty && slot.Item.GetType() == type.GetType())
+                if (!slot.IsEmpty && slot.ItemInGame.GetType() == type.GetType())
                 {
-                    foreach (Item item in slot.Items)
+                    foreach (ItemInGame item in slot.Items)
                     {
                         useables.Push(item as IUseable);
                     }
@@ -404,9 +412,9 @@ public class InventoryScript : MonoBehaviour
         {
             foreach (SlotScript slot in bag.BagScript.Slots)
             {
-                if (!slot.IsEmpty && slot.Item.Title == type)
+                if (!slot.IsEmpty && slot.ItemInGame.Name == type)
                 {
-                    return (slot.Item as IUseable);
+                    return (slot.ItemInGame as IUseable);
                 }
             }
         }
@@ -422,7 +430,7 @@ public class InventoryScript : MonoBehaviour
         {
             foreach (SlotScript slot in bag.BagScript.Slots)
             {
-                if (!slot.IsEmpty && slot.Item.Title == type)
+                if (!slot.IsEmpty && slot.ItemInGame.Name == type)
                 {
                     itemCount += slot.Items.Count;
                 }
@@ -433,17 +441,17 @@ public class InventoryScript : MonoBehaviour
 
     }
 
-    public Stack<Item> GetItems(string type, int count)
+    public Stack<ItemInGame> GetItems(string type, int count)
     {
-        Stack<Item> items = new Stack<Item>();
+        Stack<ItemInGame> items = new Stack<ItemInGame>();
 
         foreach (Bag bag in Bags)
         {
             foreach (SlotScript slot in bag.BagScript.Slots)
             {
-                if (!slot.IsEmpty && slot.Item.Title == type)
+                if (!slot.IsEmpty && slot.ItemInGame.Name == type)
                 {
-                    foreach (Item item in slot.Items)
+                    foreach (ItemInGame item in slot.Items)
                     {
                         items.Push(item);
 
@@ -460,15 +468,15 @@ public class InventoryScript : MonoBehaviour
 
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(ItemInGame itemInGame)
     {
         foreach (Bag bag in Bags)
         {
             foreach (SlotScript slot in bag.BagScript.Slots)
             {
-                if (!slot.IsEmpty && slot.Item.Title == item.Title)
+                if (!slot.IsEmpty && slot.ItemInGame.Name == itemInGame.Name)
                 {
-                    slot.RemoveItem(item);
+                    slot.RemoveItem(itemInGame);
                     break;
                 }
             }
@@ -477,12 +485,12 @@ public class InventoryScript : MonoBehaviour
     /// <summary>
     /// 当物品数目改变，唤醒事件
     /// </summary>
-    /// <param name="item"></param>
-    public void OnItemCountChanged(Item item)
+    /// <param name="itemInGame"></param>
+    public void OnItemCountChanged(ItemInGame itemInGame)
     {
         if (itemCountChangedEvent != null)
         {
-            itemCountChangedEvent.Invoke(item);
+            itemCountChangedEvent.Invoke(itemInGame);
         }
     }
 }

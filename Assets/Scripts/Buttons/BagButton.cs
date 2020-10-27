@@ -1,4 +1,5 @@
-﻿﻿using UnityEngine;
+﻿﻿using Items;
+ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 /// <summary>
@@ -91,7 +92,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
             else if (Input.GetKey(KeyCode.LeftShift))
             {
                 // 拿起背包
-                HandScript.Instance.TakeMoveable(Bag);
+//                HandScript.Instance.TakeMoveable(Bag);
             }
             // 都不是，就打开、关闭背包
             else if (bag != null) // 如果有背包装备上
@@ -112,7 +113,7 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
         InventoryScript.Instance.RemoveBag(Bag);
         Bag.BagButton = null;
 
-        foreach (Item item in Bag.BagScript.GetItems())
+        foreach (ItemInGame item in Bag.BagScript.GetItems())
         {
             // 将移除背包中的物品放到其他背包中
             InventoryScript.Instance.AddItem(item);

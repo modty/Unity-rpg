@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class Recipe : MonoBehaviour, ICastable
     private CraftingMaterial[] materials;
 
     [SerializeField]
-    private Item output;
+    private ItemInGame output;
 
     [SerializeField]
     private int outputCount;
@@ -28,7 +29,7 @@ public class Recipe : MonoBehaviour, ICastable
     private Color barColor;
 
 
-    public Item Output
+    public ItemInGame Output
     {
         get
         {
@@ -69,7 +70,7 @@ public class Recipe : MonoBehaviour, ICastable
     {
         get
         {
-            return output.Title;
+            return output.Name;
         }
     }
     public Sprite Icon
@@ -97,7 +98,7 @@ public class Recipe : MonoBehaviour, ICastable
 
     void Start()
     {
-        GetComponent<Text>().text = output.Title;
+        GetComponent<Text>().text = output.Name;
     }
 
     public void Select()

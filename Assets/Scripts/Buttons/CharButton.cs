@@ -38,12 +38,12 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                     EquipArmor(tmp);
                 }
 
-                UIManager.Instance.RefreshTooltip(tmp);
+//                UIManager.Instance.RefreshTooltip(tmp);
             }
             else if(HandScript.Instance.Moveable == null && MyEquippedArmor != null)
             {
               
-                HandScript.Instance.TakeMoveable(MyEquippedArmor);
+//                HandScript.Instance.TakeMoveable(MyEquippedArmor);
                 CharacterPanel.Instance.MySlectedButton = this;
                 icon.color = Color.grey;
             }
@@ -52,16 +52,16 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void EquipArmor(Armor armor)
     {
-        armor.Remove();
+//        armor.Remove();
 
         if (MyEquippedArmor != null)
         {
             if (MyEquippedArmor != armor)
             {
-                armor.Slot.AddItem(MyEquippedArmor);
+//                armor.Slot.AddItem(MyEquippedArmor);
             }
        
-            UIManager.Instance.RefreshTooltip(MyEquippedArmor);
+//            UIManager.Instance.RefreshTooltip(MyEquippedArmor);
         }
         else
         {
@@ -72,7 +72,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         icon.sprite = armor.Icon;
         icon.color = Color.white;
         this.equippedArmor = armor; // 对装备的引用
-        this.MyEquippedArmor.CharButton = this;
+//        this.MyEquippedArmor.CharButton = this;
 
         if (HandScript.Instance.Moveable == (armor as IMoveable))
         {
@@ -90,7 +90,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if (MyEquippedArmor != null)
         {
-            UIManager.Instance.ShowTooltip(new Vector2(0, 0),transform.position, MyEquippedArmor);
+//            UIManager.Instance.ShowTooltip(new Vector2(0, 0),transform.position, MyEquippedArmor);
         }
     }
 
@@ -109,7 +109,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             gearSocket.Dequip();
         }
 
-        equippedArmor.CharButton = null;
+//        equippedArmor.CharButton = null;
         equippedArmor = null;
     }
 }

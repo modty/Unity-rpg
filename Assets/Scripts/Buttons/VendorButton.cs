@@ -27,8 +27,8 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (vendorItem.Quantity > 0 ||(vendorItem.Quantity == 0 && vendorItem.Unlimited))
         {
 
-            icon.sprite = vendorItem.Item.Icon;
-            title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", vendorItem.Item.Title);
+            icon.sprite = vendorItem.ItemInGame.Icon;
+            title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", vendorItem.ItemInGame.Name);
 
             if (!vendorItem.Unlimited)
             {
@@ -39,9 +39,9 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 quantity.text = string.Empty;
             }
 
-            if (vendorItem.Item.Price > 0)
+            if (vendorItem.ItemInGame.Price > 0)
             {
-                price.text = "价格: " + vendorItem.Item.Price.ToString();
+                price.text = "价格: " + vendorItem.ItemInGame.Price.ToString();
             }
             else
             {
@@ -56,15 +56,15 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if ((Player.Instance.MyGold >= vendorItem.Item.Price) && InventoryScript.Instance.AddItem(Instantiate(vendorItem.Item)))
-        {
-            SellItem();
-        }
+//        if ((Player.Instance.MyGold >= vendorItem.ItemInGame.Price) && InventoryScript.Instance.AddItem(Instantiate(vendorItem.ItemInGame)))
+//        {
+//            SellItem();
+//        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.Instance.ShowTooltip(new Vector2(0, 1), transform.position, vendorItem.Item);
+//        UIManager.Instance.ShowTooltip(new Vector2(0, 1), transform.position, vendorItem.ItemInGame);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -74,7 +74,7 @@ public class VendorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void SellItem()
     {
-        Player.Instance.MyGold -= vendorItem.Item.Price;
+        Player.Instance.MyGold -= vendorItem.ItemInGame.Price;
 
         if (!vendorItem.Unlimited)
         {

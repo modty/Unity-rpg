@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 
 public class BagScript : MonoBehaviour
@@ -74,15 +75,15 @@ public class BagScript : MonoBehaviour
     /// 获取当前背包中的所有物品
     /// </summary>
     /// <returns>所有物品的列表</returns>
-    public List<Item> GetItems()
+    public List<ItemInGame> GetItems()
     {
-        List<Item> items = new List<Item>();
+        List<ItemInGame> items = new List<ItemInGame>();
 
         foreach (SlotScript slot in slots)
         {
             if (!slot.IsEmpty)
             {
-                foreach (Item item in slot.Items)
+                foreach (ItemInGame item in slot.Items)
                 {
                     items.Add(item);
                 }
@@ -110,15 +111,15 @@ public class BagScript : MonoBehaviour
     /// <summary>
     /// 往当前背包中添加物品
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="itemInGame"></param>
     /// <returns>是否添加成功</returns>
-    public bool AddItem(Item item)
+    public bool AddItem(ItemInGame itemInGame)
     {
         foreach (SlotScript slot in Slots)// 检查所有格子
         {
             if (slot.IsEmpty) // 有格子为空，就添加进去
             {
-                slot.AddItem(item);
+                slot.AddItem(itemInGame);
 
                 return true;
             }

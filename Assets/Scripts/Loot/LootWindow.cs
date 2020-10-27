@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LootWindow : MonoBehaviour
@@ -39,8 +41,8 @@ public class LootWindow : MonoBehaviour
 
     public IInteractable Interactable { get; set; }
 
-    [SerializeField]
-    private Item[] items;
+    [FormerlySerializedAs("items")] [SerializeField]
+    private ItemInGame[] itemsInGame;
 
     public bool IsOpen
     {
@@ -96,14 +98,14 @@ public class LootWindow : MonoBehaviour
                 if (pages[pageIndex][i] != null)
                 {
                     // 设置掉落物图标
-                    lootButtons[i].Icon.sprite = pages[pageIndex][i].Item.Icon;
+                    lootButtons[i].Icon.sprite = pages[pageIndex][i].ItemInGame.Icon;
 
-                    lootButtons[i].Loot = pages[pageIndex][i].Item;
+                    lootButtons[i].Loot = pages[pageIndex][i].ItemInGame;
 
                     // 确认战利品按钮可用
                     lootButtons[i].gameObject.SetActive(true);
 
-                    string title = string.Format("<color={0}>{1}</color>", "#00ff00ff", pages[pageIndex][i].Item.Title);
+                    string title = string.Format("<color={0}>{1}</color>", "#00ff00ff", pages[pageIndex][i].ItemInGame.Name);
 
                     // 设置战利品名称
                     lootButtons[i].Title.text = title;
@@ -146,10 +148,10 @@ public class LootWindow : MonoBehaviour
         }
     }
 
-    public void TakeLoot(Item loot)
+    public void TakeLoot(ItemInGame loot)
     {
 
-        Drop drop = pages[pageIndex].Find(x => x.Item == loot);
+        Drop drop = pages[pageIndex].Find(x => x.ItemInGame == loot);
 
         pages[pageIndex].Remove(drop);
 

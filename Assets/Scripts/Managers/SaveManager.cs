@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using UnityEngine;
+ using Items;
+ using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+ using UnityEngine.Serialization;
+ using UnityEngine.UI;
 
 public class SaveManager : MonoBehaviour
 {
-    [SerializeField]
-    private Item[] items;
+    [FormerlySerializedAs("items")] [SerializeField]
+    private ItemInGame[] itemsInGame;
 
     private Chest[] chests;
 
@@ -193,11 +195,11 @@ public class SaveManager : MonoBehaviour
         {
             data.ChestData.Add(new ChestData(chests[i].name));
 
-            foreach (Item item in chests[i].MyItems)
+            foreach (ItemInGame item in chests[i].MyItems)
             {
                 if (chests[i].MyItems.Count > 0)
                 {
-                    data.ChestData[i].Items.Add(new ItemData(item.Title, item.Slot.Items.Count, item.Slot.Index));
+//                    data.ChestData[i].Items.Add(new ItemData(item.Name, item.Slot.Items.Count, item.Slot.Index));
                 }
             }
         }
@@ -219,7 +221,7 @@ public class SaveManager : MonoBehaviour
         {
             if (charButton.MyEquippedArmor != null)
             {
-                data.EquipmentData.Add(new EquipmentData(charButton.MyEquippedArmor.Title, charButton.name));
+                data.EquipmentData.Add(new EquipmentData(charButton.MyEquippedArmor.Name, charButton.name));
             }
         }
     }
@@ -238,7 +240,7 @@ public class SaveManager : MonoBehaviour
                 }
                 else
                 {
-                    action = new ActionButtonData((actionButtons[i].Useable as Item).Title, true, i);
+                    action = new ActionButtonData((actionButtons[i].Useable as ItemInGame).Name, true, i);
                 }
 
                 data.ActionButtonData.Add(action);
@@ -252,7 +254,7 @@ public class SaveManager : MonoBehaviour
 
         foreach (SlotScript slot in slots)
         {
-            data.InventoryData.Items.Add(new ItemData(slot.Item.Title, slot.Items.Count, slot.Index, slot.Bag.BagIndex));
+            data.InventoryData.Items.Add(new ItemData(slot.ItemInGame.Name, slot.Items.Count, slot.Index, slot.Bag.BagIndex));
         }
 
     }
@@ -333,9 +335,9 @@ public class SaveManager : MonoBehaviour
 
             foreach (ItemData itemData in chest.Items)
             {
-                Item item = Instantiate(Array.Find(items, x => x.Title == itemData.Titel));
-                item.Slot = c.MyBag.Slots.Find(x => x.Index == itemData.SlotIndex);
-                c.MyItems.Add(item);
+//                ItemInGame itemInGame = Instantiate(Array.Find(itemsInGame, x => x.Name == itemData.Titel));
+//                itemInGame.Slot = c.MyBag.Slots.Find(x => x.Index == itemData.SlotIndex);
+//                c.MyItems.Add(itemInGame);
             }
         }
 
@@ -345,11 +347,11 @@ public class SaveManager : MonoBehaviour
     {
         foreach (BagData bagData in data.InventoryData.Bags)
         {
-            Bag newBag = (Bag)Instantiate(items[0]);
+//            Bag newBag = (Bag)Instantiate(itemsInGame[0]);
 
-            newBag.Initialize(bagData.SlotCount);
+//            newBag.Initialize(bagData.SlotCount);
 
-            InventoryScript.Instance.AddBag(newBag, bagData.BagIndex);
+//            InventoryScript.Instance.AddBag(newBag, bagData.BagIndex);
         }
     }
 
@@ -359,7 +361,7 @@ public class SaveManager : MonoBehaviour
         {
             CharButton cb = Array.Find(equipment, x => x.name == equipmentData.Type);
 
-            cb.EquipArmor(Array.Find(items, x => x.Title == equipmentData.Title) as Armor);
+            cb.EquipArmor(Array.Find(itemsInGame, x => x.Name == equipmentData.Title) as Armor);
         }
     }
 
@@ -382,11 +384,11 @@ public class SaveManager : MonoBehaviour
     {
         foreach (ItemData itemData in data.InventoryData.Items)
         {
-            Item item = Instantiate(Array.Find(items, x => x.Title == itemData.Titel));
+//            ItemInGame itemInGame = Instantiate(Array.Find(itemsInGame, x => x.Name == itemData.Titel));
 
             for (int i = 0; i < itemData.StackCount; i++)
             {
-                InventoryScript.Instance.PlaceInSpecific(item, itemData.SlotIndex, itemData.BagIndex);
+//                InventoryScript.Instance.PlaceInSpecific(itemInGame, itemData.SlotIndex, itemData.BagIndex);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+ using Items;
+ using UnityEngine;
 using UnityEngine.UI;
 
 public class Profession : MonoBehaviour
@@ -72,9 +73,9 @@ public class Profession : MonoBehaviour
 
         materials.Clear();
 
-        title.text = recipe.Output.Title;
+        title.text = recipe.Output.Name;
 
-        description.text = recipe.Description + " " + recipe.Output.Title.ToLower();
+        description.text = recipe.Description + " " + recipe.Output.Name.ToLower();
 
         craftItemInfo.Initialize(recipe.Output, 1);
 
@@ -82,7 +83,7 @@ public class Profession : MonoBehaviour
         {
             GameObject tmp = Instantiate(materialPrefab, parent);
 
-            tmp.GetComponent<ItemInfo>().Initialize(material.Item, material.Count);
+            tmp.GetComponent<ItemInfo>().Initialize(material.ItemInGame, material.Count);
 
             materials.Add(tmp);
 
@@ -91,7 +92,7 @@ public class Profession : MonoBehaviour
         UpdateMaterialCount(null);
     }
 
-    private void UpdateMaterialCount(Item item)
+    private void UpdateMaterialCount(ItemInGame itemInGame)
     {
         amounts.Sort();
 
@@ -152,7 +153,7 @@ public class Profession : MonoBehaviour
 
         foreach (CraftingMaterial material in selectedRecipe.Materials)
         {
-            int count = InventoryScript.Instance.GetItemCount(material.Item.Title);
+            int count = InventoryScript.Instance.GetItemCount(material.ItemInGame.Name);
 
             if (count >= material.Count)
             {
@@ -188,16 +189,16 @@ public class Profession : MonoBehaviour
 
     public void AdddItemsToInventory()
     {
-        if (InventoryScript.Instance.AddItem(craftItemInfo.Item))
-        {
-            foreach (CraftingMaterial material in selectedRecipe.Materials)
-            {
-                for (int i = 0; i < material.Count; i++)
-                {
-                    InventoryScript.Instance.RemoveItem(material.Item);
-                }
-            }
-        }
+//        if (InventoryScript.Instance.AddItem(craftItemInfo.ItemInGame))
+//        {
+//            foreach (CraftingMaterial material in selectedRecipe.Materials)
+//            {
+//                for (int i = 0; i < material.Count; i++)
+//                {
+//                    InventoryScript.Instance.RemoveItem(material.ItemInGame);
+//                }
+//            }
+//        }
 
       
     }

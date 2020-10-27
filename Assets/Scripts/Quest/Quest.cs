@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 
 [System.Serializable]
@@ -174,15 +175,15 @@ public abstract class Objective
 [System.Serializable]
 public class CollectObjective : Objective
 {
-    public void UpdateItemCount(Item item)
+    public void UpdateItemCount(ItemInGame itemInGame)
     {
-        if (Type.ToLower() == item.Title.ToLower())
+        if (Type.ToLower() == itemInGame.Name.ToLower())
         {
-            CurrentAmount = InventoryScript.Instance.GetItemCount(item.Title);
+            CurrentAmount = InventoryScript.Instance.GetItemCount(itemInGame.Name);
 
             if (CurrentAmount <= Amount)
             {
-                MessageFeedManager.Instance.WriteMessage(string.Format("{0}: {1}/{2}", item.Title, CurrentAmount, Amount));
+                MessageFeedManager.Instance.WriteMessage(string.Format("{0}: {1}/{2}", itemInGame.Name, CurrentAmount, Amount));
             }
 
 
@@ -202,11 +203,11 @@ public class CollectObjective : Objective
 
     public void Complete()
     {
-        Stack<Item> items = InventoryScript.Instance.GetItems(Type, Amount);
+        Stack<ItemInGame> items = InventoryScript.Instance.GetItems(Type, Amount);
 
-        foreach (Item item in items)
+        foreach (ItemInGame item in items)
         {
-            item.Remove();
+//            item.Remove();
         }
     }
 

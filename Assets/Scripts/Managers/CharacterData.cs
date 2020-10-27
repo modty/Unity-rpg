@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 using New;
 
@@ -29,26 +30,31 @@ public class CharacterData:MonoBehaviour
     /// <summary>
     /// 消耗品<物品Uid,背包中该物品的数目>（后面会更改Value值）
     /// </summary>
-    private Dictionary<long, ConsumbleInGame> consumblesInGame;
+    private Dictionary<long, ItemInGame> consumblesInGame;
+    /// <summary>
+    /// 游戏中所有角色（uid=3）,包括怪物等
+    /// </summary>
+    private Dictionary<long, CharacterInGame> charactersInGame;
 
 
     /// <summary>
     /// 
     /// </summary>
-    private Dictionary<long, EquipmentInGame> equipmentsInGame;
+    private Dictionary<long, ItemInGame> equipmentsInGame;
     private CharacterData()
     {
         loadData();
         spells=new Dictionary<long, Spell>();
         actionButtons=new Dictionary<int, long>();
-        consumblesInGame=new Dictionary<long, ConsumbleInGame>();
-        equipmentsInGame=new Dictionary<long, EquipmentInGame>();
-        ObtainItem(1001000000000);
-        ObtainItem(1001000000001);
-        ObtainItem(1001000000002);
+        consumblesInGame=new Dictionary<long, ItemInGame>();
+        charactersInGame=new Dictionary<long, CharacterInGame>();
+        equipmentsInGame=new Dictionary<long, ItemInGame>();
+//        ObtainItem(1001000000000);
+//        ObtainItem(1001000000001);
+//        ObtainItem(1001000000002);
         // 添加快捷键绑定
-        actionButtons.Add(0,1001000000000);
-        actionButtons.Add(3,1001000000001);
+//        actionButtons.Add(0,1001000000000);
+//        actionButtons.Add(3,1001000000001);
         // 背包中添加物品
         
 //        // 15个苹果
@@ -107,10 +113,10 @@ public class CharacterData:MonoBehaviour
         switch (Utils.GetItemType(uid))
         {
             case 0:
-                size = equipmentsInGame[uid].maxStackSize;
+                size = equipmentsInGame[uid].MaxStackSize;
                 break;
             case 2:
-                size = consumblesInGame[uid].maxStackSize;
+                size = consumblesInGame[uid].MaxStackSize;
                 break;
 
         }
@@ -126,14 +132,14 @@ public class CharacterData:MonoBehaviour
         switch (Utils.GetItemType(uid))
         {
             case 0:
-                EquipmentInGame equipment=new EquipmentInGame(DataManager.Instance.GetEquipment(uid),new int[,]{{0,3}},1);
+                ItemInGame equipment=new ItemInGame(DataManager.Instance.GetEquipment(uid));
                 equipmentsInGame.Add(uid,equipment);
                 break;
             case 1:
                 spells.Add(uid,DataManager.Instance.GetSpell(uid));
                 break;
             case 2:
-                ConsumbleInGame consumble=new ConsumbleInGame(DataManager.Instance.GetConsumable(uid),new int[,]{{0,3}},1);
+                ItemInGame consumble=new ItemInGame(DataManager.Instance.GetEquipment(uid));
                 consumblesInGame.Add(uid,consumble);
                 break;
 

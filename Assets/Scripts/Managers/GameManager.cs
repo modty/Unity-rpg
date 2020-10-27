@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour {
             // 判断鼠标左键是否按下，判断是否点击到UI上
             RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition),Vector2.zero,Mathf.Infinity,512);
 
-            if (hit.collider != null && hit.collider.tag == "Enemy")//If we hit something
+            if (hit.collider != null && hit.collider.tag == "Enemy")
             {
                 DeSelectTarget();
 

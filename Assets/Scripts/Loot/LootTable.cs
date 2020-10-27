@@ -32,7 +32,7 @@ public class LootTable : MonoBehaviour
 
             if (roll <= item.DropChance)
             {
-                DroppedItems.Add(new Drop(item.Item, this));
+                DroppedItems.Add(new Drop(item.ItemInGame, this));
             }
         }
 

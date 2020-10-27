@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField]
-    private Item item;
+    [FormerlySerializedAs("item")] [SerializeField]
+    private ItemInGame itemInGame;
 
     [SerializeField]
     private Image image;
@@ -20,24 +22,24 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private int count;
 
-    public Item Item
+    public ItemInGame ItemInGame
     {
         get
         {
-            return item;
+            return itemInGame;
         }
 
         set
         {
-            item = value;
+            itemInGame = value;
         }
     }
 
-    public void Initialize(Item item, int count)
+    public void Initialize(ItemInGame itemInGame, int count)
     {
-        this.Item = item;
-        this.image.sprite = item.Icon;
-        this.title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", item.Title);
+        this.ItemInGame = itemInGame;
+        this.image.sprite = itemInGame.Icon;
+        this.title.text = string.Format("<color={0}>{1}</color>", "#00ff00ff", itemInGame.Name);
         this.count = count;
 
         if (count > 1)
@@ -48,12 +50,12 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     public void UpdateStackCount()
     {
-        stack.text = InventoryScript.Instance.GetItemCount(Item.Title) + "/" + count.ToString();
+        stack.text = InventoryScript.Instance.GetItemCount(ItemInGame.Name) + "/" + count.ToString();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UIManager.Instance.ShowTooltip(new Vector2(0, 0), transform.position, Item);
+//        UIManager.Instance.ShowTooltip(new Vector2(0, 0), transform.position, ItemInGame);
     }
 
     public void OnPointerExit(PointerEventData eventData)

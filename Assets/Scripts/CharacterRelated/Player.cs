@@ -154,6 +154,11 @@ public class Player : Character
         }
     }
 
+    private void Awake()
+    {
+        SetDefaultValues();
+    }
+
     protected override void Update()
     {
         GetInput();
@@ -201,12 +206,74 @@ public class Player : Character
         initPos = transform.parent.position;
     }
 
+    public void ClickToMove()
+    {
+        if (Path != null)
+        {
+            Direction = Vector2.zero;
+            // 使角色朝目标移动
+            transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, 2 * Time.deltaTime);
+
+            Vector3Int dest = astar.Tilemap.WorldToCell(destination);
+            Vector3Int cur = astar.Tilemap.WorldToCell(current);
+
+            float distance = Vector2.Distance(destination, transform.parent.position);
+
+            if (cur.y > dest.y)
+            {
+                exitIndex = 2;
+                Direction += Vector2.down;
+
+                minimapIcon.eulerAngles = new Vector3(0, 0, 180);
+            }
+            else if (cur.y < dest.y)
+            {
+                exitIndex = 0;
+                Direction += Vector2.up;
+                minimapIcon.eulerAngles = new Vector3(0, 0, 0);
+            }
+            if (cur.y == dest.y)
+            {
+                if (cur.x > dest.x)
+                {
+                    exitIndex = 3;
+                    Direction += Vector2.left;
+                    if (Direction.y == 0)
+                    {
+                        minimapIcon.eulerAngles = new Vector3(0, 0, 90);
+                    }
+                }
+                else if (cur.x < dest.x)
+                {
+                    exitIndex = 1;
+                    Direction += Vector2.right;
+                    if (Direction.y == 0)
+                    {
+                        minimapIcon.eulerAngles = new Vector3(0, 0, 270);
+                    }
+                }
+            }
+            if (distance <= 0f)
+            {
+                if (Path.Count > 0)
+                {
+                    current = destination;
+                    destination = Path.Pop();
+                }
+                else
+                {
+                    Path = null;
+                }
+            }
+
+        }
+    }
+
     /// <summary>
     /// 监听键盘输入
     /// </summary>
     private void GetInput()
     {
-        Direction = Vector2.zero;
 
         if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
@@ -222,46 +289,11 @@ public class Player : Character
             health.CurrentValue += 10;
             Mana.CurrentValue += 10;
         }
-
-        if (Input.GetKey(KeybindManager.Instance.Keybinds["UP"])) //Moves up
-        {
-            exitIndex = 0;
-            Direction += Vector2.up;
-            minimapIcon.eulerAngles = new Vector3(0, 0, 0);
-        }
-        if (Input.GetKey(KeybindManager.Instance.Keybinds["LEFT"]))
-        {
-            exitIndex = 3;
-            Direction += Vector2.left;
-            if (Direction.y == 0)
-            {
-                minimapIcon.eulerAngles = new Vector3(0, 0, 90);
-            }
-
-        }
-        if (Input.GetKey(KeybindManager.Instance.Keybinds["DOWN"]))
-        {
-            exitIndex = 2;
-            Direction += Vector2.down;
-
-            minimapIcon.eulerAngles = new Vector3(0, 0, 180);
-        }
-        if (Input.GetKey(KeybindManager.Instance.Keybinds["RIGHT"]))
-        {
-            exitIndex = 1;
-            Direction += Vector2.right;
-            if (Direction.y == 0)
-            {
-                minimapIcon.eulerAngles = new Vector3(0, 0, 270);
-            }
-
-        }
         if (IsMoving)
         {
             StopAction();
             StopInit();
         }
-
         foreach (string action in KeybindManager.Instance.ActionBinds.Keys)
         {
             if (Input.GetKeyDown(KeybindManager.Instance.ActionBinds[action]))
@@ -270,8 +302,6 @@ public class Player : Character
 
             }
         }
-
-
     }
 
     /// <summary>
@@ -539,54 +569,6 @@ public class Player : Character
             spriteRenderer.enabled = true;
         }
     }
-
-    public void ClickToMove()
-    {
-        if (Path != null)
-        {
-            // 使角色朝目标移动
-            transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, 2 * Time.deltaTime);
-
-            Vector3Int dest = astar.Tilemap.WorldToCell(destination);
-            Vector3Int cur = astar.Tilemap.WorldToCell(current);
-
-            float distance = Vector2.Distance(destination, transform.parent.position);
-
-            if (cur.y > dest.y)
-            {
-                Direction = Vector2.down;
-            }
-            else if (cur.y < dest.y)
-            {
-                Direction = Vector2.up;
-            }
-            if (cur.y == dest.y)
-            {
-                if (cur.x > dest.x)
-                {
-                    Direction = Vector2.left;
-                }
-                else if (cur.x < dest.x)
-                {
-                    Direction = Vector2.right;
-                }
-            }
-            if (distance <= 0f)
-            {
-                if (Path.Count > 0)
-                {
-                    current = destination;
-                    destination = Path.Pop();
-                }
-                else
-                {
-                    Path = null;
-                }
-            }
-        }
-
-    }
-
     public void HideGear()
     {
         foreach (SpriteRenderer spriteRenderer in gearRenderers)

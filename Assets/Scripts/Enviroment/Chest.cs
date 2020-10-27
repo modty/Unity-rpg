@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
@@ -15,12 +16,12 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField]
     private CanvasGroup canvasGroup;
 
-    private List<Item> items;
+    private List<ItemInGame> items;
 
     [SerializeField]
     private BagScript bag;
 
-    public List<Item> MyItems
+    public List<ItemInGame> MyItems
     {
         get
         {
@@ -48,7 +49,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        items = new List<Item>();
+        items = new List<ItemInGame>();
     }
 
     public void Interact()
@@ -87,9 +88,9 @@ public class Chest : MonoBehaviour, IInteractable
     {
         if (MyItems != null)
         {
-            foreach (Item item in MyItems)
+            foreach (ItemInGame item in MyItems)
             {
-                item.Slot.AddItem(item);
+//                item.Slot.AddItem(item);
             }
         }
     }

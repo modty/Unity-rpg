@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -88,17 +89,17 @@ public class HandScript : MonoBehaviour
     /// </summary>
     public void DeleteItem()
     {
-        if (Moveable is Item)
+        if (Moveable is ItemInGame)
         {
-            Item item = (Item)Moveable;
-            if (item.Slot != null)
-            {
-                item.Slot.Clear();
-            }
-            else if (item.CharButton != null)
-            {
-                item.CharButton.DequipArmor();
-            }
+            ItemInGame itemInGame = (ItemInGame)Moveable;
+//            if (itemInGame.Slot != null)
+//            {
+//                itemInGame.Slot.Clear();
+//            }
+//            else if (itemInGame.CharButton != null)
+//            {
+//                itemInGame.CharButton.DequipArmor();
+//            }
       
         }
 

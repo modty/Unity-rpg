@@ -2,7 +2,7 @@
 
 public interface IMoveable
 {
-    Sprite MyIcon
+    Sprite Icon
     {
         get;
     }

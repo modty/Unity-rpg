@@ -4645,7 +4645,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4744,7 +4744,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4915,7 +4915,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 9
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4924,7 +4924,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5143,8 +5143,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
-    m_Data: {fileID: 21300000, guid: d49893fe18b88fe46a7bc19adf7c23f4, type: 3}
+  - m_RefCount: 4
+    m_Data: {fileID: 21300000, guid: 5595cbe7794fde64c92264fdbcca6494, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 44947ccac85f4b240b14f0397a51802c, type: 3}
   - m_RefCount: 3
@@ -5159,7 +5159,7 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 0871c419e99aa044b95908b5fc795dbe, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: bd4a7721e20d2e2449d3ae74ef9c4749, type: 3}
-  - m_RefCount: 5
+  - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 10ca68d6ccae9b044834179e9abf4794, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: c42e9e8b918fe12419547785989d47cd, type: 3}
@@ -9787,6 +9787,11 @@ PrefabInstance:
       propertyPath: profession
       value: 
       objectReference: {fileID: 131124132}
+    - target: {fileID: 114875538888312508, guid: 206ba08d4fe851042abcfec0a35020d5,
+        type: 3}
+      propertyPath: rigidbody
+      value: 
+      objectReference: {fileID: 675758674}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 206ba08d4fe851042abcfec0a35020d5, type: 3}
 --- !u!1 &528322816
@@ -10370,7 +10375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9cd84a0be854ad4cbaa1d458235c08b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 360bdb63d6722bc4ab5d1d6e0b9c5c3b, type: 2}
+  itemInGame: {fileID: 11400000, guid: 360bdb63d6722bc4ab5d1d6e0b9c5c3b, type: 2}
   image: {fileID: 562906990}
   title: {fileID: 1450666862}
   stack: {fileID: 0}
@@ -23422,7 +23427,7 @@ MonoBehaviour:
   type: Skeleton
   title: 
   level: 2
-  myRigidbody: {fileID: 2048921408}
+  rigidbody: {fileID: 2048921408}
   hitBox: {fileID: 761170804}
   health: {fileID: 300932312}
   initHealth: 200
@@ -23524,9 +23529,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loot:
-  - item: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
+  - itemInGame: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
     dropChance: 100
-  - item: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
     dropChance: 100
 --- !u!114 &856380599
 MonoBehaviour:
@@ -24707,7 +24712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5cbf9f48f62be446a22ef1d1fd85c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
+  itemsInGame:
   - {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7, type: 2}
   - {fileID: 11400000, guid: ed715989e5f4e904796216eb3a66f88b, type: 2}
   - {fileID: 11400000, guid: 1f608ca942d5ba145a8c29ded03c9ee1, type: 2}
@@ -25202,7 +25207,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 894777340}
   m_HandleRect: {fileID: 894777339}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -35418,7 +35423,7 @@ MonoBehaviour:
   pageNumber: {fileID: 2023451151}
   nextBtn: {fileID: 1793274433}
   previousBtn: {fileID: 1973950960}
-  items:
+  itemsInGame:
   - {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7, type: 2}
   - {fileID: 11400000, guid: 1f608ca942d5ba145a8c29ded03c9ee1, type: 2}
   - {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
@@ -35696,40 +35701,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   window: {fileID: 1808672870}
   items:
-  - item: {fileID: 11400000, guid: ed715989e5f4e904796216eb3a66f88b, type: 2}
+  - itemInGame: {fileID: 11400000, guid: ed715989e5f4e904796216eb3a66f88b, type: 2}
     quantity: 5
     unlimited: 0
-  - item: {fileID: 11400000, guid: 1f608ca942d5ba145a8c29ded03c9ee1, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 1f608ca942d5ba145a8c29ded03c9ee1, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: f9363347635ca32488692f5da39dced2, type: 2}
+  - itemInGame: {fileID: 11400000, guid: f9363347635ca32488692f5da39dced2, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
+  - itemInGame: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 72f4b4daed1b91046b71b31e7f997017, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 72f4b4daed1b91046b71b31e7f997017, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 31ee887b97b5f07488c0801a7691409b, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 31ee887b97b5f07488c0801a7691409b, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 7a15d336e46d3b44f8cd7ba4d00fb18c, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 7a15d336e46d3b44f8cd7ba4d00fb18c, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 8a39694ed084a5840a3389a7f99ae817, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 8a39694ed084a5840a3389a7f99ae817, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
     quantity: 0
     unlimited: 1
-  - item: {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7, type: 2}
     quantity: 0
     unlimited: 1
 --- !u!1 &1543507857
@@ -36762,7 +36767,7 @@ MonoBehaviour:
   type: Skeleton
   title: 
   level: 2
-  myRigidbody: {fileID: 1576702032}
+  rigidbody: {fileID: 1576702032}
   hitBox: {fileID: 2063305303}
   health: {fileID: 596408344}
   initHealth: 10
@@ -36806,9 +36811,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loot:
-  - item: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
+  - itemInGame: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
     dropChance: 100
-  - item: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
     dropChance: 100
 --- !u!95 &1593604592
 Animator:
@@ -38837,7 +38842,7 @@ MonoBehaviour:
   type: Skeleton
   title: 
   level: 2
-  myRigidbody: {fileID: 1687925369}
+  rigidbody: {fileID: 1687925369}
   hitBox: {fileID: 1349149000}
   health: {fileID: 1036084455}
   initHealth: 5000
@@ -38881,9 +38886,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loot:
-  - item: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
+  - itemInGame: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1, type: 2}
     dropChance: 100
-  - item: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
+  - itemInGame: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013, type: 2}
     dropChance: 100
 --- !u!95 &1661679032
 Animator:
@@ -39353,7 +39358,7 @@ PrefabInstance:
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.size
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
@@ -39364,7 +39369,7 @@ PrefabInstance:
         type: 3}
       propertyPath: items.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: ed715989e5f4e904796216eb3a66f88b,
+      objectReference: {fileID: 11400000, guid: 3a79db20aacb1274cb04140afc3ab7a1,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
@@ -39395,67 +39400,79 @@ PrefabInstance:
         type: 3}
       propertyPath: items.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 1f608ca942d5ba145a8c29ded03c9ee1,
+      objectReference: {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: f9363347635ca32488692f5da39dced2,
+      objectReference: {fileID: 11400000, guid: ed715989e5f4e904796216eb3a66f88b,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: b0ca625587a39494d929fae7d65c83d1,
+      objectReference: {fileID: 11400000, guid: 1f608ca942d5ba145a8c29ded03c9ee1,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: 72f4b4daed1b91046b71b31e7f997017,
+      objectReference: {fileID: 11400000, guid: f9363347635ca32488692f5da39dced2,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 31ee887b97b5f07488c0801a7691409b,
+      objectReference: {fileID: 11400000, guid: 360bdb63d6722bc4ab5d1d6e0b9c5c3b,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: 7a15d336e46d3b44f8cd7ba4d00fb18c,
+      objectReference: {fileID: 11400000, guid: 22db575f688b4f64da81a1208c9acb7a,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: 8a39694ed084a5840a3389a7f99ae817,
+      objectReference: {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: 2c909e83ca967904e86190739dbda3b7,
+      objectReference: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[9]
       value: 
-      objectReference: {fileID: 11400000, guid: 7f7555624ad91ac40ad1a77e65f8d013,
+      objectReference: {fileID: 11400000, guid: 360bdb63d6722bc4ab5d1d6e0b9c5c3b,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[10]
       value: 
-      objectReference: {fileID: 11400000, guid: 15e5465c06205654488c58f70d49968d,
+      objectReference: {fileID: 11400000, guid: 22db575f688b4f64da81a1208c9acb7a,
         type: 2}
     - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}
       propertyPath: items.Array.data[11]
       value: 
-      objectReference: {fileID: 11400000, guid: 22db575f688b4f64da81a1208c9acb7a,
+      objectReference: {fileID: 11400000, guid: 31ee887b97b5f07488c0801a7691409b,
+        type: 2}
+    - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
+        type: 3}
+      propertyPath: items.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a15d336e46d3b44f8cd7ba4d00fb18c,
+        type: 2}
+    - target: {fileID: 114655313428224734, guid: b094b4490ad64384c9b8836953314da1,
+        type: 3}
+      propertyPath: items.Array.data[13]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a39694ed084a5840a3389a7f99ae817,
         type: 2}
     - target: {fileID: 114893063450111060, guid: b094b4490ad64384c9b8836953314da1,
         type: 3}

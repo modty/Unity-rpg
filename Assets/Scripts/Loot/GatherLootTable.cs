@@ -35,7 +35,7 @@ public class GatherLootTable : LootTable, IInteractable
 
                 for (int i = 0; i < itemCount; i++)
                 {
-                    DroppedItems.Add(new Drop(Instantiate(l.Item), this));
+//                    DroppedItems.Add(new Drop(Instantiate(l.ItemInGame), this));
                 }
 
                 spriteRenderer.sprite = gatherSprite;

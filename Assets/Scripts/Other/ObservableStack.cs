@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Items;
 
 //A delegate for creating event
 public delegate void UpdateStackEvent();
@@ -12,6 +13,14 @@ public class ObservableStack<T> : Stack<T>
     /// 当往栈中压入类
     /// </summary>
     public event UpdateStackEvent OnPush;
+
+    private ItemInGame _itemInGame;
+
+    public ItemInGame ItemInGame
+    {
+        get => _itemInGame;
+        set => _itemInGame = value;
+    }
 
     /// <summary>
     /// 当从栈中弹出类

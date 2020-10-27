@@ -1,6 +1,7 @@
 ﻿﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+ using Items;
+ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -129,7 +130,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     /// </summary>
     public void SetUseable(IUseable useable)
     {
-        if (useable is Item)
+        if (useable is ItemInGame)
         {
             // 获取背包中放到快捷栏的所有该物体，并压入栈中
             Useables = InventoryScript.Instance.GetUseables(useable);
@@ -178,16 +179,16 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     /// <summary>
     /// 更新物品数量（快捷栏）
     /// </summary>
-    /// <param name="item"></param>
-    public void UpdateItemCount(Item item)
+    /// <param name="itemInGame"></param>
+    public void UpdateItemCount(ItemInGame itemInGame)
     {
         // 如果物品可使用且使用堆栈中还有没有使用的该物品
-        if (item is IUseable && Useables.Count > 0)
+        if (itemInGame is IUseable && Useables.Count > 0)
         {
             // 弹出物品并再次验证
-            if (Useables.Peek().GetType() == item.GetType())
+            if (Useables.Peek().GetType() == itemInGame.GetType())
             {
-                Useables = InventoryScript.Instance.GetUseables(item as IUseable);
+                Useables = InventoryScript.Instance.GetUseables(itemInGame as IUseable);
 
                 count = Useables.Count;
 

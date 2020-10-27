@@ -1,11 +1,13 @@
 ﻿﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+ using Items;
+ using New;
+ using UnityEngine;
 
 enum ArmorType {Head, Shoulders, Chest, Hands, Legs ,Feet, MainHand, Offhand, TwoHand }
 
 [CreateAssetMenu(fileName = "Armor", menuName = "Items/Armor", order = 2)]
-public class Armor : Item
+public class Armor : ItemInGame
 {
     [SerializeField]
     private ArmorType armorType;
@@ -61,5 +63,9 @@ public class Armor : Item
     public void Equip()
     {
         CharacterPanel.Instance.EquipArmor(this);
+    }
+
+    public Armor(Item item) : base(item)
+    {
     }
 }

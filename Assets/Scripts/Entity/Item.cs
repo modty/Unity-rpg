@@ -15,6 +15,6 @@ namespace New
         public string description_cn;
         public string icon;
         public int maxStackSize;
-
+        public int price;
     }
 }

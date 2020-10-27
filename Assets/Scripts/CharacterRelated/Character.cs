@@ -51,7 +51,7 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// 角色刚体
     /// </summary>
-    [FormerlySerializedAs("myRigidbody")] [SerializeField]
+    [FormerlySerializedAs("rigidbody")] [SerializeField]
     private Rigidbody2D rigidbody;
 
     /// <summary>

@@ -1,21 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class Loot
 {
-    [SerializeField]
-    private Item item;
+    [FormerlySerializedAs("item")] [SerializeField]
+    private ItemInGame itemInGame;
 
     [SerializeField]
     private float dropChance;
 
-    public Item Item
+    public ItemInGame ItemInGame
     {
         get
         {
-            return item;
+            return itemInGame;
         }
     }
 

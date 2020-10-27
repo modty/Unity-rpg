@@ -1,6 +1,7 @@
 ﻿﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+ using Items;
+ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// <summary>
     /// 格子中的所有堆叠
     /// </summary>
-    private ObservableStack<Item> items = new ObservableStack<Item>();
+    private ObservableStack<ItemInGame> items = new ObservableStack<ItemInGame>();
 
     // 格子显示的图标
     [SerializeField]
@@ -25,9 +26,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// 当前格子属于的背包
     /// </summary>
     public BagScript Bag { get; set; }
-
-
-
+    
     public int Index { get; set; }
 
     /// <summary>
@@ -48,7 +47,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     {
         get
         {
-            if (IsEmpty || Count < Item.StackSize)
+            if (IsEmpty || Count < ItemInGame.StackCount)
             {
                 return false;
             }
@@ -59,7 +58,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// <summary>
     /// 格子中的物品类
     /// </summary>
-    public Item Item
+    public ItemInGame ItemInGame
     {
         get
         {
@@ -102,7 +101,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         }
     }
 
-    public ObservableStack<Item> Items
+    public ObservableStack<ItemInGame> Items
     {
         get
         {
@@ -144,16 +143,16 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
                     if (HandScript.Instance.Moveable is Bag)
                     {
                         // 如果有，而且当前格子中也是背包，就切换背包
-                        if (Item is Bag)
+                        if (ItemInGame is Bag)
                         {
-                            InventoryScript.Instance.SwapBags(HandScript.Instance.Moveable as Bag, Item as Bag);
+                            InventoryScript.Instance.SwapBags(HandScript.Instance.Moveable as Bag, ItemInGame as Bag);
                         }
                     }
                     else if (HandScript.Instance.Moveable is Armor)
                     {
-                        if (Item is Armor && (Item as Armor).ArmorType == (HandScript.Instance.Moveable as Armor).ArmorType)
+                        if (ItemInGame is Armor && (ItemInGame as Armor).ArmorType == (HandScript.Instance.Moveable as Armor).ArmorType)
                         {
-                            (Item as Armor).Equip();
+                            (ItemInGame as Armor).Equip();
                             
                             HandScript.Instance.Drop();
                         }
@@ -163,7 +162,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
                 // 没有拖拽就直接拿起物品
                 else
                 {
-                    HandScript.Instance.TakeMoveable(Item as IMoveable);
+                    HandScript.Instance.TakeMoveable(ItemInGame as IMoveable);
                     InventoryScript.Instance.FromSlot = this;
                 }
         
@@ -218,15 +217,15 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// <summary>
     /// 将物品添加到格子中（当前格子中）
     /// </summary>
-    /// <param name="item">添加的物品类</param>
+    /// <param name="itemInGame">添加的物品类</param>
     /// <returns>是否添加成功</returns>
-    public bool AddItem(Item item)
+    public bool AddItem(ItemInGame itemInGame)
     {
-        Items.Push(item);
-        icon.sprite = item.Icon;
+        Items.Push(itemInGame);
+        icon.sprite = itemInGame.Icon;
         icon.color = Color.white;
         Cover.enabled = false;
-        item.Slot = this;
+//        itemInGame.Slot = this;
         return true;
     }
 
@@ -235,9 +234,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// </summary>
     /// <param name="newItems">对叠的物品</param>
     /// <returns></returns>
-    public bool AddItems(ObservableStack<Item> newItems)
+    public bool AddItems(ObservableStack<ItemInGame> newItems)
     {
-        if (IsEmpty || newItems.Peek().GetType() == Item.GetType())
+        if (IsEmpty || newItems.Peek().GetType() == ItemInGame.GetType())
         {
             int count = newItems.Count;
 
@@ -260,8 +259,8 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// <summary>
     /// 移除物品
     /// </summary>
-    /// <param name="item"></param>
-    public void RemoveItem(Item item)
+    /// <param name="itemInGame"></param>
+    public void RemoveItem(ItemInGame itemInGame)
     {
         if (!IsEmpty)
         {
@@ -287,13 +286,13 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// </summary>
     public void UseItem()
     {
-        if (Item is IUseable)
+        if (ItemInGame is IUseable)
         {
-            (Item as IUseable).Use();
+            (ItemInGame as IUseable).Use();
         }
-        else if (Item is Armor)
+        else if (ItemInGame is Armor)
         {
-            (Item as Armor).Equip();
+            (ItemInGame as Armor).Equip();
         }
       
     }
@@ -301,17 +300,15 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// <summary>
     /// 合并两个物体
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="itemInGame"></param>
     /// <returns></returns>
-    public bool StackItem(Item item)
+    public bool StackItem(ItemInGame itemInGame)
     {
-        if (!IsEmpty && item.name == Item.name && Items.Count < Item.StackSize)
+        if (!IsEmpty && itemInGame.Uid == ItemInGame.Uid && itemInGame.StackCount < ItemInGame.MaxStackSize)
         {
-            Items.Push(item);
-            item.Slot = this;
+            ItemInGame.StackCount++;
             return true;
         }
-
         return false;
     }
 
@@ -343,10 +340,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         {
             return false;
         }
-        if (from.Item.GetType() != Item.GetType() || from.Count+Count > Item.StackSize)
+        if (from.ItemInGame.GetType() != ItemInGame.GetType() || from.Count+Count > ItemInGame.StackCount)
         {
             // 获取拖拽的物品
-            ObservableStack<Item> tmpFrom = new ObservableStack<Item>(from.Items);
+            ObservableStack<ItemInGame> tmpFrom = new ObservableStack<ItemInGame>(from.Items);
             // 清空被拖拽物品的格子
             from.Items.Clear();
             // 将此格子物品添加到之前格子中
@@ -373,10 +370,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         {
             return false;
         }
-        if (from.Item.GetType() == Item.GetType() && !IsFull && from.Item.Title == Item.Title)
+        if (from.ItemInGame.GetType() == ItemInGame.GetType() && !IsFull && from.ItemInGame.Name == ItemInGame.Name)
         {
             //当前格子还能堆叠的数量
-            int free = Item.StackSize - Count;
+            int free = ItemInGame.StackCount - Count;
 
             for (int i = 0; i < free; i++)
             {
@@ -402,7 +399,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         //显示工具界面
         if (!IsEmpty)
         {
-            UIManager.Instance.ShowTooltip(new Vector2(1, 0),transform.position, Item);
+//            UIManager.Instance.ShowTooltip(new Vector2(1, 0),transform.position, ItemInGame);
         }
         
     }

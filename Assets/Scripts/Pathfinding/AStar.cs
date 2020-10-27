@@ -47,7 +47,10 @@ public class AStar : MonoBehaviour
     {
         startPos = Tilemap.WorldToCell(start);
         goalPos = Tilemap.WorldToCell(goal);
-
+        if (startPos.x == goalPos.x && startPos.y == goalPos.y)
+        {
+            return null;
+        }
         current = GetNode(startPos);
 
         openList = new HashSet<Node>();
@@ -80,7 +83,6 @@ public class AStar : MonoBehaviour
         {
             return path;
         }
-
 
         return null;
 

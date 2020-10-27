@@ -1,9 +1,11 @@
 ﻿﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+ using Items;
+ using New;
+ using UnityEngine;
 
 [CreateAssetMenu(fileName ="Bag",menuName ="Items/Bag",order =1)]
-public class Bag : Item, IUseable
+public class Bag : ItemInGame, IUseable
 {
     /// <summary>
     /// 背包有的格子数
@@ -51,8 +53,8 @@ public class Bag : Item, IUseable
     {
         if (InventoryScript.Instance.CanAddBag)
         {
-            Remove();
-            BagScript = Instantiate(bagPrefab, InventoryScript.Instance.transform).GetComponent<BagScript>();
+//            Remove();
+//            BagScript = Instantiate(bagPrefab, InventoryScript.Instance.transform).GetComponent<BagScript>();
             BagScript.AddSlots(slots);
 
             if (BagButton == null)
@@ -71,12 +73,16 @@ public class Bag : Item, IUseable
 
     public void SetupScript()
     {
-        BagScript = Instantiate(bagPrefab, InventoryScript.Instance.transform).GetComponent<BagScript>();
+//        BagScript = Instantiate(bagPrefab, InventoryScript.Instance.transform).GetComponent<BagScript>();
         BagScript.AddSlots(slots);
     }
 
     public override string GetDescription()
     {
         return base.GetDescription() + string.Format("\n{0} 格子背包", slots);
+    }
+
+    public Bag(Item item) : base(item)
+    {
     }
 }

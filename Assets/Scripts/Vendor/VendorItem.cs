@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class VendorItem
 {
-    [SerializeField]
-    private Item item;
+    [FormerlySerializedAs("item")] [SerializeField]
+    private ItemInGame itemInGame;
 
     [SerializeField]
     private int quantity;
@@ -14,11 +16,11 @@ public class VendorItem
     [SerializeField]
     private bool unlimited;
 
-    public Item Item
+    public ItemInGame ItemInGame
     {
         get
         {
-            return item;
+            return itemInGame;
         }
     }
 

@@ -10,7 +10,8 @@
             ]
         ],
         "icon": "Sprites/UI/Inventory/apple.png",
-        "maxStackSize": 10
+        "maxStackSize": 10,
+        "price": 1
     },
     "2001000000": {
         "name_cn": "生命药水",
@@ -22,6 +23,7 @@
             ]
         ],
         "icon": "Sprites/UI/Inventory/healthPotion.png",
-        "maxStackSize": 20
+        "maxStackSize": 20,
+        "price": 10
     }
 }

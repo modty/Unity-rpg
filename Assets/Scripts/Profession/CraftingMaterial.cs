@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class CraftingMaterial
 { 
 
-    [SerializeField]
-    private Item item;
+    [FormerlySerializedAs("item")] [SerializeField]
+    private ItemInGame itemInGame;
 
     [SerializeField]
     private int count;
@@ -20,11 +22,11 @@ public class CraftingMaterial
         }
     }
 
-    public Item Item
+    public ItemInGame ItemInGame
     {
         get
         {
-            return item;
+            return itemInGame;
         }
     }
 }

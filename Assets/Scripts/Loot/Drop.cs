@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 
 public class Drop 
 {
-    public Item Item { get; set; }
+    public ItemInGame ItemInGame { get; set; }
 
     public LootTable LootTabe { get; set; }
 
-    public Drop(Item item, LootTable lootTable)
+    public Drop(ItemInGame itemInGame, LootTable lootTable)
     {
         LootTabe = lootTable;
-        Item = item;
+        ItemInGame = itemInGame;
     }
 
     public void Remove()
