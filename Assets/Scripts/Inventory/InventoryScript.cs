@@ -130,7 +130,7 @@ public class InventoryScript : MonoBehaviour
     }
 
     private void Awake()
-    {
+    { 
         // 初始化一个背包，大小为20，并装备
 //        Bag bag = (Bag)Instantiate(itemsInGame[8]);
 //        bag.Initialize(20);
@@ -269,26 +269,23 @@ public class InventoryScript : MonoBehaviour
     /// 往背包中添加物品（目标位所有已经装备的背包）
     /// </summary>
     /// <param name="itemInGame">要添加的物品</param>
-    public int[] AddItem(ItemInGame itemInGame)
+    public void AddItem(ItemInGame itemInGame)
     {
         if (itemInGame.StackCount > 0)
         {
             // 如果添加的物品有数量，尝试堆叠，如果堆叠成功，直接返回，不然放到空位上
-            int[] position = PlaceInStack(itemInGame);
-            if (position[1]!=-1)
-            {
-                return position;
-            }
+            PlaceInStack(itemInGame);
         }
+        Debug.Log("堆叠失败，直接存储。");
         // 堆叠失败，直接放置
-        return PlaceInEmpty(itemInGame);
+        PlaceInEmpty(itemInGame);
     }
 
     /// <summary>
     /// 将物品放到空格子中（检索范围为所有已经装备的背包）
     /// </summary>
     /// <param name="itemInGame">要添加的物品</param>
-    private int[] PlaceInEmpty(ItemInGame itemInGame)
+    private void PlaceInEmpty(ItemInGame itemInGame)
     {
         int[] position = {-1, -1};
         for (int i = 0; i < Bags.Count; i++)
@@ -300,10 +297,10 @@ public class InventoryScript : MonoBehaviour
                 {
                     position[0] = i;
                     position[1] = j;
+                    itemInGame.InventoryPosition = position;
                 }
             }
         }
-        return position;
     }
 
     /// <summary>
@@ -311,7 +308,7 @@ public class InventoryScript : MonoBehaviour
     /// </summary>
     /// <param name="itemInGame">想要堆叠的物品</param>
     /// <returns></returns>
-    private int[] PlaceInStack(ItemInGame itemInGame)
+    private void PlaceInStack(ItemInGame itemInGame)
     {
         int[] position = {-1,-1};
         for (int i = 0; i < Bags.Count; i++)
@@ -322,14 +319,13 @@ public class InventoryScript : MonoBehaviour
                 position[0] = i;
                 if(slots[j].StackItem(itemInGame))
                     position[1]=j;
+                itemInGame.InventoryPosition = position;
                 if (position[1]!=-1)// 尝试堆叠物品，堆叠成功触发物品数量改变事件，返回堆叠成功
                 {
                     OnItemCountChanged(itemInGame);
-                    return position;
                 }
             }
         }
-        return position;
     }
 
     public void PlaceInSpecific(ItemInGame itemInGame, int slotIndex, int bagIndex)

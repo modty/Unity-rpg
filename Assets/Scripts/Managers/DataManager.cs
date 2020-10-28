@@ -119,19 +119,41 @@ public class DataManager
         }
         return stackSize;
     }
-
-    public Spell GetSpell(long uid)
+    public Item GetItem(long uid,int type)
     {
-        return spellDic[uid];
+        Item item = null;
+        switch (type)
+        {
+            case 0:
+                item= weaponDic[uid];
+                break;
+            case 1:
+                item=spellDic[uid];
+                break;
+            case 2:
+                item=consumableDic[uid];
+                break;
+        }
+        return item;
+    }
+    
+    public Item GetItem(long uid)
+    {
+        int type = Utils.GetItemType(uid);
+        Item item = null;
+        switch (type)
+        {
+            case 0:
+                item= weaponDic[uid];
+                break;
+            case 1:
+                item=spellDic[uid];
+                break;
+            case 2:
+                item=consumableDic[uid];
+                break;
+        }
+        return item;
     }
 
-    public Consumable GetConsumable(long uid)
-    {
-        return consumableDic[uid];
-    }
-
-    public Equipment GetEquipment(long uid)
-    {
-        return weaponDic[uid];
-    }
 }

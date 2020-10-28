@@ -12,15 +12,34 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private Bag bag;
 
+    private ItemInGame itemInGame;
+
+    public ItemInGame ItemInGame
+    {
+        get => itemInGame;
+        set
+        {
+            if (value==null)
+            {
+                equipmentSprite.enabled = false;
+            }
+            else
+            {
+                equipmentSprite.enabled = true;
+                equipmentSprite.sprite = value.Icon;
+            }
+            itemInGame = value;
+        }
+    }
+
+    private int bagIndex;
     /// <summary>
     /// 标志背包是满还是空
     /// </summary>
     [SerializeField]
-    private Sprite full, empty;
-    
+    private Image emptySprite;
     [SerializeField]
-    private int bagIndex;
-
+    private Image equipmentSprite;
 
     public Bag Bag
     {
@@ -33,11 +52,10 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
         {
             if (value != null)
             {
-                GetComponent<Image>().sprite = full;
+                GetComponent<Image>().sprite = ItemInGame.Icon;
             }
             else
             {
-                GetComponent<Image>().sprite = empty;
             }
 
             bag = value;

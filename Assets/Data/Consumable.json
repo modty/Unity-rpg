@@ -1,5 +1,5 @@
 {
-    "2000000000": {
+    "2000000000000": {
         "name_cn": "苹果",
         "name_us": "Apple",
         "description_cn": "每天一苹果，医生远离我。",
@@ -13,7 +13,7 @@
         "maxStackSize": 10,
         "price": 1
     },
-    "2001000000": {
+    "2001000000000": {
         "name_cn": "生命药水",
         "name_us": "Health Potion",
         "description_cn": "缓缓流动的红色液体，能够恢复一定的生命值。",

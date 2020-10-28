@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -53,7 +55,6 @@ public class Utils
     }
     public static T LoadJSON<T>(string dir)
     {
-        long a = 1000;
         StreamReader streamReader = new StreamReader("Assets/"+dir);
         string str = streamReader.ReadToEnd();
         return JsonConvert.DeserializeObject<T>(str);
@@ -103,16 +104,11 @@ public class Utils
     /// <returns></returns>
     public  static  T  Clone<T>(T  obj)
     {
-        T  ret  =  default(T);
-        if  (obj  !=  null)
-        {
-            XmlSerializer  cloner  =  new  XmlSerializer(typeof(T));
-            MemoryStream  stream  =  new  MemoryStream();
-            cloner.Serialize(stream,  obj);
-            stream.Seek(0,  SeekOrigin.Begin);
-            ret  =  (T)cloner.Deserialize(stream);
-        }
-        return  ret;
+        Stream objectStream = new MemoryStream();
+        IFormatter formatter = new BinaryFormatter();
+        formatter.Serialize(objectStream, obj);
+        objectStream.Seek(0, SeekOrigin.Begin);
+        return (T)formatter.Deserialize(objectStream);
     }
 
     /// <summary>

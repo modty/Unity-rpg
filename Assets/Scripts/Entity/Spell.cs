@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace New
 {
+    [Serializable]
     /// <summary>
     /// 技能相关(有冲突，命名为Spells，后面会更改为Spell)
     /// </summary>
@@ -60,10 +62,6 @@ namespace New
         /// </summary>
         public int[] target_type;
 
-        /// 技能图标，用于UI
-        /// </summary>
-        public string icon;
-
         /// <summary>
         /// 技能图片（释放展示用）
         /// </summary>
@@ -78,5 +76,9 @@ namespace New
         /// 技能当前等级（spellLevel[0]）和最大等级spellLevel[1]
         /// </summary>
         public int[] spellLevel;
+
+        public Spell()
+        {
+        }
     }
 }

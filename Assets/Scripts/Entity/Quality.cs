@@ -20,5 +20,9 @@ namespace New
         /// 品质中文名
         /// </summary>
         public string name_cn;
+
+        public Quality()
+        {
+        }
     }
 }

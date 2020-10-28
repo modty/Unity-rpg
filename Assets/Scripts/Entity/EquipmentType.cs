@@ -15,5 +15,9 @@ namespace New
         /// 装备类型中文名
         /// </summary>
         public string name_cn;
+
+        public EquipmentType()
+        {
+        }
     }
 }

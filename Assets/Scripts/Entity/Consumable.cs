@@ -26,6 +26,10 @@ namespace New
             icon = consumable.icon;
             maxStackSize = consumable.maxStackSize;
         }
+
+        public Consumable()
+        {
+        }
     }
 
 }

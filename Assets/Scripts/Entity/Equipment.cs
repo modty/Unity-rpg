@@ -13,15 +13,16 @@ namespace New
         ///     attribute[2]:耐力
         /// </summary>
         public int[] attribute;
-        /// <summary>
-        /// 价格
-        /// </summary>
-        public int price;
 
         /// <summary>
         /// 背包容量。其他装备一般不会调用，不排除以后会调用
         /// </summary>
         public int capacity;
+
+        /// <summary>
+        /// 动画序列
+        /// </summary>
+        public string animation;
         public Equipment(Equipment equipment)
         {
             name_cn = equipment.name_cn;
@@ -32,6 +33,10 @@ namespace New
             this.maxStackSize = equipment.maxStackSize;
             this.price = equipment.price;
             capacity = equipment.capacity;
+        }
+
+        public Equipment()
+        {
         }
     }
 }

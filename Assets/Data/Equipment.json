@@ -136,12 +136,12 @@
         "animation": "Boots"
     },
     "1009000000": {
-        "name_cn": "小型背包",
-        "uid": "1008000000",
-        "capacity": 32,
+        "name_cn": "新手背包",
+        "uid": "1009000000",
+        "capacity": 16,
         "description_cn": "用来装东西的背包。",
         "icon": "Sprites/UI/Inventory/bag.png",
-        "maxStackSize": 20,
+        "maxStackSize": 1,
         "price": 5
     }
 }

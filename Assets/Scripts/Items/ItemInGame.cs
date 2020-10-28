@@ -6,10 +6,17 @@ namespace Items
     /// <summary>
     /// 所有物品的父类
     /// </summary>
-    public class ItemInGame
+    public class ItemInGame:IUseable
     {
 
         private Item item;
+        private int[] inventoryPosition;
+
+        public int[] InventoryPosition
+        {
+            get => inventoryPosition;
+            set => inventoryPosition = value;
+        }
 
         public Item Item
         {
@@ -26,6 +33,10 @@ namespace Items
         {
             get
             {
+                if (icon == null)
+                {
+                    icon = Utils.LoadSpriteByIO(item.icon);
+                }
                 return icon;
             }
             set => icon = value;
@@ -87,6 +98,10 @@ namespace Items
             this.Item = Utils.Clone(item);
             this.Icon = Utils.LoadSpriteByIO(item.icon);
             StackCount = 1;
+        }
+
+        public void Use()
+        {
         }
     }
 }
