@@ -23,6 +23,14 @@ public class HandScript : MonoBehaviour
         }
     }
 
+    public ItemInGame itemInGame;
+
+    public ItemInGame ItemInGame
+    {
+        get => itemInGame;
+        set => itemInGame = value;
+    }
+
     /// <summary>
     /// 当前鼠标拉取的对象
     /// </summary>

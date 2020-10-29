@@ -3,12 +3,8 @@ using UnityEngine;
 
 namespace Items
 {
-    /// <summary>
-    /// 所有物品的父类
-    /// </summary>
     public class ItemInGame:IUseable
     {
-
         private Item item;
         private int[] inventoryPosition;
 
@@ -23,6 +19,11 @@ namespace Items
             get => item;
             set => item = value;
         }
+
+        /// <summary>
+        /// 作为背包后里面包含的物品
+        /// </summary>
+        private ItemInGame[] containItems;
 
         private Sprite icon;
         private int stackCount;
@@ -64,6 +65,18 @@ namespace Items
                 return item.maxStackSize;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private BagScript bagScript;
+
+        public BagScript BagScript
+        {
+            get => bagScript;
+            set => bagScript = value;
+        }
+
         public string Name
         {
             get
@@ -102,6 +115,38 @@ namespace Items
 
         public void Use()
         {
+            switch (Utils.GetItemType(item.uid))
+            {
+                case 0:
+                    EquipmentUse();
+                    break;
+            }
+        }
+
+
+        private void EquipmentUse()
+        {
+            bool success=false;
+            if (item is Equipment equipment)
+            {
+                switch (Utils.GetUseType(item.uid))
+                {
+                    //背包
+                    case 9:
+                        containItems = new ItemInGame[equipment.capacity];
+                        success=BagBarScript.Instance.EquipBag(this);
+                        break;
+                }
+                if (success)
+                {
+                    Debug.Log(equipment.name_cn+" 装备成功。");
+                }
+                else
+                {
+                    Debug.Log(equipment.name_cn+" 装备失败。");
+                }
+            }
+
         }
     }
 }

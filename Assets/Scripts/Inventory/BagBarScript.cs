@@ -10,7 +10,7 @@ public class BagBarScript:MonoBehaviour
 
     [SerializeField]
     private GameObject prefab;
-
+    
     private BagButton[] bags;
 
     public static BagBarScript Instance => instance;
@@ -39,5 +39,23 @@ public class BagBarScript:MonoBehaviour
             bb.ItemInGame = pair.Value;
             bags[pair.Key]=bb;
         }
+    }
+
+
+    public bool EquipBag(ItemInGame itemInGame)
+    {
+        for (int i = 0; i < bags.Length; i++)
+        {
+            if (bags[i] == null)
+            {
+                BagButton bb = bags[i];
+                bb.BagIndex = i;
+                bb.ItemInGame = itemInGame;
+                bags[i]=bb;
+                return true;
+            }
+        }
+
+        return false;
     }
 }

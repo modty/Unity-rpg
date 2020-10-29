@@ -58,6 +58,8 @@ public class CharacterData:MonoBehaviour
         initialCharacter();
         bagBar.Add(0,new ItemInGame(DataManager.Instance.GetItem(1009000000)));
         BagBarScript.Instance.Initial(4,bagBar);
+        
+//        ObtainItem(1009000000);
 //        SpellBook.Instance.Initial(spells);
 //        ActionBar.Instance.Initial(actionButtons);
     }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace New
 {
-    [Serializable]
+
     /// <summary>
     /// 技能相关(有冲突，命名为Spells，后面会更改为Spell)
     /// </summary>
+    [Serializable]
     public class Spell:Item
     {
 

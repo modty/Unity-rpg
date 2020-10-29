@@ -63,12 +63,10 @@ public class BagScript : MonoBehaviour
             return count;
         }
     }
-
-   
-
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        Debug.Log("获取完毕");
     }
 
     /// <summary>
@@ -136,7 +134,7 @@ public class BagScript : MonoBehaviour
         // 切换当前背包的透明度
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
 
-        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts != true;
     }
 
     public void Clear()

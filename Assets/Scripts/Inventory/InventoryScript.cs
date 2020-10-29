@@ -185,14 +185,14 @@ public class InventoryScript : MonoBehaviour
     {
         foreach (BagButton bagButton in bagButtons)
         {
-            if (bagButton.Bag == null)
-            {
-                bagButton.Bag = bag;
-                Bags.Add(bag);
-                bag.BagButton = bagButton;
-                bag.BagScript.transform.SetSiblingIndex(bagButton.BagIndex);
-                break;
-            }
+//            if (bagButton.Bag == null)
+//            {
+//                bagButton.Bag = bag;
+//                Bags.Add(bag);
+//                bag.BagButton = bagButton;
+//                bag.BagScript.transform.SetSiblingIndex(bagButton.BagIndex);
+//                break;
+//            }
         }
     }
     /// <summary>
@@ -203,7 +203,7 @@ public class InventoryScript : MonoBehaviour
     public void AddBag(Bag bag, BagButton bagButton)
     {
         Bags.Add(bag);
-        bagButton.Bag = bag;
+//        bagButton.Bag = bag;
         bag.BagScript.transform.SetSiblingIndex(bagButton.BagIndex);
     }
 
@@ -213,7 +213,7 @@ public class InventoryScript : MonoBehaviour
         Bags.Add(bag);
         bag.BagScript.BagIndex = bagIndex;
         bag.BagButton = bagButtons[bagIndex];
-        bagButtons[bagIndex].Bag = bag;
+//        bagButtons[bagIndex].Bag = bag;
     }
 
     /// <summary>
@@ -230,39 +230,39 @@ public class InventoryScript : MonoBehaviour
     /// </summary>
     /// <param name="oldBag"></param>
     /// <param name="newBag"></param>
-    public void SwapBags(Bag oldBag, Bag newBag)
+    public void SwapBags(ItemInGame oldBag, ItemInGame newBag)
     {
         // 当新背包装备上后所有装备背包的格子数
-        int newSlotCount = (TotalSlotCount - oldBag.SlotCount) + newBag.SlotCount;
-        // 如果装备后的格子数比之前的多
-        if (newSlotCount - FullSlotCount >= 0)
-        {
-            // 获取旧背包的所有物品
-            List<ItemInGame> bagItems = oldBag.BagScript.GetItems();
-            // 移除旧背包
-            RemoveBag(oldBag);
-            // 新背包按钮绑定
-            newBag.BagButton = oldBag.BagButton;
-
-            // 装备新背包
-            newBag.Use();
-            // 新背包物品复制
-            foreach (ItemInGame item in bagItems)
-            {
-                if (item != newBag)// 避免旧背包中含有新背包，物品复制后会有新背包指向新背包的引用
-                {
-                    AddItem(item);
-                }
-            }
-
-            // 把旧背包放到新背包中
-            AddItem(oldBag);
-            // 鼠标上物品丢下
-            HandScript.Instance.Drop();
-            // 将记录原来背包的引用置空
-            Instance.fromSlot = null;
-
-        }
+//        int newSlotCount = (TotalSlotCount - oldBag.SlotCount) + newBag.SlotCount;
+//        // 如果装备后的格子数比之前的多
+//        if (newSlotCount - FullSlotCount >= 0)
+//        {
+//            // 获取旧背包的所有物品
+//            List<ItemInGame> bagItems = oldBag.BagScript.GetItems();
+//            // 移除旧背包
+//            RemoveBag(oldBag);
+//            // 新背包按钮绑定
+//            newBag.BagButton = oldBag.BagButton;
+//
+//            // 装备新背包
+//            newBag.Use();
+//            // 新背包物品复制
+//            foreach (ItemInGame item in bagItems)
+//            {
+//                if (item != newBag)// 避免旧背包中含有新背包，物品复制后会有新背包指向新背包的引用
+//                {
+//                    AddItem(item);
+//                }
+//            }
+//
+//            // 把旧背包放到新背包中
+//            AddItem(oldBag);
+//            // 鼠标上物品丢下
+//            HandScript.Instance.Drop();
+//            // 将记录原来背包的引用置空
+//            Instance.fromSlot = null;
+//
+//        }
     }
 
     /// <summary>

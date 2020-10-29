@@ -160,5 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a121fb2383b81e440ba609a27859e1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bagScript: {fileID: 114862715839033302, guid: 2efe6e5f6e3fb954785dcf5c975a72c9,
+    type: 3}
   emptySprite: {fileID: 751183214684859272}
   equipmentSprite: {fileID: 751183214649356113}

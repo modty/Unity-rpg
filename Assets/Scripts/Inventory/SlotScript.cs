@@ -180,7 +180,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
                         // 将拖拽物品放到这个格子中
                         AddItem(bag);
                         // 装备栏中移除背包
-                        bag.BagButton.RemoveBag();
+//                        bag.BagButton.RemoveBag();
                         // 鼠标上移除
                         HandScript.Instance.Drop();
                     }
