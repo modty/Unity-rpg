@@ -16,7 +16,7 @@ public class CharacterData:MonoBehaviour
     {
         Instance = this;
         loadData();
-        Initial();
+//        Initial();
     }
     /// <summary>
     /// 角色拥有的技能
@@ -57,7 +57,7 @@ public class CharacterData:MonoBehaviour
     {
         initialCharacter();
         bagBar.Add(0,new ItemInGame(DataManager.Instance.GetItem(1009000000)));
-        BagBarScript.Instance.Initial(4,bagBar);
+//        BagBarScript.Instance.Initial(4,bagBar);
         
 //        ObtainItem(1009000000);
 //        SpellBook.Instance.Initial(spells);

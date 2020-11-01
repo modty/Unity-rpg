@@ -16,12 +16,12 @@ public class SelectPlaneScript : MonoBehaviour
         Vector2 v2 = Input.mousePosition - transform.position;
         float angle=(float) (Math.Atan2(v2.y, v2.x)*180/Math.PI);
         float distance = (float) Math.Sqrt(v2.x * v2.x + v2.y * v2.y);
-        float width = distance < 90 ? distance : 90;
+        float width = distance < 150 ? distance : 150;
         Vector3 scale = parent.localScale;
         rod.sizeDelta=new Vector2(width*scale.x,(float) (width/15.3)*scale.y);
         rod.localEulerAngles =new Vector3(0f,0f,angle);
         // 中
-        if (distance <= 30*scale.x)
+        if (distance <= 45*scale.x)
         {
             SelectActive(4);
         }

@@ -15,11 +15,6 @@ namespace New
         public int[] attribute;
 
         /// <summary>
-        /// 背包容量。其他装备一般不会调用，不排除以后会调用
-        /// </summary>
-        public int capacity;
-
-        /// <summary>
         /// 动画序列
         /// </summary>
         public string animation;

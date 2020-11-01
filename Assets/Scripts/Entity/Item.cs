@@ -16,6 +16,7 @@ namespace New
         public string icon;
         public int maxStackSize;
         public int price;
+        public int capacity;
         protected Item()
         {
         }

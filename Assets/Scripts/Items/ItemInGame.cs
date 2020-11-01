@@ -25,6 +25,12 @@ namespace Items
         /// </summary>
         private ItemInGame[] containItems;
 
+        public ItemInGame[] ContainItems
+        {
+            get => containItems;
+            set => containItems = value;
+        }
+
         private Sprite icon;
         private int stackCount;
         /// <summary>
@@ -43,6 +49,10 @@ namespace Items
             set => icon = value;
         }
 
+        public int Capacity
+        {
+            get { return Item.capacity; } 
+        }
         /// <summary>
         /// 堆叠数量，如果在背包中，需要显示数量的时候调用
         /// </summary>
@@ -110,6 +120,7 @@ namespace Items
         {
             this.Item = Utils.Clone(item);
             this.Icon = Utils.LoadSpriteByIO(item.icon);
+            containItems=new ItemInGame[item.capacity];
             StackCount = 1;
         }
 
