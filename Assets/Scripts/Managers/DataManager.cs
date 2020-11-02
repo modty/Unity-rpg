@@ -156,4 +156,9 @@ public class DataManager
         return item;
     }
 
+    public Quality GetQuality(long uid)
+    {
+        Debug.Log(Utils.GetQuality(uid));
+        return qualityColorDic[Utils.GetQuality(uid)];
+    }
 }

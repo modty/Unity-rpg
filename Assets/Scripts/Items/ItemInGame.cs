@@ -51,7 +51,12 @@ namespace Items
 
         public int Capacity
         {
-            get { return Item.capacity; } 
+            get { return Item.capacity; }
+            set
+            {
+                containItems=new ItemInGame[value];
+                Item.capacity = value;
+            }
         }
         /// <summary>
         /// 堆叠数量，如果在背包中，需要显示数量的时候调用

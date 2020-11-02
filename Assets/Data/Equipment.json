@@ -52,9 +52,9 @@
         "maxStackSize": 1,
         "price": 5
     },
-    "1000000000": {
+    "2000000000": {
         "name_cn": "木头盔",
-        "uid": "1000000000",
+        "uid": "2000000000",
         "attribute": [
             50,
             12,
@@ -80,9 +80,9 @@
         "price": 5,
         "animation": "Shoulders"
     },
-    "1002000000": {
+    "3002000000": {
         "name_cn": "木盔甲",
-        "uid": "1002000000",
+        "uid": "3002000000",
         "attribute": [
             50,
             12,
@@ -121,9 +121,9 @@
         "price": 5,
         "animation": "Pants"
     },
-    "1005000000": {
+    "2005000000": {
         "name_cn": "木鞋",
-        "uid": "1005000000",
+        "uid": "2005000000",
         "attribute": [
             50,
             12,
@@ -138,7 +138,7 @@
     "1009000000": {
         "name_cn": "新手背包",
         "uid": "1009000000",
-        "capacity": 16,
+        "capacity": 20,
         "description_cn": "用来装东西的背包。",
         "icon": "Sprites/UI/Inventory/bag.png",
         "maxStackSize": 1,

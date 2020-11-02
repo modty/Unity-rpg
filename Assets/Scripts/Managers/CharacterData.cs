@@ -99,5 +99,4 @@ public class CharacterData:MonoBehaviour
         }
         return itemInGame;
     }
-
 }

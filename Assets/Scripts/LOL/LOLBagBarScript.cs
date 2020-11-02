@@ -24,6 +24,7 @@ public class LOLBagBarScript : MonoBehaviour
     
     private bool[] isEquiped;
 
+    private bool isLoadInventory;
     /// <summary>
     /// 加载数据（模拟）
     /// </summary>
@@ -33,7 +34,17 @@ public class LOLBagBarScript : MonoBehaviour
         bagDatas=new ItemInGame[5];
         isEquiped=new bool[5];
         isEquiped[0] = true;
+        isEquiped[1] = true;
         bagDatas[0] = new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        bagDatas[1] = new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        bagDatas[1].Capacity = 16;
+        bagDatas[0].ContainItems[0]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
+        bagDatas[0].ContainItems[1]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
+        bagDatas[0].ContainItems[5]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        
+        bagDatas[1].ContainItems[6]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
+        bagDatas[1].ContainItems[7]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
+        bagDatas[1].ContainItems[10]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
     }
 
     private void Start()
@@ -51,7 +62,12 @@ public class LOLBagBarScript : MonoBehaviour
             {
                 bags[i].Icon.sprite = bagDatas[i].Icon;
                 bags[i].Icon.enabled=true;
-                LOLInventoryScript.Instance.LoadInventory(bagDatas[i]);
+                bags[i].ItemInGame = bagDatas[i];
+                if (!isLoadInventory)
+                {
+                    LOLInventoryScript.Instance.LoadInventory(bagDatas[i]);
+                    isLoadInventory = true;
+                }
             }
         }
     }
