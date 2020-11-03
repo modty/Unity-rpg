@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LOLBagBarButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+public class LOLBagBarButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,IDragHandler
 {
-    [SerializeField]
-    private Image icon;
+    [SerializeField] private Image icon;
     public Image Icon => icon;
     private ItemInGame _itemInGame;
 
@@ -26,7 +25,7 @@ public class LOLBagBarButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerEx
     {
         if (ItemInGame != null)
         {
-            LOLPointMesScript.Instance.ShowMes(string.Format("<color="+DataManager.Instance.GetQuality(ItemInGame.Uid).color+">"+ItemInGame.Name+"</color>"));
+            LOLMesPlaneScript.Instance.ShowItemMes(string.Format("<color="+DataManager.Instance.GetQuality(ItemInGame.Uid).color+">"+ItemInGame.Name+"</color>"));
         }
     }
 
@@ -34,7 +33,17 @@ public class LOLBagBarButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerEx
     {
         if (ItemInGame!=null)
         {
-            LOLPointMesScript.Instance.Close();
+            LOLMesPlaneScript.Instance.CloseItemMes();
         }
     }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (ItemInGame!=null)
+        {
+            LOLMesPlaneScript.Instance.PointIconShow(ItemInGame,GetComponent<RectTransform>().sizeDelta);
+        }
+    }
+
 }
+

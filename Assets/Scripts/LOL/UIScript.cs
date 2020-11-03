@@ -16,6 +16,13 @@ public class UIScript : MonoBehaviour
     [SerializeField]private GameObject targetFrame;
     [SerializeField]private GameObject selectPlane;
     [SerializeField]private Camera mainCam;
+    [SerializeField] private GameObject mesPlane;
+
+    public GameObject MesPlane
+    {
+        get => mesPlane;
+        set => mesPlane = value;
+    }
 
     public static UIScript Instance1
     {
