@@ -45,6 +45,8 @@ public class LOLBagBarScript : MonoBehaviour
         bagDatas[1].ContainItems[6]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
         bagDatas[1].ContainItems[7]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
         bagDatas[1].ContainItems[10]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        bagDatas[0].ContainItems[11]=new ItemInGame(DataManager.Instance.GetItem(2001000000000));
+        bagDatas[0].ContainItems[11].StackCount=10;
     }
 
     private void Start()

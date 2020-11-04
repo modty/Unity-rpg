@@ -10,6 +10,8 @@ TagManager:
   - Keybind
   - Interactable
   - Ground
+  - InventorySlot
+  - BagBarSlot
   layers:
   - Default
   - TransparentFX

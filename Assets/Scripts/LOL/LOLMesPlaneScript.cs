@@ -37,20 +37,10 @@ public class LOLMesPlaneScript:MonoBehaviour
         itemMesPlaneRectTransform = itemMesPlane.GetComponent<RectTransform>();
         pointIconPlaneRectTransform = pointIcon.gameObject.GetComponent<RectTransform>();
     }
-
-    private void Update()
+    public void CalculatePointIconPlanePosition()
     {
-        if (itemMes.enabled)
-        {
-            CalculateMesPlanePosition();
-        }
-
-        if (pointIconPlane.activeSelf)
-        {
-            pointIconPlaneRectTransform.position = Input.mousePosition + new Vector3(-5, 5);
-        }
+        pointIconPlaneRectTransform.position = Input.mousePosition + new Vector3(-5, 5);
     }
-
     public void ShowItemMes(string text)
     {
         itemMes.text = text;
