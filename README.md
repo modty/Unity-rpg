@@ -25,11 +25,37 @@ By ![](http://modty.top/img/outImg/1.png) InScope Studios
 
 - 技能
 
-![技能](http://modty.top/img/outImg/5.gif)
+![技能](http://modty.top/img/outImg/4.gif)
 
 - 进度条
 
 ![进度条](http://modty.top/img/outImg/2.gif)
+
+## 此项目
+
+- 此项目将在 InScope Studios 的项目的基础上进行优化，并对部分素材进行更换。
+
+* 本项目图片素材如下（考虑到素材文件太大，就不上传到 Github 上）：
+
+  - 素材存放路径：Assert/
+
+  * 素材链接：https://pan.baidu.com/s/1PqY5SD3ICzMl9c6l1_rAbg
+
+  - 提取码：4332
+
+  * 素材来自《英雄联盟》,仅个人学习使用。
+
+* 敌人选中：
+
+![敌人选中](http://modty.top/img/outImg/6.png)
+
+- 控制角色
+
+![敌人选中](http://modty.top/img/outImg/8.png)
+
+- 背包
+
+![背包](http://modty.top/img/outImg/9.png)
 
 ## 备注
 
