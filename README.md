@@ -47,15 +47,15 @@ By ![](http://modty.top/img/outImg/1.png) InScope Studios
 
 * 敌人选中：
 
-![敌人选中](http://modty.top/img/outImg/6.png)
+![敌人选中](http://modty.top/img/outImg/6.PNG)
 
 - 控制角色
 
-![敌人选中](http://modty.top/img/outImg/8.png)
+![敌人选中](http://modty.top/img/outImg/7.PNG)
 
 - 背包
 
-![背包](http://modty.top/img/outImg/9.png)
+![背包](http://modty.top/img/outImg/8.PNG)
 
 ## 备注
 
