@@ -39,7 +39,7 @@ By ![](http://modty.top/img/outImg/1.png) InScope Studios
 
   - 素材存放路径：Assert/
 
-  * 素材链接：https://pan.baidu.com/s/1PqY5SD3ICzMl9c6l1_rAbg
+  * 素材链接：https://pan.baidu.com/s/1bEvmH8yePztStPvUfJIYjQ
 
   - 提取码：4332
 
