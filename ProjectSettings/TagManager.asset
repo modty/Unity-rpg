@@ -12,6 +12,7 @@ TagManager:
   - Ground
   - InventorySlot
   - BagBarSlot
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -26,9 +27,9 @@ TagManager:
   - Both
   - Minimap
   - LineOfSight
-  - 
-  - 
-  - 
+  - Background
+  - Itemground
+  - Skyground
   - 
   - 
   - 
@@ -60,4 +61,13 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3786878281
+    locked: 0
+  - name: Itemground
+    uniqueID: 3655135831
+    locked: 0
+  - name: Player
+    uniqueID: 1422422321
+    locked: 0
+  - name: SkyItem
+    uniqueID: 428682867
     locked: 0
