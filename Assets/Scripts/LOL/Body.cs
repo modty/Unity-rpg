@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+ using Image = UnityEngine.UI.Image;
 
-public class Body : MonoBehaviour
-{
+ public class Body : MonoBehaviour
+ { 
     [SerializeField]
     private Animator selfAnimator;
     [SerializeField]
@@ -18,14 +19,21 @@ public class Body : MonoBehaviour
     private Transform weaponPosition;
     [SerializeField] 
     private BoxCollider2D boxCollider2D;
-
+    [SerializeField]
     private Transform weaponSortPosition;
+    [SerializeField]
+    private SpriteRenderer weaponIcon;
     private Transform sackSortPosition;
+    private WeaponController1 weaponController;
+    private static Body instance;
 
+    public static Body Instance => instance;
     private void Awake()
     {
+        
         weaponSortPosition = weaponAnimator.gameObject.transform;
         sackSortPosition = sackAnimator.gameObject.transform;
+        instance = this;
     }
 
     private static readonly int X = Animator.StringToHash("X");
@@ -35,7 +43,6 @@ public class Body : MonoBehaviour
     public bool attackBusy;
     public void DoAttackAnim(int attackType)
     {
-        if (attackType == 3) weaponPosition.position = PlayerState.Instance.PlayerPosition;
         boxCollider2D.enabled = true;
         selfAnimator.SetInteger(Attack,attackType);
         weaponAnimator.SetInteger(Attack,attackType);
@@ -69,13 +76,27 @@ public class Body : MonoBehaviour
 
     public void startThrowWeapon()
     {
-        weaponThrow.SetActive(true);
-    }
-    public void stopThrowWeapon()
-    {
-//        weaponThrow.SetActive(false);
+        if (weaponIcon.enabled)
+        {
+            weaponIcon.enabled = false;
+        }
+
+        if (!weaponThrow.activeSelf)
+        {
+            weaponThrow.SetActive(true);
+        }
+        
+        if (weaponController==null)
+        {
+            weaponController = weaponThrow.GetComponent<WeaponController1>();
+        }
+        weaponController.ThrowBack();
     }
 
+    public void stopThrowWeapon()
+    {
+        weaponIcon.enabled = true;
+    }
     public void exchangeSortingLayer(int x,int y)
     {
         var position = sackSortPosition.position;

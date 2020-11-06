@@ -17,6 +17,8 @@ public class LOLPlayer : MonoBehaviour
     private bool horizontalChange;
     private bool verticalChange=false;
     private PlayerState playerState;
+    [SerializeField]
+    private Rigidbody2D rigidbody2D;
     private Rigidbody2D rb;
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class LOLPlayer : MonoBehaviour
 
     public void Update()
     {
+
         HandleAction();
         MoveDir();
         HandleMove();
@@ -42,7 +45,7 @@ public class LOLPlayer : MonoBehaviour
         {
             attackType = 1;
         }
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if(Input.GetKeyDown(KeyCode.Q))
         {
             attackType = 3;
         }
@@ -86,6 +89,7 @@ public class LOLPlayer : MonoBehaviour
     {
         Vector2 vector2 = rb.position;
         Vector2 vector2Temp=Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        PlayerState.Instance.MousePosition = vector2Temp;
         vector2 = vector2Temp - vector2;
         return vector2;
     }
@@ -134,10 +138,10 @@ public class LOLPlayer : MonoBehaviour
             {
                 move = true;
             }
-            rb.position = rb.position + Constants.ChaMoveSpeed * Time.deltaTime * playerState.moveVec;
+            rb.position = rb.position + Constants.ChaMoveSpeed * Time.deltaTime * playerState.MoveVec;
             lastMoveDir = moveDir;
-            myBody.exchangeSortingLayer(moveDir[0],moveDir[1]);
         }
+        myBody.exchangeSortingLayer(moveDir[0],moveDir[1]);
         myBody.DoMoveAnim(moveAnimArr[0],moveAnimArr[1],move);
     }
 
@@ -200,7 +204,7 @@ public class LOLPlayer : MonoBehaviour
             }
         }
         moveDir =  new []{moveX,moveY};
-        playerState.moveVec=new Vector3(moveX,moveY);
+        playerState.MoveVec=new Vector3(moveX,moveY);
     }
     
     public float jumpHeight =2.5f;//跳跃高度
