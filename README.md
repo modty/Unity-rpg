@@ -57,6 +57,10 @@ By ![](http://modty.top/img/outImg/1.png) InScope Studios
 
 ![背包](http://modty.top/img/outImg/8.PNG)
 
+- 飞斧投掷
+
+![飞斧投掷](http://modty.top/img/outImg/10.gif)
+
 ## 备注
 
 <div style="display:flex; justify-content: space-between; align-content: center;">
