@@ -24,7 +24,16 @@ using UnityEngine.UIElements;
     [SerializeField]
     private SpriteRenderer weaponIcon;
     private Transform sackSortPosition;
-    private WeaponController1 weaponController;
+    private ThrowWeaponController _throwWeaponController;
+
+    private CharacterState _characterState;
+
+    public CharacterState CharacterState
+    {
+        get => _characterState;
+        set => _characterState = value;
+    }
+
     private static Body instance;
 
     public static Body Instance => instance;
@@ -86,11 +95,11 @@ using UnityEngine.UIElements;
             weaponThrow.SetActive(true);
         }
         
-        if (weaponController==null)
+        if (_throwWeaponController==null)
         {
-            weaponController = weaponThrow.GetComponent<WeaponController1>();
+            _throwWeaponController = weaponThrow.GetComponent<ThrowWeaponController>();
         }
-        weaponController.ThrowBack();
+        _throwWeaponController.ThrowBack(_characterState);
     }
 
     public void stopThrowWeapon()

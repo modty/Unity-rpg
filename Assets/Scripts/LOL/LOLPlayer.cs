@@ -16,15 +16,16 @@ public class LOLPlayer : MonoBehaviour
     bool move;
     private bool horizontalChange;
     private bool verticalChange=false;
-    private PlayerState playerState;
+    private CharacterState _characterState;
     [SerializeField]
     private Rigidbody2D rigidbody2D;
     private Rigidbody2D rb;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerState=PlayerState.Instance;
-        playerState.PlayerPosition = transform.position;
+        _characterState=new CharacterState();
+        _characterState.PlayerPosition = transform.position;
+        myBody.CharacterState = _characterState;
     }
 
     public void Update()
@@ -39,7 +40,7 @@ public class LOLPlayer : MonoBehaviour
     private bool attackChange;
     private void HandleAction()
     {
-        if (myBody.attackBusy||playerState.IsJump) return;
+        if (myBody.attackBusy||_characterState.IsJump) return;
         int attackType = 0;
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -52,7 +53,7 @@ public class LOLPlayer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            playerState.IsJump = true;//跳跃状态赋值为true
+            _characterState.IsJump = true;//跳跃状态赋值为true
             ReadyJump();//执行准备跳跃方法
             return;
         }
@@ -89,7 +90,7 @@ public class LOLPlayer : MonoBehaviour
     {
         Vector2 vector2 = rb.position;
         Vector2 vector2Temp=Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        PlayerState.Instance.MousePosition = vector2Temp;
+        _characterState.MousePosition = vector2Temp;
         vector2 = vector2Temp - vector2;
         return vector2;
     }
@@ -125,7 +126,7 @@ public class LOLPlayer : MonoBehaviour
         move = false;
         bool isIdle = moveDir[0] == 0 && moveDir[1] == 0;
         if (!isIdle) {
-            playerState.PlayerPosition = transform.position;
+            _characterState.PlayerPosition = transform.position;
             if (moveDir[0]!=0)
             {
                 moveAnimArr=new []{moveDir[0],0};
@@ -138,7 +139,7 @@ public class LOLPlayer : MonoBehaviour
             {
                 move = true;
             }
-            rb.position = rb.position + Constants.ChaMoveSpeed * Time.deltaTime * playerState.MoveVec;
+            rb.position = rb.position + Constants.ChaMoveSpeed * Time.deltaTime * _characterState.MoveVec;
             lastMoveDir = moveDir;
         }
         myBody.exchangeSortingLayer(moveDir[0],moveDir[1]);
@@ -204,7 +205,7 @@ public class LOLPlayer : MonoBehaviour
             }
         }
         moveDir =  new []{moveX,moveY};
-        playerState.MoveVec=new Vector3(moveX,moveY);
+        _characterState.MoveVec=new Vector3(moveX,moveY);
     }
     
     public float jumpHeight =2.5f;//跳跃高度
@@ -228,7 +229,7 @@ public class LOLPlayer : MonoBehaviour
             childTransform.position = rb.position;//子物体position与父物体对齐
             gameObject.layer = 9;
 
-            playerState.IsJump = false;//则将跳跃状态设置为false，等待下一次跳跃
+            _characterState.IsJump = false;//则将跳跃状态设置为false，等待下一次跳跃
         }
         childTransform.Translate(Time.fixedDeltaTime * new Vector3(0, velocity_Y));//子物体按照速度移动
     }
