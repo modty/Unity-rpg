@@ -81,7 +81,6 @@ public class CharacterData:MonoBehaviour
     {
         int type=Utils.GetItemType(uid);
         ItemInGame itemInGame = new ItemInGame(DataManager.Instance.GetItem(uid,type));
-        InventoryScript.Instance.AddItem(itemInGame);
         if (itemInGame.InventoryPosition[1] != -1)
         {
             switch (type)

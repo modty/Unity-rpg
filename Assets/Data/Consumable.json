@@ -22,7 +22,7 @@
                 50
             ]
         ],
-        "icon": "Sprites/UI/Inventory/healthPotion.png",
+        "icon": "Sprites/IStudio/Items/healthPotion.png",
         "maxStackSize": 20,
         "price": 10
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class ItemInGame:IUseable
+    public class ItemInGame
     {
         private Item item;
         private int[] inventoryPosition;
@@ -81,17 +81,6 @@ namespace Items
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private BagScript bagScript;
-
-        public BagScript BagScript
-        {
-            get => bagScript;
-            set => bagScript = value;
-        }
-
         public string Name
         {
             get
@@ -150,7 +139,6 @@ namespace Items
                     //背包
                     case 9:
                         containItems = new ItemInGame[equipment.capacity];
-                        success=BagBarScript.Instance.EquipBag(this);
                         break;
                 }
                 if (success)

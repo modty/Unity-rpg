@@ -210,7 +210,7 @@
         "uid": "1009000000",
         "capacity": 20,
         "description_cn": "用来装东西的背包。",
-        "icon": "Sprites/UI/Inventory/bag.png",
+        "icon": "Sprites/IStudio/UI/bag.png",
         "maxStackSize": 1,
         "price": 5
     }
