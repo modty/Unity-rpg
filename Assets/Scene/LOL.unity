@@ -823,9 +823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 5
-  icon: {fileID: 34565530}
-  gearSocket: {fileID: 0}
 --- !u!224 &75531742
 RectTransform:
   m_ObjectHideFlags: 0
@@ -913,9 +910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 7
-  icon: {fileID: 1701733468}
-  gearSocket: {fileID: 0}
 --- !u!224 &89257811
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1983,9 +1977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 2
-  icon: {fileID: 481328224}
-  gearSocket: {fileID: 0}
 --- !u!224 &294860997
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2259,9 +2250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 4
-  icon: {fileID: 1033255969}
-  gearSocket: {fileID: 0}
 --- !u!224 &321089396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3976,9 +3964,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 0
-  icon: {fileID: 0}
-  gearSocket: {fileID: 0}
 --- !u!114 &556317365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8022,9 +8007,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 6
-  icon: {fileID: 1774359790}
-  gearSocket: {fileID: 0}
 --- !u!224 &1131186015
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8793,9 +8775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 3
-  icon: {fileID: 1013129743}
-  gearSocket: {fileID: 0}
 --- !u!224 &1249232009
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9108,9 +9087,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 1
-  icon: {fileID: 98761459}
-  gearSocket: {fileID: 0}
 --- !u!224 &1275068995
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11306,9 +11282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 0
-  icon: {fileID: 1032866333}
-  gearSocket: {fileID: 0}
 --- !u!224 &1590023338
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13503,9 +13476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c2fe78a1003514f8d08b60c72b4ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 0
-  icon: {fileID: 0}
-  gearSocket: {fileID: 0}
 --- !u!114 &1920200667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14522,16 +14492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ef1bf6462a564ea4044ed0ee2bb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 2037429765}
-  head: {fileID: 1590023337}
-  shoulders: {fileID: 1275068994}
-  chest: {fileID: 294860996}
-  hands: {fileID: 1249232008}
-  legs: {fileID: 321089395}
-  feet: {fileID: 75531741}
-  main: {fileID: 1131186014}
-  off: {fileID: 89257810}
-  <MySlectedButton>k__BackingField: {fileID: 0}
 --- !u!225 &2037429765
 CanvasGroup:
   m_ObjectHideFlags: 0
