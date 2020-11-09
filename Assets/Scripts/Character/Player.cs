@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private static Player instance;
+
+    public static Player Instance => instance;
+    
     [SerializeField]
     private Body myBody;
     private int[] moveDir;
@@ -22,10 +26,19 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private void Awake()
     {
+        instance = this;
         rb = GetComponent<Rigidbody2D>();
-        _characterState=new CharacterState();
-        _characterState.PlayerPosition = transform.position;
-        myBody.CharacterState = _characterState;
+    }
+
+    public CharacterState CharacterState
+    {
+        get => _characterState;
+        set
+        {
+            _characterState = value;
+            _characterState.PlayerPosition = transform.position;
+            myBody.CharacterState = _characterState;
+        }
     }
 
     public void Update()

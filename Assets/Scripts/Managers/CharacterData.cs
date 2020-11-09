@@ -16,7 +16,6 @@ public class CharacterData:MonoBehaviour
     {
         Instance = this;
         loadData();
-//        Initial();
     }
     /// <summary>
     /// 角色拥有的技能
@@ -53,25 +52,52 @@ public class CharacterData:MonoBehaviour
         equipmentsInGame=new Dictionary<long, ItemInGame>();
     }
 
-    public void Initial()
+    public void Start()
     {
-        initialCharacter();
-        bagBar.Add(0,new ItemInGame(DataManager.Instance.GetItem(1009000000)));
-//        BagBarScript.Instance.Initial(4,bagBar);
-        
-//        ObtainItem(1009000000);
-//        SpellBook.Instance.Initial(spells);
-//        ActionBar.Instance.Initial(actionButtons);
+        InitialCharacter();
+        InitialStat();
+        InitialBagItems();
     }
 
-    /// <summary>
-    /// 初始化角色数据
-    /// </summary>
-    public void initialCharacter()
+    private void InitialCharacter()
     {
-//        CharacterInGame characterInGame=new CharacterInGame(charactersInGame[3000000000]);
-//        ObtainItem(characterInGame.items[0]).Use();
+        CharacterState characterStat=new CharacterState();
+        characterStat.Experience = 100;
+        characterStat.Health=new []{2000,3128};
+        characterStat.Mana=new []{540,1235};
+        List<int> list=new List<int>();
+        list.AddRange(new []{74,18,97,36,80,10,0,380});
+        characterStat.BaseAttribute=list;
+        StatScript.Instance.ControlledCharacterState = characterStat;
+        Player.Instance.CharacterState = characterStat;
     }
+    private void InitialStat()
+    {
+        StatScript.Instance.Initial();
+        
+    }
+    private void InitialBagItems()
+    {
+        BagBarScript bagBarScript=BagBarScript.Instance;
+        bagBarScript.Bags=new BagBarButtonScript[5];
+        bagBarScript.BagDatas=new ItemInGame[5];
+        bagBarScript.IsEquiped=new bool[5];
+        bagBarScript.IsEquiped[0] = true;
+        bagBarScript.IsEquiped[1] = true;
+        bagBarScript.BagDatas[0] = new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        bagBarScript.BagDatas[1] = new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        bagBarScript.BagDatas[1].Capacity = 16;
+        bagBarScript.BagDatas[0].ContainItems[0]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
+        bagBarScript.BagDatas[0].ContainItems[1]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
+        bagBarScript.BagDatas[0].ContainItems[5]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        
+        bagBarScript.BagDatas[1].ContainItems[6]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
+        bagBarScript.BagDatas[1].ContainItems[7]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
+        bagBarScript.BagDatas[1].ContainItems[10]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        bagBarScript.BagDatas[0].ContainItems[11]=new ItemInGame(DataManager.Instance.GetItem(2001000000000));
+        bagBarScript.BagDatas[0].ContainItems[11].StackCount=10;
+    }
+    
     
     /// <summary>
     /// 获得装备

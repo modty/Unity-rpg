@@ -14,23 +14,46 @@ public class CharacterState
     public Vector2 MoveVec;
     
     public Vector2 MousePosition;
+
+    /// <summary>
+    /// 生命值。[0]:当前生命值，[1]:最大生命值
+    /// </summary>
+    public int[] Health;
+
+    /// <summary>
+    /// 魔法值
+    /// </summary>
+    public int[] Mana;
+        
     /// <summary>
     /// 额外属性
-    ///     BaseAttribute[0]：生命值
-    ///     BaseAttribute[1]：魔法值
-    ///     BaseAttribute[2]：攻击
-    ///     BaseAttribute[3]：魔法强度
-    ///     BaseAttribute[4]：护甲
-    ///     BaseAttribute[5]：魔法抗性
-    ///     BaseAttribute[6]：攻击速度
-    ///     BaseAttribute[7]：极速
-    ///     BaseAttribute[8]：暴击率
-    ///     BaseAttribute[9]：移动速度
+    ///     BaseAttribute[0]：攻击
+    ///     BaseAttribute[1]：魔法强度
+    ///     BaseAttribute[2]：护甲
+    ///     BaseAttribute[3]：魔法抗性
+    ///     BaseAttribute[4]：攻击速度
+    ///     BaseAttribute[5]：极速
+    ///     BaseAttribute[6]：暴击率
+    ///     BaseAttribute[7]：移动速度
     /// </summary>
     public List<int> BaseAttribute;
+
+    /// <summary>
+    /// 角色金币数量
+    /// </summary>
+    public int GoldNum;
+
+    /// <summary>
+    /// 角色经验
+    /// </summary>
+    public int Experience;
+
+    /// <summary>
+    /// 角色等级
+    /// </summary>
+    public int Level;
     
     public CharacterState()
     {
-        IsJump = false;
     }
 }

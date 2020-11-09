@@ -14,7 +14,10 @@ public class BagBarScript : MonoBehaviour
     [SerializeField] private GameObject bagBarSlotPrefab;
 
     [SerializeField] private GameObject bagBarSlots;
+    private static BagBarScript instance;
 
+    public static BagBarScript Instance => instance;
+    
     /// <summary>
     /// 背包装备栏
     /// </summary>
@@ -25,28 +28,32 @@ public class BagBarScript : MonoBehaviour
     private bool[] isEquiped;
 
     private bool isLoadInventory;
+
+    public BagBarButtonScript[] Bags
+    {
+        get => bags;
+        set => bags = value;
+    }
+
+    public ItemInGame[] BagDatas
+    {
+        get => bagDatas;
+        set => bagDatas = value;
+    }
+
+    public bool[] IsEquiped
+    {
+        get => isEquiped;
+        set => isEquiped = value;
+    }
+
     /// <summary>
     /// 加载数据（模拟）
     /// </summary>
     private void Awake()
     {
-        bags=new BagBarButtonScript[5];
-        bagDatas=new ItemInGame[5];
-        isEquiped=new bool[5];
-        isEquiped[0] = true;
-        isEquiped[1] = true;
-        bagDatas[0] = new ItemInGame(DataManager.Instance.GetItem(1009000000));
-        bagDatas[1] = new ItemInGame(DataManager.Instance.GetItem(1009000000));
-        bagDatas[1].Capacity = 16;
-        bagDatas[0].ContainItems[0]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
-        bagDatas[0].ContainItems[1]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
-        bagDatas[0].ContainItems[5]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
+        instance = this;
         
-        bagDatas[1].ContainItems[6]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
-        bagDatas[1].ContainItems[7]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
-        bagDatas[1].ContainItems[10]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
-        bagDatas[0].ContainItems[11]=new ItemInGame(DataManager.Instance.GetItem(2001000000000));
-        bagDatas[0].ContainItems[11].StackCount=10;
     }
 
     private void Start()
