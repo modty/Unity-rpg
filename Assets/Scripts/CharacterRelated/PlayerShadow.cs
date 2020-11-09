@@ -7,10 +7,10 @@ public class PlayerShadow : MonoBehaviour
 
     private float heightDifference;//玩家跳跃高度差
     private Vector3 scale;//初始影子缩放大小
-    private LOLPlayer playerMove;//声明玩家(父物体)移动脚本,主要是获取玩家设置的跳跃高度
+    private Player playerMove;//声明玩家(父物体)移动脚本,主要是获取玩家设置的跳跃高度
     void Start()
     {
-        playerMove = GetComponentInParent<LOLPlayer>();//得到玩家(父物体)移动脚本
+        playerMove = GetComponentInParent<Player>();//得到玩家(父物体)移动脚本
         scale = transform.localScale;//将影子初始缩放赋值给scale
     }
 

@@ -39,7 +39,6 @@ using UnityEngine.UIElements;
     public static Body Instance => instance;
     private void Awake()
     {
-        
         weaponSortPosition = weaponAnimator.gameObject.transform;
         sackSortPosition = sackAnimator.gameObject.transform;
         instance = this;
@@ -49,6 +48,7 @@ using UnityEngine.UIElements;
     private static readonly int Y = Animator.StringToHash("Y");
     private static readonly int Move = Animator.StringToHash("Move");
     private static readonly int Attack = Animator.StringToHash("Attack");
+    
     public bool attackBusy;
     public void DoAttackAnim(int attackType)
     {
@@ -74,16 +74,20 @@ using UnityEngine.UIElements;
         sackAnimator.SetBool(Move,isMove);
         weaponAnimator.SetBool(Move,isMove);
     }
-    public void NotBusy()
+
+    public void NotBusyPrepare()
     {
-        attackBusy = false;
         boxCollider2D.enabled = false;
         selfAnimator.SetInteger(Attack,0);
         weaponAnimator.SetInteger(Attack,0);
         sackAnimator.SetInteger(Attack,0);
     }
+    public void NotBusy()
+    {
+        attackBusy = false;
+    }
 
-    public void startThrowWeapon()
+    public void StartThrowWeapon()
     {
         if (weaponIcon.enabled)
         {
@@ -128,4 +132,9 @@ using UnityEngine.UIElements;
         
     }
 
+    public bool IsWeaponToTarget()
+    {
+        if (_throwWeaponController == null) return true;
+        return _throwWeaponController.IsReady;
+    }
 }

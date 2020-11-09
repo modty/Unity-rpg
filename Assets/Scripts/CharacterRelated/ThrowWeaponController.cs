@@ -1,6 +1,7 @@
 
 //AXE
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -32,6 +33,13 @@ public class ThrowWeaponController : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
 
     private CharacterState _characterState;
+    private bool isReady=true;
+
+    public bool IsReady
+    {
+        get => isReady;
+        set => isReady = value;
+    }
 
     public CharacterState CharacterState
     {
@@ -41,7 +49,6 @@ public class ThrowWeaponController : MonoBehaviour
 
     private void Update()
     { 
-        Debug.Log(_rigidbody2D.position);
         SelfRotation();
         if (isThrowBack)
         {
@@ -62,6 +69,7 @@ public class ThrowWeaponController : MonoBehaviour
             isRotating = false;
             backOrThrow = true;
             tr.enabled = false;
+            IsReady = true;
             _rigidbody2D.position = targetPos;
         }
     }
@@ -73,6 +81,7 @@ public class ThrowWeaponController : MonoBehaviour
             isRotating = false;
             backOrThrow = false;
             tr.enabled = false;
+            IsReady = true;
             transform.rotation = new Quaternion(0, 0, 0, 0);
             Body.Instance.stopThrowWeapon();
             Instantiate(weaponReturnEffect, _characterState.PlayerPosition, Quaternion.identity);
@@ -109,9 +118,13 @@ public class ThrowWeaponController : MonoBehaviour
     /// </summary>
     public void ThrowBack(CharacterState characterState)
     {
-        _characterState = characterState;
-        tr.enabled = true;
-        if (backOrThrow) BackWeapon();
-        else ThrowWeapon();
+        if (isReady)
+        {
+            IsReady = false;
+            _characterState = characterState;
+            tr.enabled = true;
+            if (backOrThrow) BackWeapon();
+            else ThrowWeapon();
+        }
     }
 }
