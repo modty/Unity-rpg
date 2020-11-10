@@ -1,5 +1,4 @@
-﻿using New;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Items
 {
@@ -116,41 +115,6 @@ namespace Items
             this.Icon = Utils.LoadSpriteByIO(item.icon);
             containItems=new ItemInGame[item.capacity];
             StackCount = 1;
-        }
-
-        public void Use()
-        {
-            switch (Utils.GetItemType(item.uid))
-            {
-                case 0:
-                    EquipmentUse();
-                    break;
-            }
-        }
-
-
-        private void EquipmentUse()
-        {
-            bool success=false;
-            if (item is Equipment equipment)
-            {
-                switch (Utils.GetUseType(item.uid))
-                {
-                    //背包
-                    case 9:
-                        containItems = new ItemInGame[equipment.capacity];
-                        break;
-                }
-                if (success)
-                {
-                    Debug.Log(equipment.name_cn+" 装备成功。");
-                }
-                else
-                {
-                    Debug.Log(equipment.name_cn+" 装备失败。");
-                }
-            }
-
         }
     }
 }

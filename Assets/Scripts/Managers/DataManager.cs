@@ -1,17 +1,7 @@
 using System;
 using System.Collections.Generic;
-using New;
 using UnityEngine;
-/// <summary>
-/// uid作为装备唯一标识
-/// int最大值为9,223,372,036,854,775,808，共19位，
-/// 低6位用于最小类型ID(最大999,999个)，
-/// 第11\12\13位用于标志物品用途（头盔、鞋子等，不同物品，此三位代表性质不同（比如装备和草药）。最大999种）。
-/// 第8\9\10位用于标志物品品质（普通、稀有等，最大999种）
-/// 第5\6\7位用于标志物品类别（装备、任务物品、草药等。最大999种）
-///     0: 装备
-///     1：技能
-/// </summary>
+
 public class DataManager
 {
 
@@ -89,13 +79,13 @@ public class DataManager
         switch (Utils.GetItemType(uid))
         {
             case 0:
-                dir=weaponDic[uid].icon;
+                dir=new EquipmentInGame(weaponDic[uid]).icon;
                 break;
             case 1:
-                dir = spellDic[uid].icon;
+                dir = new SpellInGame(spellDic[uid]).icon;
                 break;
             case 2:
-                dir = consumableDic[uid].icon;
+                dir = new ConsumbleInGame(consumableDic[uid]).icon;
                 break;
         }
 

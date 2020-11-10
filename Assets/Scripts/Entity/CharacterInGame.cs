@@ -1,14 +1,11 @@
-namespace New
+public class CharacterInGame:Character
 {
-    public class CharacterInGame:Character
+    public CharacterInGame(Character character):base(Utils.Clone<Character>(character))
     {
-        public CharacterInGame(Character character):base(Utils.Clone<Character>(character))
-        {
-            
-        }
+        
+    }
 
-        public CharacterInGame()
-        {
-        }
+    public CharacterInGame()
+    {
     }
 }

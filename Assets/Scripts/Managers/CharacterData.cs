@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Items;
 using UnityEngine;
-using New;
 
 /// <summary>
 /// 角色的数据

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
     {
         if (myBody.attackBusy||_characterState.IsJump) return;
         int attackType = 0;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0)&&!EventSystem.current.IsPointerOverGameObject())
         {
             attackType = 1;
         }
