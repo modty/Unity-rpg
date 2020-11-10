@@ -10,9 +10,11 @@ TagManager:
   - Keybind
   - Interactable
   - Ground
-  - InventorySlot
-  - BagBarSlot
   - Weapon
+  - Slot
+  - InventorySlot
+  - ShortcutSlot
+  - BagBarSlot
   layers:
   - Default
   - TransparentFX

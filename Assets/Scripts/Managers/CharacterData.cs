@@ -65,11 +65,20 @@ public class CharacterData:MonoBehaviour
         characterStat.Experience = 100;
         characterStat.Health=new []{2000,3128};
         characterStat.Mana=new []{540,1235};
+        characterStat.GoldNum = 123;
         List<int> list=new List<int>();
         list.AddRange(new []{74,18,97,36,80,10,0,380});
         characterStat.BaseAttribute=list;
         StatScript.Instance.ControlledCharacterState = characterStat;
         Player.Instance.CharacterState = characterStat;
+        Dictionary<int,ItemInGame> shortCuts=new Dictionary<int, ItemInGame>();
+        shortCuts.Add(1,new ItemInGame(DataManager.Instance.GetItem(2005000000)));
+        shortCuts.Add(2,new ItemInGame(DataManager.Instance.GetItem(3002000000)));
+        shortCuts.Add(3,new ItemInGame(DataManager.Instance.GetItem(1009000000)));
+        shortCuts.Add(5,new ItemInGame(DataManager.Instance.GetItem(2001000000000)));
+        shortCuts.Add(6,null);
+        shortCuts.Add(7,null);
+        characterStat.ItemShortCuts = shortCuts;
     }
     private void InitialStat()
     {
@@ -96,6 +105,7 @@ public class CharacterData:MonoBehaviour
         bagBarScript.BagDatas[1].ContainItems[10]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
         bagBarScript.BagDatas[0].ContainItems[11]=new ItemInGame(DataManager.Instance.GetItem(2001000000000));
         bagBarScript.BagDatas[0].ContainItems[11].StackCount=10;
+
     }
     
     

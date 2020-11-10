@@ -22,6 +22,11 @@ public class StatScript : MonoBehaviour
     private BarScript healthBar;
     [SerializeField]
     private BarScript manaBar;
+
+    [SerializeField] private Text goldNum;
+
+    [SerializeField]
+    private ShortcutsScript shortcutsScript;
     
     
     private void Awake()
@@ -31,8 +36,10 @@ public class StatScript : MonoBehaviour
 
     public void Initial()
     {
+        // 初始化生命值、蓝量
         healthBar.Initialize(controlledCharacterState.Health[0],controlledCharacterState.Health[1]);
         manaBar.Initialize(controlledCharacterState.Mana[0],controlledCharacterState.Mana[1]);
+        // 初始化属性
         for (int i = 0; i < attributeNums.Length; i++)
         {
             if (i==4)
@@ -44,6 +51,11 @@ public class StatScript : MonoBehaviour
                 attributeNums[i].text = controlledCharacterState.BaseAttribute[i].ToString();
             }
         }
+        // 初始化面板金币
+        goldNum.text = controlledCharacterState.GoldNum.ToString();
+        // 初始化物品栏快捷键
+        shortcutsScript.ShortCutItems = controlledCharacterState.ItemShortCuts;
+        shortcutsScript.Initial();
     }
     private void Update()
     {

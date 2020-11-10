@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 /// <summary>
 /// 角色的状态类
@@ -52,6 +53,11 @@ public class CharacterState
     /// 角色等级
     /// </summary>
     public int Level;
+
+    /// <summary>
+    /// 角色快捷键
+    /// </summary>
+    public Dictionary<int, ItemInGame> ItemShortCuts;
     
     public CharacterState()
     {
