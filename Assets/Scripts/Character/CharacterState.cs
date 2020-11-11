@@ -8,23 +8,23 @@ using UnityEngine;
 public class CharacterState
 {
     // 角色位置
-    public Vector2 PlayerPosition;
+    private Vector2 playerPosition;
     // 角色是否跳跃
-    public bool IsJump;
+    private bool isJump;
     // 角色朝向
-    public Vector2 MoveVec;
+    private Vector2 moveVec;
     
-    public Vector2 MousePosition;
+    private Vector2 mousePosition;
 
     /// <summary>
     /// 生命值。[0]:当前生命值，[1]:最大生命值
     /// </summary>
-    public int[] Health;
+    private int[] health;
 
     /// <summary>
     /// 魔法值
     /// </summary>
-    public int[] Mana;
+    private int[] mana;
         
     /// <summary>
     /// 额外属性
@@ -37,22 +37,96 @@ public class CharacterState
     ///     BaseAttribute[6]：暴击率
     ///     BaseAttribute[7]：移动速度
     /// </summary>
-    public List<int> BaseAttribute;
+    private List<int> baseAttribute;
 
     /// <summary>
     /// 角色金币数量
     /// </summary>
-    public int GoldNum;
+    private int goldNum;
 
     /// <summary>
     /// 角色经验
     /// </summary>
-    public int Experience;
+    private int experience;
 
     /// <summary>
     /// 角色等级
     /// </summary>
-    public int Level;
+    private int level;
+
+    public Vector2 PlayerPosition
+    {
+        get => playerPosition;
+        set => playerPosition = value;
+    }
+
+    public bool IsJump
+    {
+        get => isJump;
+        set => isJump = value;
+    }
+
+    public Vector2 MoveVec
+    {
+        get => moveVec;
+        set => moveVec = value;
+    }
+
+    public Vector2 MousePosition
+    {
+        get => mousePosition;
+        set => mousePosition = value;
+    }
+
+    public int[] Health
+    {
+        get => health;
+        set { health = value; }
+    }
+
+    public int[] Mana
+    {
+        get => mana;
+        set 
+        {
+            if (mana == null)
+            {
+                mana = value;
+            }
+            else
+            {
+                if (value[0] != mana[0] || value[1] != mana[1])
+                {
+                    mana = value;
+                    EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
+                }
+            }
+        }
+    }
+
+    public List<int> BaseAttribute
+    {
+        get => baseAttribute;
+        set => baseAttribute = value;
+    }
+
+    public int GoldNum
+    {
+        get => goldNum;
+        set => goldNum = value;
+    }
+
+    public int Experience
+    {
+        get => experience;
+        set => experience = value;
+    }
+
+    public int Level
+    {
+        get => level;
+        set => level = value;
+    }
 
     /// <summary>
     /// 角色快捷键

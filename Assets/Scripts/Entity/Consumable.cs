@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 /// <summary>
@@ -32,24 +33,18 @@ using Newtonsoft.Json;
 [Serializable]
 public class Consumable:Item
 {
-    /// <summary>
-    /// 消耗品增加的属性
-    /// attribute[0]:恢复类
-    ///     attribute[0][0]:恢复生命值
-    ///     attribute[0][1]:恢复魔法值
-    /// </summary>
-    public int[][] attribute;
+    public Dictionary<string,Dictionary<string,int>> attribute;
     public Consumable(Consumable consumable)
     {
-        // 避免重复引用
         name_cn = consumable.name_cn;
-        name_us = consumable.name_us;
-        description_cn = consumable.description_cn;
+        uid = consumable.uid;
         attribute = consumable.attribute;
+        description_cn = consumable.description_cn;
         icon = consumable.icon;
         maxStackSize = consumable.maxStackSize;
+        price = consumable.price;
+        capacity = consumable.capacity;
     }
-
     public Consumable()
     {
     }

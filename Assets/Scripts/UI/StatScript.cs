@@ -27,11 +27,10 @@ public class StatScript : MonoBehaviour
 
     [SerializeField]
     private ShortcutsScript shortcutsScript;
-    
-    
     private void Awake()
     {
         instance = this;
+        EventCenter.AddListener(EventTypes.UpdatePlayerHealthManaBar,UpdateBar);
     }
 
     public void Initial()
@@ -57,12 +56,12 @@ public class StatScript : MonoBehaviour
         shortcutsScript.ShortCutItems = controlledCharacterState.ItemShortCuts;
         shortcutsScript.Initial();
     }
-    private void Update()
+    public void UpdateBar()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            healthBar.CurrentValue -= 100;
-            manaBar.CurrentValue -= 100;
-        }
+        healthBar.CurrentValue = controlledCharacterState.Health[0];
+        healthBar.MaxValue = controlledCharacterState.Health[1];
+        manaBar.CurrentValue = controlledCharacterState.Mana[0];
+        manaBar.MaxValue = controlledCharacterState.Mana[1];
     }
+    
 }

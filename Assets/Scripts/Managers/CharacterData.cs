@@ -99,12 +99,11 @@ public class CharacterData:MonoBehaviour
         bagBarScript.BagDatas[0].ContainItems[1]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
         bagBarScript.BagDatas[0].ContainItems[5]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
         
-        bagBarScript.BagDatas[1].ContainItems[6]=new ItemInGame(DataManager.Instance.GetItem(2005000000));
+        bagBarScript.BagDatas[1].ContainItems[6]=new ItemInGame(DataManager.Instance.GetItem(2000000000000));
         bagBarScript.BagDatas[1].ContainItems[7]=new ItemInGame(DataManager.Instance.GetItem(3002000000));
         bagBarScript.BagDatas[1].ContainItems[10]=new ItemInGame(DataManager.Instance.GetItem(1009000000));
-        bagBarScript.BagDatas[0].ContainItems[11]=new ItemInGame(DataManager.Instance.GetItem(2001000000000));
+        bagBarScript.BagDatas[0].ContainItems[11]=new ItemInGame(DataManager.Instance.GetItem(2000000000000));
         bagBarScript.BagDatas[0].ContainItems[11].StackCount=10;
-
     }
     
     

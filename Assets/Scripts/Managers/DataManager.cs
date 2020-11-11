@@ -85,7 +85,7 @@ public class DataManager
                 dir = new SpellInGame(spellDic[uid]).icon;
                 break;
             case 2:
-                dir = new ConsumbleInGame(consumableDic[uid]).icon;
+                dir = new ConsumableInGame(consumableDic[uid]).icon;
                 break;
         }
 
@@ -134,13 +134,13 @@ public class DataManager
         switch (type)
         {
             case 0:
-                item= weaponDic[uid];
+                item= new EquipmentInGame(weaponDic[uid]);
                 break;
             case 1:
-                item=spellDic[uid];
+                item=new SpellInGame(spellDic[uid]);
                 break;
             case 2:
-                item=consumableDic[uid];
+                item=new ConsumableInGame(consumableDic[uid]);
                 break;
         }
         return item;
@@ -148,7 +148,6 @@ public class DataManager
 
     public Quality GetQuality(long uid)
     {
-        Debug.Log(Utils.GetQuality(uid));
         return qualityColorDic[Utils.GetQuality(uid)];
     }
 }

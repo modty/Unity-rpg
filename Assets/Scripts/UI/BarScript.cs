@@ -39,7 +39,17 @@ public class BarScript : MonoBehaviour
     public float MaxValue
     {
         get => maxValue;
-        set => maxValue = value;
+        set
+        {
+            maxValue = value;
+            // 计算UI填充长度
+            currentFill = currentValue / MaxValue;
+            if (statValue != null)
+            {
+                // 设置文本
+                statValue.text = currentValue + " / " + MaxValue;
+            }
+        }
     }
 
     /// <summary>
@@ -91,7 +101,6 @@ public class BarScript : MonoBehaviour
 
             // 计算UI填充长度
             currentFill = currentValue / MaxValue;
-
             if (statValue != null)
             {
                 // 设置文本

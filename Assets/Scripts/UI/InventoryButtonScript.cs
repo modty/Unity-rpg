@@ -90,4 +90,14 @@ public class InventoryButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerEx
         Icon.enabled = false;
         num.enabled = false;
     }
+
+    public void ItemUse()
+    {
+        switch (Utils.GetItemType(ItemInGame.Uid))
+        {
+            case 2:
+                ((ConsumableInGame)itemInGame.Item).Use();
+                break;
+        }
+    }
 }

@@ -1,27 +1,97 @@
 {
     "2000000000000": {
-        "name_cn": "苹果",
+        "uid": 2000000000000,
+        "name_cn": "慢性复合药水",
         "name_us": "Apple",
         "description_cn": "每天一苹果，医生远离我。",
-        "attribute": [
-            [
-                10,
-                5
-            ]
-        ],
-        "icon": "Sprites/UI/Inventory/apple.png",
+        "attribute": {
+            "health": {
+                "baseValue": 100,
+                "value": 10,
+                "duration": 10,
+                "frequency": 1
+            },
+            "mana": {
+                "baseValue": 20,
+                "value": 10,
+                "duration": 10,
+                "frequency": 1
+            }
+        },
+        "icon": "Sprites/IStudio/Items/healthPotion.png",
         "maxStackSize": 10,
         "price": 1
     },
     "2001000000000": {
-        "name_cn": "生命药水",
+        "uid": 2001000000000,
+        "name_cn": "快速符合药水",
         "name_us": "Health Potion",
         "description_cn": "缓缓流动的红色液体，能够恢复一定的生命值。",
-        "attribute": [
-            [
-                50
-            ]
-        ],
+        "attribute": {
+            "health": {
+                "value": 100,
+                "duration": -1
+            },
+            "mana": {
+                "value": 100,
+                "duration": -1
+            }
+        },
+        "icon": "Sprites/IStudio/Items/healthPotion.png",
+        "maxStackSize": 20,
+        "price": 10
+    },
+    "2001001000000": {
+        "uid": 2001001000000,
+        "name_cn": "复合药水",
+        "name_us": "Health Potion",
+        "description_cn": "缓缓流动的红色液体，能够恢复一定的生命值。",
+        "attribute": {
+            "health": {
+                "value": 100,
+                "duration": -1
+            },
+            "mana": {
+                "value": 50,
+                "duration": -1
+            },
+            "experience": {
+                "value": 100,
+                "duration": -1
+            },
+            "attack": {
+                "value": 100,
+                "duration": -1
+            },
+            "magic": {
+                "value": 100,
+                "duration": -1
+            },
+            "armor": {
+                "value": 100,
+                "duration": -1
+            },
+            "resistance": {
+                "value": 100,
+                "duration": -1
+            },
+            "attackSpeed": {
+                "value": 100,
+                "duration": -1
+            },
+            "cooling": {
+                "value": 100,
+                "duration": -1
+            },
+            "crit": {
+                "value": 100,
+                "duration": -1
+            },
+            "moveSpeed": {
+                "value": 100,
+                "duration": -1
+            }
+        },
         "icon": "Sprites/IStudio/Items/healthPotion.png",
         "maxStackSize": 20,
         "price": 10
