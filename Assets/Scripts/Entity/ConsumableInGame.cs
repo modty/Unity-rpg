@@ -38,6 +38,7 @@ public class ConsumableInGame:Consumable,Useable
             {
                 health[0] += param[0];
                 // 立刻恢复生命值
+                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[0].ToString(), SCTTYPE.HEAL,false);
                 EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
             }
             // 消耗品是持续性消耗品
@@ -54,6 +55,7 @@ public class ConsumableInGame:Consumable,Useable
                             () =>
                             {
                                 health[0] += param[1];
+                                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[1].ToString(), SCTTYPE.HEAL,false);
                                 EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
                                 param[4]++;
                                 if (param[4] >= param[5])
@@ -75,6 +77,7 @@ public class ConsumableInGame:Consumable,Useable
             if (dictionary.TryGetValue(Constants.BaseValue, out param[0]))
             {
                 mana[0] += param[0];
+                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[0].ToString(), SCTTYPE.MANA,false);
                 // 立刻恢复生命值
                 EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
             }
@@ -92,6 +95,7 @@ public class ConsumableInGame:Consumable,Useable
                             () =>
                             {
                                 mana[0] += param[1];
+                                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[1].ToString(), SCTTYPE.MANA,false);
                                 EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
                                 param[4]++;
                                 if (param[4] >= param[5])
