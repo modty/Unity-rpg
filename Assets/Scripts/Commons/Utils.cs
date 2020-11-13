@@ -122,5 +122,45 @@ public class Utils
         
     }
 
+    public static void ItemAttributeHelper(Dictionary<string,Dictionary<string,int>> attribute,string key,long fromId,long toUid,string enterAction)
+    {
+        Dictionary<string,int> temp=new Dictionary<string, int>();
+        AttributeChange attributeChange=new AttributeChange(fromId,toUid,temp);
+        Dictionary<string,int> dictionary = attribute[key];
+        int[] param={0,0,-1,1,0,0};
+        if (dictionary.TryGetValue(Constants.BaseValue, out param[0]))
+        {
+            temp[key]=param[0];
+            // 立刻恢复生命值
+            EventCenter.Broadcast<AttributeChange>(enterAction+":"+attributeChange.ToUid,attributeChange);
+        }
+        // 消耗品是持续性消耗品
+        if (dictionary.TryGetValue(Constants.Duration,out param[2]) && param[2]!=-1)
+        {
+            if (dictionary.TryGetValue(Constants.Frequency, out param[3]) && param[3] > 0)
+            {
+                param[5] = param[2] / param[3];
+                if (dictionary.TryGetValue(Constants.Value, out param[1]))
+                {
+                    Timer _testTimer = null;
+                    _testTimer = Timer.Register(
+                        duration: 1f,
+                        () =>
+                        {
+                            temp[key]=param[1];
+                            EventCenter.Broadcast<AttributeChange>(enterAction+":"+attributeChange.ToUid,attributeChange);
+                            param[4]++;
+                            if (param[4] >= param[5])
+                            {
+                                _testTimer.Cancel();
+                            }
+                        },
+                        isLooped: true);
+                }
+            }
+                
+        }
+    }
+
 
 }

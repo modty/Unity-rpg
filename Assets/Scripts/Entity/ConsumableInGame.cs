@@ -31,83 +31,10 @@ public class ConsumableInGame:Consumable,Useable
     {
         if (attribute.ContainsKey(Constants.Health))
         {
-            int[] health = Player.Instance.CharacterState.Health;
-            Dictionary<string,int> dictionary = attribute[Constants.Health];
-            int[] param={0,0,-1,1,0,0};
-            if (dictionary.TryGetValue(Constants.BaseValue, out param[0]))
-            {
-                health[0] += param[0];
-                // 立刻恢复生命值
-                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[0].ToString(), SCTTYPE.HEAL,false);
-                EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
-            }
-            // 消耗品是持续性消耗品
-            if (dictionary.TryGetValue(Constants.Duration,out param[2]) && param[2]!=-1)
-            {
-                if (dictionary.TryGetValue(Constants.Frequency, out param[3]) && param[3] > 0)
-                {
-                    param[5] = param[2] / param[3];
-                    if (dictionary.TryGetValue(Constants.Value, out param[1]))
-                    {
-                        Timer _testTimer = null;
-                        _testTimer = Timer.Register(
-                            duration: 1f,
-                            () =>
-                            {
-                                health[0] += param[1];
-                                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[1].ToString(), SCTTYPE.HEAL,false);
-                                EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
-                                param[4]++;
-                                if (param[4] >= param[5])
-                                {
-                                    _testTimer.Cancel();
-                                }
-                            },
-                            isLooped: true);
-                    }
-                }
-                
-            }
+            Utils.ItemAttributeHelper(attribute,Constants.Health,uid,Player.Instance.Uid(),Constants.EnterAttributeChange);
         }
         if (attribute.ContainsKey(Constants.Mana))
-        {
-            int[] mana = Player.Instance.CharacterState.Mana;
-            Dictionary<string,int> dictionary = attribute[Constants.Mana];
-            int[] param={0,0,-1,1,0,0};
-            if (dictionary.TryGetValue(Constants.BaseValue, out param[0]))
-            {
-                mana[0] += param[0];
-                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[0].ToString(), SCTTYPE.MANA,false);
-                // 立刻恢复生命值
-                EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
-            }
-            // 消耗品是持续性消耗品
-            if (dictionary.TryGetValue(Constants.Duration,out param[2]) && param[2]!=-1)
-            {
-                if (dictionary.TryGetValue(Constants.Frequency, out param[3]) && param[3] > 0)
-                {
-                    param[5] = param[2] / param[3];
-                    if (dictionary.TryGetValue(Constants.Value, out param[1]))
-                    {
-                        Timer _testTimer = null;
-                        _testTimer = Timer.Register(
-                            duration: 1f,
-                            () =>
-                            {
-                                mana[0] += param[1];
-                                CombatTextManager.MyInstance.CreateText(Player.Instance.transform.position, param[1].ToString(), SCTTYPE.MANA,false);
-                                EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
-                                param[4]++;
-                                if (param[4] >= param[5])
-                                {
-                                    _testTimer.Cancel();
-                                }
-                            },
-                            isLooped: true);
-                    }
-                }
-                
-            }
+        {Utils.ItemAttributeHelper(attribute,Constants.Mana,uid,Player.Instance.Uid(),Constants.EnterAttributeChange);
         }
     }
 
@@ -115,6 +42,8 @@ public class ConsumableInGame:Consumable,Useable
     {
         return true;
     }
+    
+    
 }
 
 

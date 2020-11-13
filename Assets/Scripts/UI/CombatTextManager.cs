@@ -10,7 +10,7 @@ public class CombatTextManager : MonoBehaviour
 
     private static CombatTextManager instance;
 
-    public static CombatTextManager MyInstance
+    public static CombatTextManager Instance
     {
         get
         {
@@ -31,7 +31,6 @@ public class CombatTextManager : MonoBehaviour
         position.y += 0.8f;
         Text sct = Instantiate(combatTextPrefab, transform).GetComponent<Text>();
         sct.transform.position = position;
-
         string before = string.Empty;
         string after = string.Empty;
         switch (type)

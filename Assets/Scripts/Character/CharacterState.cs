@@ -7,6 +7,15 @@ using UnityEngine;
 /// </summary>
 public class CharacterState
 {
+
+    private Item _item;
+
+    public Item Item
+    {
+        get => _item;
+        set => _item = value;
+    }
+
     // 角色位置
     private Vector2 playerPosition;
     // 角色是否跳跃
@@ -98,7 +107,6 @@ public class CharacterState
                 if (value[0] != mana[0] || value[1] != mana[1])
                 {
                     mana = value;
-                    EventCenter.Broadcast(EventTypes.UpdatePlayerHealthManaBar);
                 }
             }
         }
@@ -135,5 +143,11 @@ public class CharacterState
     
     public CharacterState()
     {
+    }
+
+    public long Uid()
+    {
+//        return _item.uid;
+        return 123;
     }
 }

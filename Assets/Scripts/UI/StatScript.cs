@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class StatScript : MonoBehaviour
 {
     private CharacterState controlledCharacterState;
-
+    private CombatTextManager _combatTextManager;
     public CharacterState ControlledCharacterState
     {
         get => controlledCharacterState;
@@ -30,7 +30,12 @@ public class StatScript : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        EventCenter.AddListener(EventTypes.UpdatePlayerHealthManaBar,UpdateBar);
+    }
+
+    private void Start()
+    {
+        _combatTextManager=CombatTextManager.Instance;
+        EventCenter.AddListener<AttributeChange>(Constants.EnterAttributeChange+":"+controlledCharacterState.Uid(),UpdateAttribute);
     }
 
     public void Initial()
@@ -56,12 +61,22 @@ public class StatScript : MonoBehaviour
         shortcutsScript.ShortCutItems = controlledCharacterState.ItemShortCuts;
         shortcutsScript.Initial();
     }
-    public void UpdateBar()
+    public void UpdateAttribute(AttributeChange attributeChange)
     {
-        healthBar.CurrentValue = controlledCharacterState.Health[0];
-        healthBar.MaxValue = controlledCharacterState.Health[1];
-        manaBar.CurrentValue = controlledCharacterState.Mana[0];
-        manaBar.MaxValue = controlledCharacterState.Mana[1];
+        int temp = 0;
+        if (attributeChange.Attribute.TryGetValue(Constants.Health, out temp))
+        {
+            controlledCharacterState.Health[0] += temp;
+            healthBar.CurrentValue = controlledCharacterState.Health[0];
+            _combatTextManager.CreateText(controlledCharacterState.PlayerPosition, temp.ToString(), SCTTYPE.HEAL,false);
+        }
+
+        if (attributeChange.Attribute.TryGetValue(Constants.Mana, out temp))
+        {
+            controlledCharacterState.Mana[0] += temp;
+            manaBar.CurrentValue = controlledCharacterState.Mana[0];
+            _combatTextManager.CreateText(controlledCharacterState.PlayerPosition, temp.ToString(), SCTTYPE.MANA,false);
+        }
     }
     
 }

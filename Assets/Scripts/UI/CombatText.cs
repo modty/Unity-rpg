@@ -1,27 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class CombatText : MonoBehaviour {
 
-    [SerializeField]
     private float speed;
 
-    [SerializeField]
     private float lifeTime;
 
     [SerializeField]
     private Text text;
 
+    private void Awake()
+    {
+        speed=Random.Range(1f,2f);
+        lifeTime=Random.Range(1f,1f);
+    }
 
-
-	// Use this for initialization
+    // Use this for initialization
 	void Start ()
     {
         StartCoroutine(FadeOut());
-		
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -36,6 +39,7 @@ public class CombatText : MonoBehaviour {
 
     public IEnumerator FadeOut()
     {
+        Debug.Log(lifeTime);
         float startAlpha = text.color.a;
 
         float rate = 1.0f / lifeTime;

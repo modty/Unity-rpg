@@ -257,4 +257,10 @@ public class Player : MonoBehaviour
         gameObject.layer = 10;
         velocity_Y = Mathf.Sqrt(jumpHeight * -2f * aSpeed);
     }
+
+    public long Uid()
+    {
+//        return _characterState.Item.uid;
+        return 123;
+    }
 }

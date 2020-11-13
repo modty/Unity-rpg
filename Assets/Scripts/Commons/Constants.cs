@@ -24,4 +24,10 @@ public class Constants
     public static string Frequency = "frequency";
     public static string Cooling = "cooling";
     public static string BaseValue = "baseValue";
+
+
+    /// <summary>
+    /// 属性变化事件头字符串
+    /// </summary>
+    public static string EnterAttributeChange = "attributeChange";
 }
