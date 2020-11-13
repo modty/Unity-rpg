@@ -93,11 +93,29 @@ public class InventoryButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerEx
 
     public void ItemUse()
     {
-        switch (Utils.GetItemType(ItemInGame.Uid))
+        if (itemInGame != null)
         {
-            case 2:
-                ((ConsumableInGame)itemInGame.Item).Use();
-                break;
+            switch (Utils.GetItemType(ItemInGame.Uid))
+            {
+                case 2:
+                    if (itemInGame.StackCount > 0)
+                    {
+                        if (((ConsumableInGame) itemInGame.Item).Use())
+                        {
+                            itemInGame.StackCount -= 1;
+                            if (itemInGame.StackCount <= 0)
+                            {
+                                itemInGame = null;
+                                ItemUnShow();
+                            }
+                            else
+                            {
+                                num.text = itemInGame.StackCount.ToString();
+                            }
+                        }
+                    }
+                    break;
+            }
         }
     }
 }

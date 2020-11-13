@@ -15,27 +15,32 @@ public class ConsumableInGame:Consumable,Useable
     /// 按照消耗品类别进行相应使用操作
     ///     0: 数值型消耗品，使用后增加
     /// </summary>
-    public void Use()
+    public bool Use()
     {
+        bool success = false;
         switch (Utils.GetUseType(uid))
         {
             case 0:
-                UseConsumableInGame0();
+                success=UseConsumableInGame0();
                 break;
         }
+        return success;
     }
     /// <summary>
     /// 使用恢复型消耗品
     /// </summary>
-    public void UseConsumableInGame0()
+    public bool UseConsumableInGame0()
     {
         if (attribute.ContainsKey(Constants.Health))
         {
             Utils.ItemAttributeHelper(attribute,Constants.Health,uid,Player.Instance.Uid(),Constants.EnterAttributeChange);
         }
         if (attribute.ContainsKey(Constants.Mana))
-        {Utils.ItemAttributeHelper(attribute,Constants.Mana,uid,Player.Instance.Uid(),Constants.EnterAttributeChange);
+        {
+            Utils.ItemAttributeHelper(attribute,Constants.Mana,uid,Player.Instance.Uid(),Constants.EnterAttributeChange);
         }
+
+        return true;
     }
 
     public bool CanUse()

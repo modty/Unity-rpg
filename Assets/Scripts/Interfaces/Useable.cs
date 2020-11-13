@@ -1,5 +1,5 @@
 public interface Useable
 {
-    void Use();
+    bool Use();
     bool CanUse();
 }

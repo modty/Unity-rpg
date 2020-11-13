@@ -66,7 +66,7 @@ namespace Items
             {
                 return stackCount;
             }
-            set => stackCount = value;
+            set { stackCount = value;}
         }
 
         /// <summary>
