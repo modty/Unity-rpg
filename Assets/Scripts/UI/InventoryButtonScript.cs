@@ -46,6 +46,7 @@ public class InventoryButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerEx
     public void OnEndDrag(PointerEventData eventData)
     {
         GameObject obj = eventData.pointerCurrentRaycast.gameObject;
+        if(obj==null) return;
         if (obj.tag.Equals("InventorySlot"))
         {
             InventoryButtonScript target = obj.GetComponent<InventoryButtonScript>();
