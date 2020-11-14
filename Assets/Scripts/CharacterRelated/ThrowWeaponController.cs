@@ -32,7 +32,7 @@ public class ThrowWeaponController : MonoBehaviour
     [SerializeField]
     private Rigidbody2D _rigidbody2D;
 
-    private CharacterState _characterState;
+    private ControlledChaState _controlledChaState;
     private bool isReady=true;
 
     public bool IsReady
@@ -41,10 +41,10 @@ public class ThrowWeaponController : MonoBehaviour
         set => isReady = value;
     }
 
-    public CharacterState CharacterState
+    public ControlledChaState ControlledChaState
     {
-        get => _characterState;
-        set => _characterState = value;
+        get => _controlledChaState;
+        set => _controlledChaState = value;
     }
 
     private void Update()
@@ -56,7 +56,7 @@ public class ThrowWeaponController : MonoBehaviour
         }
         else
         {
-            _rigidbody2D.position = Vector2.MoveTowards(_rigidbody2D.position, _characterState.PlayerPosition, Constants.WeaponMoveSpeed * 3 * Time.deltaTime);
+            _rigidbody2D.position = Vector2.MoveTowards(_rigidbody2D.position, _controlledChaState.PlayerPosition, Constants.WeaponMoveSpeed * 3 * Time.deltaTime);
         }
         ReachAtMousePosition();
         ReachAtPlayerPosition();
@@ -76,7 +76,7 @@ public class ThrowWeaponController : MonoBehaviour
 
     private void ReachAtPlayerPosition()
     {
-        if (backOrThrow&&Vector2.Distance(_rigidbody2D.position, _characterState.PlayerPosition) <= 0.01f)
+        if (backOrThrow&&Vector2.Distance(_rigidbody2D.position, _controlledChaState.PlayerPosition) <= 0.01f)
         {
             isRotating = false;
             backOrThrow = false;
@@ -84,7 +84,7 @@ public class ThrowWeaponController : MonoBehaviour
             IsReady = true;
             transform.rotation = new Quaternion(0, 0, 0, 0);
             Body.Instance.stopThrowWeapon();
-            Instantiate(weaponReturnEffect, _characterState.PlayerPosition, Quaternion.identity);
+            Instantiate(weaponReturnEffect, _controlledChaState.PlayerPosition, Quaternion.identity);
             gameObject.SetActive(false);
         }
     }
@@ -103,7 +103,7 @@ public class ThrowWeaponController : MonoBehaviour
 
     private void ThrowWeapon()
     {
-        targetPos = _characterState.MousePosition;
+        targetPos = _controlledChaState.MousePosition;
         isRotating = true;
         isThrowBack = true;
     }
@@ -116,12 +116,12 @@ public class ThrowWeaponController : MonoBehaviour
     /// <summary>
     /// 外部调用，每一次点击，调用一次，内部决定是回来还是扔出
     /// </summary>
-    public void ThrowBack(CharacterState characterState)
+    public void ThrowBack(ControlledChaState controlledChaState)
     {
         if (isReady)
         {
             IsReady = false;
-            _characterState = characterState;
+            _controlledChaState = controlledChaState;
             tr.enabled = true;
             if (backOrThrow) BackWeapon();
             else ThrowWeapon();

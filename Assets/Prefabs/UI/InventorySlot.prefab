@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7662469866241678747}
   - component: {fileID: 1100316132634209658}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Num
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,8 +162,8 @@ GameObject:
   - component: {fileID: 7440136749024009762}
   - component: {fileID: 7440136749024009763}
   - component: {fileID: 5410465570547867684}
-  - component: {fileID: 6513642466056142370}
   - component: {fileID: 2385130432022455755}
+  - component: {fileID: 3361978126416135314}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: InventorySlot
@@ -243,7 +243,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 6645000216992474251}
   num: {fileID: 1100316132634209658}
---- !u!114 &6513642466056142370
+--- !u!225 &2385130432022455755
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7440136749024009765}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &3361978126416135314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,15 +309,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!225 &2385130432022455755
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7440136749024009765}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0

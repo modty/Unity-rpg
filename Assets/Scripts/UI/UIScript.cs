@@ -88,5 +88,29 @@ public class UIScript : MonoBehaviour
         {
             selectPlane.SetActive(false);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ShortcutsScript.Instance.OutUse(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ShortcutsScript.Instance.OutUse(2);
+        }        
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ShortcutsScript.Instance.OutUse(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ShortcutsScript.Instance.OutUse(5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ShortcutsScript.Instance.OutUse(6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            ShortcutsScript.Instance.OutUse(7);
+        }
     }
 }

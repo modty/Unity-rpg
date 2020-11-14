@@ -13,15 +13,10 @@ public class ShortcutsScript : MonoBehaviour
     
     [SerializeField] 
     private GameObject shortCutParent;
+    
+    private Dictionary<int,ShortCutButtonScript> shortCutButtonScripts;
 
-    private Dictionary<int, ItemInGame> shortCutItems;
-    private ShortCutButtonScript[] inventoryButtonScripts;
     private int[] keyCodeBinds;
-    public Dictionary<int, ItemInGame> ShortCutItems
-    {
-        get => shortCutItems;
-        set => shortCutItems = value;
-    }
 
     private void Awake()
     {
@@ -35,25 +30,28 @@ public class ShortcutsScript : MonoBehaviour
         keyCodeBinds[5] = 7;
     }
 
-    public void Initial()
+    public void Initial(Dictionary<int, ItemInGame> shortCutItems)
     {
-        inventoryButtonScripts=new ShortCutButtonScript[keyCodeBinds.Length];
+        shortCutButtonScripts=new Dictionary<int, ShortCutButtonScript>();
         for (int i = 0; i < keyCodeBinds.Length; i++)
         {
             GameObject obj = Instantiate(shortCutPrefab, shortCutParent.transform);
-            inventoryButtonScripts[i] = obj.GetComponent<ShortCutButtonScript>();
+            shortCutButtonScripts[keyCodeBinds[i]] = obj.GetComponent<ShortCutButtonScript>();
             if (shortCutItems[keyCodeBinds[i]] != null)
             {
-                inventoryButtonScripts[i].Icon.enabled = true;
-                inventoryButtonScripts[i].Icon.sprite = shortCutItems[keyCodeBinds[i]].Icon;
+                shortCutButtonScripts[keyCodeBinds[i]].Icon.enabled = true;
+                shortCutButtonScripts[keyCodeBinds[i]].Icon.sprite = shortCutItems[keyCodeBinds[i]].Icon;
+                shortCutButtonScripts[keyCodeBinds[i]].ItemInGame = shortCutItems[keyCodeBinds[i]];
             }
-
-            inventoryButtonScripts[i].BindKey.enabled = true;
-            inventoryButtonScripts[i].BindKey.text = keyCodeBinds[i].ToString();
+            shortCutButtonScripts[keyCodeBinds[i]].BindKey.enabled = true;
+            shortCutButtonScripts[keyCodeBinds[i]].BindKey.text = keyCodeBinds[i].ToString();
         }
             
     }
-    
-    
+
+    public void OutUse(int keyCode)
+    {
+        shortCutButtonScripts[keyCode].ItemUse();
+    }
     
 }

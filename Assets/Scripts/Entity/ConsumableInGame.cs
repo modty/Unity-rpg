@@ -33,11 +33,11 @@ public class ConsumableInGame:Consumable,Useable
     {
         if (attribute.ContainsKey(Constants.Health))
         {
-            Utils.ItemAttributeHelper(attribute,Constants.Health,uid,Player.Instance.Uid(),Constants.EnterAttributeChange);
+            Utils.ItemAttributeHelper(attribute,Constants.Health,uid,Player.Instance.ControlledChaState.Uid,Constants.EnterAttributeChange);
         }
         if (attribute.ContainsKey(Constants.Mana))
         {
-            Utils.ItemAttributeHelper(attribute,Constants.Mana,uid,Player.Instance.Uid(),Constants.EnterAttributeChange);
+            Utils.ItemAttributeHelper(attribute,Constants.Mana,uid,Player.Instance.ControlledChaState.Uid,Constants.EnterAttributeChange);
         }
 
         return true;

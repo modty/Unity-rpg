@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     bool move;
     private bool horizontalChange;
     private bool verticalChange=false;
-    private CharacterState _characterState;
+    private ControlledChaState _controlledChaState;
     [SerializeField]
     private Rigidbody2D rigidbody2D;
     private Rigidbody2D rb;
@@ -31,14 +31,14 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public CharacterState CharacterState
+    public ControlledChaState ControlledChaState
     {
-        get => _characterState;
+        get => _controlledChaState;
         set
         {
-            _characterState = value;
-            _characterState.PlayerPosition = transform.position;
-            myBody.CharacterState = _characterState;
+            _controlledChaState = value;
+            _controlledChaState.PlayerPosition = transform.position;
+            myBody.ControlledChaState = _controlledChaState;
         }
     }
 
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     private bool attackChange;
     private void HandleAction()
     {
-        if (myBody.attackBusy||_characterState.IsJump) return;
+        if (myBody.attackBusy||_controlledChaState.IsJump) return;
         int attackType = 0;
         if (Input.GetKeyDown(KeyCode.Mouse0)&&!EventSystem.current.IsPointerOverGameObject())
         {
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _characterState.IsJump = true;//跳跃状态赋值为true
+            _controlledChaState.IsJump = true;//跳跃状态赋值为true
             ReadyJump();//执行准备跳跃方法
             return;
         }
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
     {
         Vector2 vector2 = rb.position;
         Vector2 vector2Temp=Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        _characterState.MousePosition = vector2Temp;
+        _controlledChaState.MousePosition = vector2Temp;
         vector2 = vector2Temp - vector2;
         return vector2;
     }
@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
         move = false;
         bool isIdle = moveDir[0] == 0 && moveDir[1] == 0;
         if (!isIdle) {
-            _characterState.PlayerPosition = transform.position;
+            _controlledChaState.PlayerPosition = transform.position;
             if (moveDir[0]!=0)
             {
                 moveAnimArr=new []{moveDir[0],0};
@@ -157,7 +157,7 @@ public class Player : MonoBehaviour
             {
                 move = true;
             }
-            rb.position = rb.position + Constants.ChaMoveSpeed * Time.deltaTime * _characterState.MoveVec;
+            rb.position = rb.position + Constants.ChaMoveSpeed * Time.deltaTime * _controlledChaState.MoveVec;
             lastMoveDir = moveDir;
             myBody.exchangeSortingLayer(moveDir[0],moveDir[1]);
         }
@@ -223,7 +223,7 @@ public class Player : MonoBehaviour
             }
         }
         moveDir =  new []{moveX,moveY};
-        _characterState.MoveVec=new Vector3(moveX,moveY);
+        _controlledChaState.MoveVec=new Vector3(moveX,moveY);
     }
     
     public float jumpHeight =2.5f;//跳跃高度
@@ -247,7 +247,7 @@ public class Player : MonoBehaviour
             childTransform.position = rb.position;//子物体position与父物体对齐
             gameObject.layer = 9;
 
-            _characterState.IsJump = false;//则将跳跃状态设置为false，等待下一次跳跃
+            _controlledChaState.IsJump = false;//则将跳跃状态设置为false，等待下一次跳跃
         }
         childTransform.Translate(Time.fixedDeltaTime * new Vector3(0, velocity_Y));//子物体按照速度移动
     }
@@ -256,11 +256,5 @@ public class Player : MonoBehaviour
     {
         gameObject.layer = 10;
         velocity_Y = Mathf.Sqrt(jumpHeight * -2f * aSpeed);
-    }
-
-    public long Uid()
-    {
-//        return _characterState.Item.uid;
-        return 123;
     }
 }

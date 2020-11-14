@@ -39,7 +39,6 @@ public class CombatText : MonoBehaviour {
 
     public IEnumerator FadeOut()
     {
-        Debug.Log(lifeTime);
         float startAlpha = text.color.a;
 
         float rate = 1.0f / lifeTime;

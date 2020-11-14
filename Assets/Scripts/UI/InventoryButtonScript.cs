@@ -58,6 +58,13 @@ public class InventoryButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerEx
         {
             
         }
+        else if (obj.tag.Equals("ShortcutSlot"))
+        {
+            ShortCutButtonScript target = obj.GetComponent<ShortCutButtonScript>();
+            ItemInGame temp = target.ItemInGame;
+            target.ItemInGame = ItemInGame;
+            ItemInGame = temp;
+        }
         MesPlaneScript.Instance.PointIconClose();
     }
 
@@ -116,6 +123,7 @@ public class InventoryButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerEx
                     }
                     break;
             }
+            MesPlaneScript.Instance.CloseItemMes();
         }
     }
 }

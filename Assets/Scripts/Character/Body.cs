@@ -26,12 +26,12 @@ using UnityEngine.UIElements;
     private Transform sackSortPosition;
     private ThrowWeaponController _throwWeaponController;
 
-    private CharacterState _characterState;
+    private ControlledChaState _controlledChaState;
 
-    public CharacterState CharacterState
+    public ControlledChaState ControlledChaState
     {
-        get => _characterState;
-        set => _characterState = value;
+        get => _controlledChaState;
+        set => _controlledChaState = value;
     }
 
     private static Body instance;
@@ -103,7 +103,7 @@ using UnityEngine.UIElements;
         {
             _throwWeaponController = weaponThrow.GetComponent<ThrowWeaponController>();
         }
-        _throwWeaponController.ThrowBack(_characterState);
+        _throwWeaponController.ThrowBack(_controlledChaState);
     }
 
     public void stopThrowWeapon()

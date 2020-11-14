@@ -4,10 +4,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ShortCutButtonScript: MonoBehaviour,IDragHandler,IEndDragHandler,IBeginDragHandler
+public class ShortCutButtonScript:MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IDragHandler,IEndDragHandler,IBeginDragHandler
 {
     [SerializeField]private Image icon;
     [SerializeField]private Text bindKey;
+    [SerializeField] private Text num;
     public Image Icon => icon;
     private ItemInGame itemInGame;
 
@@ -64,6 +65,14 @@ public class ShortCutButtonScript: MonoBehaviour,IDragHandler,IEndDragHandler,IB
         {
             
         }
+        else if (obj.tag.Equals("ShortcutSlot"))
+        {
+            ShortCutButtonScript target = obj.GetComponent<ShortCutButtonScript>();
+            ItemInGame temp = target.ItemInGame;
+            target.ItemInGame = ItemInGame;
+            ItemInGame = temp;
+        }
+        
         MesPlaneScript.Instance.PointIconClose();
     }
 
@@ -81,19 +90,47 @@ public class ShortCutButtonScript: MonoBehaviour,IDragHandler,IEndDragHandler,IB
         Icon.enabled = true;
         if (ItemInGame.StackCount > 1)
         {
-            bindKey.text = ItemInGame.StackCount.ToString();
-            bindKey.enabled=true;
+            num.text = ItemInGame.StackCount.ToString();
+            num.enabled = true;
         }
         else
         {
-            bindKey.text = 1.ToString();
-            bindKey.enabled=false;
+            num.text = 1.ToString();
+            num.enabled = false;
         }
     }
 
     private void ItemUnShow()
     {
         Icon.enabled = false;
-        bindKey.enabled = false;
+        num.enabled = false;
+    }
+    public void ItemUse()
+    {
+        if (itemInGame != null)
+        {
+            switch (Utils.GetItemType(ItemInGame.Uid))
+            {
+                case 2:
+                    if (itemInGame.StackCount > 0)
+                    {
+                        if (((ConsumableInGame) itemInGame.Item).Use())
+                        {
+                            itemInGame.StackCount -= 1;
+                            if (itemInGame.StackCount <= 0)
+                            {
+                                itemInGame = null;
+                                ItemUnShow();
+                            }
+                            else
+                            {
+                                num.text = itemInGame.StackCount.ToString();
+                            }
+                        }
+                    }
+                    break;
+            }
+            MesPlaneScript.Instance.CloseItemMes();
+        }
     }
 }
