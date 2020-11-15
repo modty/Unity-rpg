@@ -686,8 +686,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -639831465
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 2508806080238459722, guid: 2701b6e41f0913b409c4b13ea49dd869,
     type: 3}
@@ -1173,6 +1173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 98857395}
   - component: {fileID: 98857394}
+  - component: {fileID: 98857396}
   m_Layer: 13
   m_Name: ItemGround
   m_TagString: Untagged
@@ -1250,6 +1251,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &98857396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98857393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f84687824bba1b74c9d374b253c75c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runOnly: 1
 --- !u!1 &110540655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,7 +2380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324441773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.82, z: 0}
+  m_LocalPosition: {x: 0, y: 5.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 98857395}
@@ -3097,6 +3111,9 @@ GameObject:
   - component: {fileID: 419040593}
   - component: {fileID: 419040592}
   - component: {fileID: 419040594}
+  - component: {fileID: 419040595}
+  - component: {fileID: 419040596}
+  - component: {fileID: 419040597}
   m_Layer: 0
   m_Name: Shama
   m_TagString: Untagged
@@ -3188,6 +3205,48 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &419040595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419040591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f84687824bba1b74c9d374b253c75c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runOnly: 0
+--- !u!114 &419040596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419040591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8abafc51d1049dc8129c9bef85da157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfAnimator: {fileID: 419040594}
+--- !u!58 &419040597
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419040591}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3
 --- !u!1 &442070708
 GameObject:
   m_ObjectHideFlags: 0
@@ -7797,8 +7856,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -639831465
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -6249804468147899690, guid: cad43d19330df6d46b2981389e59a915,
     type: 3}
@@ -9416,8 +9475,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -639831465
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -3443477612707435698, guid: 04ffa6ebaec36ae41a77074d85213ece,
     type: 3}
@@ -11594,7 +11653,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585572121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.86, z: 0}
+  m_LocalPosition: {x: 0, y: -5.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 98857395}

@@ -96,6 +96,27 @@ public class Utils
         Sprite _sprite = Sprite.Create(_texture2D, new Rect(0, 0, _texture2D.width, _texture2D.height), new Vector2(0.5f, 0.5f));
         return _sprite;
     }
+    public static Sprite SplitSpriteByIO(Texture2D _texture2D,int startX,int startY,int endX,int endY)
+    {
+        Sprite _sprite = Sprite.Create(_texture2D, new Rect(startX, startY, endX, endY), new Vector2(0.5f, 0.5f));
+        return _sprite;
+    }
+    public static Sprite[] SplitSpriteByIO(string url,int XNum,int YNum)
+    {
+        Texture2D texture2D = LoadTexture2DByIO(url);
+        int perWidth = texture2D.width / XNum;
+        int perHeight = texture2D.height / YNum;
+        Sprite[] sprites=new Sprite[XNum*YNum];
+        for (int i = 0; i < XNum; i++)
+        {
+            for (int j = 0; j < YNum; j++)
+            {
+                sprites[i] = SplitSpriteByIO(texture2D, i, j, (i + 1) * perWidth, (j + 1) * perHeight);
+            }
+        }
+        return sprites;
+    }
+    
     /// <summary>
     /// 深度克隆一个对象
     /// </summary>
