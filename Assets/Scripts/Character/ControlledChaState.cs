@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class ControlledChaState:CharacterInGame
 {
+    
     /// <summary>
     /// 角色快捷键(操控角色含有快捷键)
     /// </summary>
