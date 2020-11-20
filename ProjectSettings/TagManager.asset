@@ -15,6 +15,7 @@ TagManager:
   - InventorySlot
   - ShortcutSlot
   - BagBarSlot
+  - Enemy_ShamaDoll
   layers:
   - Default
   - TransparentFX

@@ -3114,7 +3114,7 @@ GameObject:
   - component: {fileID: 419040595}
   - component: {fileID: 419040596}
   - component: {fileID: 419040597}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shama
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3180,7 +3180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419040591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.36, y: 1, z: -4.2070312}
+  m_LocalPosition: {x: -5, y: 0, z: -4.2070312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3231,6 +3231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfAnimator: {fileID: 419040594}
+  dollPrefab: {fileID: 735258948505601741, guid: 8b30084970370b645a3bfbad13c69a7a,
+    type: 3}
 --- !u!58 &419040597
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3241,7 +3243,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
