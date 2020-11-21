@@ -16,11 +16,13 @@ public class ShamaDoll : MonoBehaviour
     private float moveSpeed;
     private Vector2 targetPosition;
     private SpriteRenderer sprite;
+    private List<bool> readyArray;
+    private Shama _shama;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         rb=GetComponent<Rigidbody2D>();
-        moveSpeed = 0.01f;
+        moveSpeed = 1f;
         sprite = GetComponent<SpriteRenderer>();
         instance = this;
     }
@@ -41,19 +43,49 @@ public class ShamaDoll : MonoBehaviour
         rb.position = vector2;
     }
 
-    public void MoveTowards(Vector2 vector2)
+    public void MoveTowards(Vector2 vector2,float speed,List<bool> readyArray,Shama shama)
     {
         if (!isMove)
         {
+            moveSpeed = speed;
+            targetPosition = vector2;
+            isMove = true;
+            this.readyArray = readyArray;
+            _shama = shama;
+        }
+    }
+    public void MoveTowards(Vector2 vector2,float speed)
+    {
+        if (!isMove)
+        {
+            moveSpeed = speed;
             targetPosition = vector2;
             isMove = true;
         }
     }
-
     private void Move()
     {
-        Position(Vector2.MoveTowards(rb.position,targetPosition,moveSpeed));
+        animator.SetFloat("X",targetPosition.x-rb.position.x);
+        Position(Vector2.MoveTowards(rb.position,targetPosition,moveSpeed*Time.deltaTime));
+        if (rb.position==targetPosition)
+        {
+            if (readyArray!=null)
+            {
+                readyArray.Add(true);
+                _shama.TryDollActive();
+            }
+            isMove = false;
+        }
+        if (!SpriteRenderer.enabled)
+        {
+            SpriteRenderer.enabled= true;
+        }
     }
-
     public SpriteRenderer SpriteRenderer => sprite;
+
+    public void Active(bool active)
+    {
+        animator.SetBool("DoAction",active);
+    }
+    
 }

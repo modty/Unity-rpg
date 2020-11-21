@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Shama:MonoBehaviour
 {
@@ -17,23 +18,55 @@ public class Shama:MonoBehaviour
     /// </summary>
     private List<ShamaDoll> dolls;
     private float endDistance=1.8f;
+    private float playerDistance=3f;
     private float startDistance = 0.8f;
-
+    private bool isReady;
+    private List<bool> readyArray;
     private void Awake()
     {
+        
     }
-
     private void Start()
     {
         dolls=new List<ShamaDoll>();
+        readyArray=new List<bool>();
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("Player"))
         {
-            selfAnimator.SetBool(Spell1,true);
+            if (dolls.Count > 0)
+            {
+                // 计算角度
+                int angle = (360 / dolls.Count)%360;
+                for (int i = 0; i < dolls.Count; i++)
+                {
+                    Vector2 playerPosition = Player.Instance.ControlledChaState.PlayerPosition;
+                    Vector2 vector2=new Vector2(
+                        (float) (playerDistance*Math.Cos((angle*i+90)*(Math.PI*2/360))+playerPosition.x),
+                        (float) (playerDistance*Math.Sin((angle*i+90)*(Math.PI*2/360))+playerPosition.y)
+                    );
+                    dolls[i].MoveTowards(vector2,6);
+                }
+            }
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            foreach (var doll in dolls)
+            {
+                doll.Active(false);
+            }
+        }
+    }
+
+    public void StopAction()
+    {
+        selfAnimator.SetBool(Spell1,false);
+        selfAnimator.SetBool(Spell2,false);
     }
 
     private void Update()
@@ -41,8 +74,6 @@ public class Shama:MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             selfAnimator.SetBool(Spell1,true);
-            
-            
         }
     }
 
@@ -53,20 +84,29 @@ public class Shama:MonoBehaviour
     /// <param name="angle"></param>
     public void CreateDoll(int angle)
     {
-        if (dolls.Count <= 5)
+        if (dolls.Count < 5)
         {
             ShamaDoll shamaDoll = Instantiate(dollPrefab).GetComponent<ShamaDoll>();
             dolls.Add(shamaDoll);
             var position = transform.position;
-            Vector2 target=new Vector2((float) (endDistance*Math.Cos(angle)+position.x),(float) (endDistance*Math.Sin(angle)+position.y));
-            Vector2 start=new Vector2((float) (startDistance*Math.Cos(angle)+position.x),(float) (startDistance*Math.Sin(angle)+position.y));
+            Vector2 target=new Vector2((float) (endDistance*Math.Cos(angle*(Math.PI*2/360))+position.x),(float) (endDistance*Math.Sin(angle*(Math.PI*2/360))+position.y));
+            Vector2 start=new Vector2((float) (startDistance*Math.Cos(angle*(Math.PI*2/360))+position.x),(float) (startDistance*Math.Sin(angle*(Math.PI*2/360))+position.y));
             shamaDoll.Position(start);
-            shamaDoll.SpriteRenderer.enabled = true;
-            shamaDoll.MoveTowards(target);
+            shamaDoll.MoveTowards(target,1.5f);
         }
-        else
+    }
+
+    public void TryDollActive()
+    {
+        bool ready=false;
+        foreach (var rea in readyArray) ready = rea;
+        Debug.Log(ready);
+        if (ready)
         {
-            
+            foreach (var doll in dolls)
+            {
+                doll.Active(true);
+            }
         }
     }
 }

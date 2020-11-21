@@ -146,3 +146,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 180
     messageOptions: 0
+  - time: 2
+    functionName: StopAction
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
