@@ -45,7 +45,7 @@ public class ShamaDoll : MonoBehaviour
 
     public void MoveTowards(Vector2 vector2,float speed,List<bool> readyArray,Shama shama)
     {
-        if (!isMove)
+        if (!isMove&&!animator.GetBool("Move")&&!animator.GetBool("DoAction"))
         {
             moveSpeed = speed;
             targetPosition = vector2;
@@ -58,6 +58,7 @@ public class ShamaDoll : MonoBehaviour
     {
         if (!isMove)
         {
+            animator.SetBool("Move",true);
             moveSpeed = speed;
             targetPosition = vector2;
             isMove = true;
@@ -65,7 +66,7 @@ public class ShamaDoll : MonoBehaviour
     }
     private void Move()
     {
-        animator.SetFloat("X",targetPosition.x-rb.position.x);
+        animator.SetFloat("X",Player.Instance.ControlledChaState.PlayerPosition.x-rb.position.x);
         Position(Vector2.MoveTowards(rb.position,targetPosition,moveSpeed*Time.deltaTime));
         if (rb.position==targetPosition)
         {
@@ -74,6 +75,7 @@ public class ShamaDoll : MonoBehaviour
                 readyArray.Add(true);
                 _shama.TryDollActive();
             }
+            animator.SetBool("Move",false);
             isMove = false;
         }
         if (!SpriteRenderer.enabled)

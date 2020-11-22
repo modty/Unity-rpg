@@ -46,7 +46,7 @@ public class Shama:MonoBehaviour
                         (float) (playerDistance*Math.Cos((angle*i+90)*(Math.PI*2/360))+playerPosition.x),
                         (float) (playerDistance*Math.Sin((angle*i+90)*(Math.PI*2/360))+playerPosition.y)
                     );
-                    dolls[i].MoveTowards(vector2,6);
+                    dolls[i].MoveTowards(vector2,6,readyArray,this);
                 }
             }
         }
@@ -98,14 +98,23 @@ public class Shama:MonoBehaviour
 
     public void TryDollActive()
     {
-        bool ready=false;
-        foreach (var rea in readyArray) ready = rea;
-        Debug.Log(ready);
-        if (ready)
+        if (readyArray.Count==dolls.Count)
         {
-            foreach (var doll in dolls)
+            bool ready=true;
+            foreach (var rea in readyArray)
             {
-                doll.Active(true);
+                if (!rea)
+                {
+                    ready = false;
+                    break;
+                }
+            }
+            if (ready)
+            {
+                foreach (var doll in dolls)
+                {
+                    doll.Active(true);
+                }
             }
         }
     }
